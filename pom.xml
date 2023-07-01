@@ -4,13 +4,18 @@
 
     <groupId>cn.hmg.zackblog</groupId>
     <artifactId>zack-boot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>zack-boot</name>
     <description>zack博客</description>
     <modules>
         <module>zack-dependencies</module>
+        <module>zack-framework</module>
+        <module>zack-main</module>
+        <module>zack-module-system</module>
+        <module>zack-module-infra</module>
+        <module>zack-code-generator</module>
     </modules>
 
     <properties>
@@ -37,6 +42,8 @@
                 <groupId>cn.hmg.zackblog</groupId>
                 <artifactId>zack-dependencies</artifactId>
                 <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

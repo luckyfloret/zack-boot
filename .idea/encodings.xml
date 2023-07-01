@@ -3,7 +3,19 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-code-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-code-generator/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-dependencies/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-dependencies/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-main/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-main/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-module-infra/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-module-infra/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-module-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-module-system/src/main/resources" charset="UTF-8" />
   </component>
 </project>
