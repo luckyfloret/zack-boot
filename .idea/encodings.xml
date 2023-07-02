@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/zack-dependencies/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-mybatis-plus/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-mybatis-plus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-web/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-main/src/main/java" charset="UTF-8" />
