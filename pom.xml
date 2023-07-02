@@ -16,6 +16,7 @@
         <module>zack-module-system</module>
         <module>zack-module-infra</module>
         <module>zack-code-generator</module>
+        <module>zack-framework/zack-spring-boot-starter-mybatis-plus</module>
     </modules>
 
     <properties>
