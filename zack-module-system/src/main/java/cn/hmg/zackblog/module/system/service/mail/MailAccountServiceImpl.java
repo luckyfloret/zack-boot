@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.service.mail;
 
 import cn.hmg.zackblog.module.system.entity.mail.MailAccount;
-import cn.hmg.zackblog.module.system.mapper.MailAccountMapper;
+import cn.hmg.zackblog.module.system.mapper.mail.MailAccountMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

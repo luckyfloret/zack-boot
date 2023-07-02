@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.service.logger;
 
 import cn.hmg.zackblog.module.system.entity.logger.OperateLog;
-import cn.hmg.zackblog.module.system.mapper.OperateLogMapper;
+import cn.hmg.zackblog.module.system.mapper.logger.OperateLogMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
