@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.service.dict;
 
 import cn.hmg.zackblog.module.system.entity.dict.DictData;
-import cn.hmg.zackblog.module.system.mapper.DictDataMapper;
+import cn.hmg.zackblog.module.system.mapper.dict.DictDataMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
