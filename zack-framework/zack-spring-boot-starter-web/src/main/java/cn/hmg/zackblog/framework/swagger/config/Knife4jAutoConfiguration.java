@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.framework.swagger.config;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -16,17 +17,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
  * @date 2023-07-02 23:46
  * @description:
  */
-@Configuration
+@AutoConfiguration
 @EnableSwagger2WebMvc
-public class Knife4jConfiguration {
+public class Knife4jAutoConfiguration {
 
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
         Docket docket=new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
                         //.title("swagger-bootstrap-ui-demo RESTful APIs")
-                        .description("# swagger-bootstrap-ui-demo RESTful APIs")
-                        .termsOfServiceUrl("http://www.xx.com/")
+                        .description("ZackBlog RESTful APIs")
+                        .termsOfServiceUrl("https://www.zack6.cn")
                         .contact(new Contact("hmg", "https://www.zack6.cn", "2663069776@qq.com"))
                         .version("1.0")
                         .build())

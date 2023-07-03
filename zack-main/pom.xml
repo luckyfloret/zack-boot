@@ -21,7 +21,8 @@
     <dependencies>
         <dependency>
             <groupId>cn.hmg.zackblog</groupId>
-            <artifactId>zack-spring-boot-starter-web</artifactId>
+            <artifactId>zack-module-system</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 

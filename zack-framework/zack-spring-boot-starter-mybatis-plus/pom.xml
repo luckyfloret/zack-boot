@@ -10,6 +10,7 @@
 <!--        <relativePath>../../pom.xml</relativePath>-->
     </parent>
 
+    <description>对mybatis-plus进行拓展</description>
     <packaging>jar</packaging>
 
     <artifactId>zack-spring-boot-starter-mybatis-plus</artifactId>
@@ -24,6 +25,22 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-common</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 
