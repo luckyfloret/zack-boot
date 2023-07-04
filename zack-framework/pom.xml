@@ -13,6 +13,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>zack-spring-boot-starter-web</module>
+        <module>zack-spring-boot-starter-mybatis-plus</module>
+        <module>zack-common</module>
+        <module>zack-spring-boot-starter-security</module>
+        <module>zack-spring-boot-starter-redis</module>
     </modules>
 
     <properties>

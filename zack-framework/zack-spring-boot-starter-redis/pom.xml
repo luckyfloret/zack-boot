@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.hmg.zackblog</groupId>
-        <artifactId>zack-boot</artifactId>
+        <artifactId>zack-framework</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>zack-module-system</artifactId>
-    <description>系统管理模块</description>
+    <artifactId>zack-spring-boot-starter-redis</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,23 +18,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
     <dependencies>
         <dependency>
-            <groupId>cn.hmg.zackblog</groupId>
-            <artifactId>zack-spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hmg.zackblog</groupId>
-            <artifactId>zack-spring-boot-starter-mybatis-plus</artifactId>
-            <version>${revision}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hmg.zackblog</groupId>
-            <artifactId>zack-common</artifactId>
-            <version>${revision}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
 

@@ -3,3 +3,8 @@ spring:
     name: zack
   profiles:
     active: dev
+
+
+zack:
+  info:
+    base-package: cn.hmg.zackblog
