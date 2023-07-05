@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.user;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("system_users")
 @ApiModel(value = "Users对象", description = "用户管理")
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

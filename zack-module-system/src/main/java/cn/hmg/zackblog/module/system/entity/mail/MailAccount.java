@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.mail;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @TableName("system_mail_account")
 @ApiModel(value = "MailAccount对象", description = "邮件账号管理")
-public class MailAccount implements Serializable {
+public class MailAccount extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

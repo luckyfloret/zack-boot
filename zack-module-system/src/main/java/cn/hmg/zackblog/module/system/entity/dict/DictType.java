@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.dict;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @TableName("system_dict_type")
 @ApiModel(value = "DictType对象", description = "字典类型")
-public class DictType implements Serializable {
+public class DictType extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

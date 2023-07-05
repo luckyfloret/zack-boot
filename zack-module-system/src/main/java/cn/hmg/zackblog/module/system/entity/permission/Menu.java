@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.permission;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +21,7 @@ import java.io.Serializable;
 @Setter
 @TableName("system_menu")
 @ApiModel(value = "Menu对象", description = "后台系统菜单")
-public class Menu implements Serializable {
+public class Menu extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

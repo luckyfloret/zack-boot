@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.mail;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @TableName("system_mail_template")
 @ApiModel(value = "MailTemplate对象", description = "邮件模板")
-public class MailTemplate implements Serializable {
+public class MailTemplate extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

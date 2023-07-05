@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.logger;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @TableName("system_login_log")
 @ApiModel(value = "LoginLog对象", description = "登录日志")
-public class LoginLog implements Serializable {
+public class LoginLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
