@@ -40,7 +40,6 @@
         <dependency>
             <groupId>cn.hmg.zackblog</groupId>
             <artifactId>zack-common</artifactId>
-            <version>${revision}</version>
         </dependency>
     </dependencies>
 
