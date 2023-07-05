@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.logger;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("system_operate_log")
 @ApiModel(value = "OperateLog对象", description = "操作日志")
-public class OperateLog implements Serializable {
+public class OperateLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

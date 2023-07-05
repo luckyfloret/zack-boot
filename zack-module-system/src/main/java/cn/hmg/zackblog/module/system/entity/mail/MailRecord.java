@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.mail;
 
+import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("system_mail_record")
 @ApiModel(value = "MailRecord对象", description = "邮件记录")
-public class MailRecord implements Serializable {
+public class MailRecord extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

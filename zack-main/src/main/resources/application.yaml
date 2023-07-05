@@ -8,3 +8,13 @@ spring:
 zack:
   info:
     base-package: cn.hmg.zackblog
+  security:
+    header: "Authorization"  #授权标识
+    expire: 900     #token过期时间
+    secret: "fghjklqueiejwirpewjro"  #加密盐
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
