@@ -9,6 +9,10 @@ import lombok.Data;
  * @description: 封装统一返回
  */
 @Data
-public class CommonResult {
+public class CommonResult<T> {
+    private Integer code;
+    private String message;
+    private T data;
+
 
 }
