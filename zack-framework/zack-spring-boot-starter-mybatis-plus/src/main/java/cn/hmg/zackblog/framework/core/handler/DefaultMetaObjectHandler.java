@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  * @description: 默认自动填充器
  */
 @Slf4j
-@Component
 public class DefaultMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {

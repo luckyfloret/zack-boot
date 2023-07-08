@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.mapper.mail;
 
+import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
 import cn.hmg.zackblog.module.system.entity.mail.MailTemplate;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-07-02
  */
 @Mapper
-public interface MailTemplateMapper extends BaseMapper<MailTemplate> {
+public interface MailTemplateMapper extends BaseMapperExtend<MailTemplate> {
 
 }

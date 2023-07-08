@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.module.system.controller.user;
+package cn.hmg.zackblog.module.system.controller.admin.user;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
