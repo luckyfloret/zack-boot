@@ -9,9 +9,9 @@ zack:
   info:
     base-package: cn.hmg.zackblog
   security:
-    header: "Authorization"  #授权标识
-    expire: 900     #token过期时间
-    secret: "fghjklqueiejwirpewjro"  #加密盐
+    permit-all-urls:
+      - /login
+      - /logout
 
 mybatis-plus:
   global-config:
