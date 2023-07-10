@@ -135,6 +135,12 @@
                 <artifactId>spring-boot-starter-captcha</artifactId>
                 <version>${captcha.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.hmg.zackblog</groupId>
+                <artifactId>zack-spring-boot-starter-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

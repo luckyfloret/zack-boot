@@ -7,6 +7,7 @@ import jdk.nashorn.internal.parser.Token;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,9 @@ public class ZackSecurityAutoConfiguration {
     @Resource
     private SecurityProperties securityProperties;
 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedHandlerImpl();
@@ -44,8 +48,8 @@ public class ZackSecurityAutoConfiguration {
     }
 
     @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter(){
-        return new TokenAuthenticationFilter();
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter(securityProperties, stringRedisTemplate);
     }
 
     @Bean
