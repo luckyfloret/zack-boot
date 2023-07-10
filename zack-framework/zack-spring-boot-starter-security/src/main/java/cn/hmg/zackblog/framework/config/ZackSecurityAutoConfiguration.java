@@ -45,7 +45,7 @@ public class ZackSecurityAutoConfiguration {
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter(){
-        return new TokenAuthenticationFilter();
+        return new TokenAuthenticationFilter(securityProperties);
     }
 
     @Bean
