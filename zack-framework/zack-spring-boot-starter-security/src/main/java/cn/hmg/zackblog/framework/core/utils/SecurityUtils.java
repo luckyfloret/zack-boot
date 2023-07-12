@@ -1,13 +1,20 @@
 package cn.hmg.zackblog.framework.core.utils;
 
+import cn.hmg.zackblog.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.framework.core.pojo.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Security;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author hmg
@@ -15,13 +22,14 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2023-07-09 23:33
  * @description: spring security 工具类
  */
-@RequiredArgsConstructor
 public class SecurityUtils {
-
-
-    private StringRedisTemplate stringRedisTemplate;
-
+    private static final Map<Integer, UserTypeEnum> USER_TYPE_MAPS = new HashMap<>();
     private static final String AUTHENTICATION_BEARER = "Bearer";
+
+    static {
+        USER_TYPE_MAPS.put(UserTypeEnum.FRONT_USER.getType(), UserTypeEnum.FRONT_USER);
+        USER_TYPE_MAPS.put(UserTypeEnum.ADMIN_USER.getType(), UserTypeEnum.ADMIN_USER);
+    }
 
     /**
      * 获取token
@@ -42,13 +50,45 @@ public class SecurityUtils {
         return token.substring(index + 7).trim();
     }
 
-
-    public static void setLoginUser(){
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(null, null, null);
-        usernamePasswordAuthenticationToken.setDetails(null);
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+    public static UserTypeEnum getUserType(Integer userType){
+        return USER_TYPE_MAPS.get(userType);
     }
+
+    /**
+     * 设置用户信息到Security上下文中
+     * @param loginUser 用户信息
+     * @param request 请求
+     */
+    public static void setLoginUser(LoginUser loginUser, HttpServletRequest request){
+        Authentication authentication = buildAuthentication(loginUser, request);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    /**
+     * 构建认证
+     * @param loginUser 用户信息
+     * @param request 请求
+     * @return Authentication
+     */
+    public static Authentication buildAuthentication(LoginUser loginUser, HttpServletRequest request){
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, Collections.emptyList());
+        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return usernamePasswordAuthenticationToken;
+    }
+
+    /**
+     * 获取用户信息
+     * @return LoginUser
+     */
     public static LoginUser getLoginUser(){
-        return null;
+        return (LoginUser) getAuthentication().getPrincipal();
+    }
+
+    /**
+     *  获取Authentication
+     * @return Authentication
+     */
+    public static Authentication getAuthentication(){
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 }
