@@ -69,9 +69,13 @@ public class ZackSecurityAutoConfiguration {
                 .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.js", "/**/*.css",
                         "/*/api-docs", "/swagger-resources").permitAll()
                 .anyRequest().authenticated()
+                //配置异常处理
                 .and().exceptionHandling()
+                //权限不足时的处理器
                 .accessDeniedHandler(accessDeniedHandler())
+                //未认证处理器
                 .authenticationEntryPoint(authenticationEntryPoint())
+                //添加token过滤器
                 .and().addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
         return httpSecurity.build();
