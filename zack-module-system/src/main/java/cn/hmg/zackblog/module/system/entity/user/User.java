@@ -4,8 +4,7 @@ import cn.hmg.zackblog.framework.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,45 +22,45 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @TableName("system_users")
-@ApiModel(value = "Users对象", description = "用户管理")
+@Schema(name = "Users对象", description = "用户管理")
 public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("id 主键")
+    @Schema(description = "id 主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("用户名")
+    @Schema(description = "用户名")
     private String username;
 
-    @ApiModelProperty("密码")
+    @Schema(description = "密码")
     private String password;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickname;
 
-    @ApiModelProperty("用户类型（1 前台用户， 2 后台用户）")
+    @Schema(description = "用户类型（1 前台用户， 2 后台用户）")
     private Byte type;
 
-    @ApiModelProperty("用户邮箱")
+    @Schema(description = "用户邮箱")
     private String email;
 
-    @ApiModelProperty("手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty("用户性别")
+    @Schema(description = "用户性别")
     private Byte sex;
 
-    @ApiModelProperty("用户头像")
+    @Schema(description = "用户头像")
     private String avatar;
 
-    @ApiModelProperty("用户状态（0 正常、1 停用）")
+    @Schema(description = "用户状态（0 正常、1 停用）")
     private Byte status;
 
-    @ApiModelProperty("最后登录ip")
+    @Schema(description = "最后登录ip")
     private String loginIp;
 
-    @ApiModelProperty("最后登录时间")
+    @Schema(description = "最后登录时间")
     private LocalDateTime loginDate;
 }

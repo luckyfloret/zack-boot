@@ -67,7 +67,8 @@ public class ZackSecurityAutoConfiguration {
                 //在yaml里配置的zack.security.permitAllUrls无需认证
                 .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
                 .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.js", "/**/*.css",
-                        "/*/api-docs", "/swagger-resources").permitAll()
+                        "/*/api-docs/**").permitAll()
+                .antMatchers("/admin/captcha/**").permitAll()
                 .anyRequest().authenticated()
                 //配置异常处理
                 .and().exceptionHandling()

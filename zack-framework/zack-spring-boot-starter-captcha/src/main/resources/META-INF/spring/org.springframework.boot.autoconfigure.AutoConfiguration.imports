@@ -1,0 +1,2 @@
+cn.hmg.zackblog.framework.config.ZackCaptchaAutoConfiguration
+cn.hmg.zackblog.framework.aj.config.AjCaptchaAutoConfiguration

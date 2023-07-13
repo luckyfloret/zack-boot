@@ -1,10 +1,11 @@
+############################## spring配置 ##############################
 spring:
   application:
     name: zack
   profiles:
     active: dev
 
-
+############################## zack相关配置 ##############################
 zack:
   info:
     base-package: cn.hmg.zackblog
@@ -12,9 +13,33 @@ zack:
     permit-all-urls:
       - /login
       - /logout
-
+  
+############################## mybatis-plus配置 ##############################
 mybatis-plus:
   global-config:
     db-config:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+
+############################## 验证码配置 ##############################
+aj:
+  captcha:
+    aes-status: true #aes加密坐标开启或者禁用(true|false)
+    cache-type: redis #缓存类型redis/local/....
+    font-size: 25  #点选字体大小
+    font-style: 1  #点选字体样式
+    history-data-clear-enable: false  #历史数据清除开关
+    interference-options: 0   #滑块干扰项(0/1/2)
+    jigsaw: classpath:images/jigsaw   #滑动拼图底图路径.
+    pic-click: classpath:images/pic-click   #点选文字底图路径.
+    req-check-minute-limit: 60      #check接口一分钟内限制访问数
+    req-frequency-limit-enable: false   # 一分钟内接口请求次数限制 开关
+    req-get-lock-limit: 5     #一分钟内check接口失败次数
+    req-get-lock-seconds: 10   #验证失败后，锁定时间间隔
+    req-get-minute-limit: 30    #  get接口一分钟内限制访问数
+    req-verify-minute-limit: 60   #verify接口一分钟内限制访问数
+    slip-offset: 5    # 校验滑动拼图允许误差偏移量(默认5像素).
+    type: blockPuzzle   #验证码类型.
+    water-mark: zack    #右下角水印文字(我的水印).
+

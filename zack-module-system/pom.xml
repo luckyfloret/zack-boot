@@ -39,6 +39,11 @@
             <groupId>cn.hmg.zackblog</groupId>
             <artifactId>zack-spring-boot-starter-security</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-captcha</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
