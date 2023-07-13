@@ -12,8 +12,8 @@ import cn.hmg.zackblog.module.system.controller.admin.auth.vo.LoginRespVO;
 public interface AuthService {
     /**
      * 账号密码登录
-     * @param reqVO 请求参数
+     * @param loginReqVO 请求参数
      * @return LoginRespVO
      */
-    LoginRespVO login(LoginReqVO reqVO);
+    LoginRespVO login(LoginReqVO loginReqVO);
 }
