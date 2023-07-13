@@ -17,6 +17,7 @@
         <module>zack-common</module>
         <module>zack-spring-boot-starter-security</module>
         <module>zack-spring-boot-starter-redis</module>
+        <module>zack-spring-boot-starter-captcha</module>
     </modules>
 
     <properties>
