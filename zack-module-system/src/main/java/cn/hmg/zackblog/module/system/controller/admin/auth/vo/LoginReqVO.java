@@ -1,7 +1,6 @@
 package cn.hmg.zackblog.module.system.controller.admin.auth.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,17 +13,20 @@ import javax.validation.constraints.NotBlank;
  * @date 2023-07-08 14:25
  * @description: 登录request vo
  */
-@ApiModel(value = "登录request vo")
+@Schema(name = "登录request vo", description = "登录request vo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginReqVO {
-    @ApiModelProperty(value = "用户名", required = true, example = "admin")
+    @Schema(description = "用户名", required = true, example = "admin")
     @NotBlank
     private String username;
 
 
-    @ApiModelProperty(value = "密码", required = true, example = "admin")
+    @Schema(description = "密码", required = true, example = "admin")
     @NotBlank
     private String password;
+
+    @Schema(description = "验证码", required = true, example = "fdjsidfhsdofhsdfsdjl")
+    private String captchaVerification;
 }
