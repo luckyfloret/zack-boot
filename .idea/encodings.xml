@@ -11,6 +11,8 @@
     <file url="file://$PROJECT_DIR$/zack-framework/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-captcha/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-captcha/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-mybatis-plus/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-mybatis-plus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zack-framework/zack-spring-boot-starter-redis/src/main/java" charset="UTF-8" />
