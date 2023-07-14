@@ -38,7 +38,7 @@ public class OperateLog extends BaseEntity implements Serializable {
     private Long userId;
 
     @Schema(description = "用户类型")
-    private Byte userType;
+    private Integer userType;
 
     @Schema(description = "模块名")
     private String module;
@@ -47,7 +47,7 @@ public class OperateLog extends BaseEntity implements Serializable {
     private String name;
 
     @Schema(description = "操作类型")
-    private Byte type;
+    private Integer type;
 
     @Schema(description = "请求方式")
     private String requestMethod;
