@@ -41,7 +41,7 @@ public class User extends BaseEntity implements Serializable {
     private String nickname;
 
     @Schema(description = "用户类型（1 前台用户， 2 后台用户）")
-    private Byte type;
+    private Integer type;
 
     @Schema(description = "用户邮箱")
     private String email;
@@ -50,13 +50,13 @@ public class User extends BaseEntity implements Serializable {
     private String mobile;
 
     @Schema(description = "用户性别")
-    private Byte sex;
+    private Integer sex;
 
     @Schema(description = "用户头像")
     private String avatar;
 
     @Schema(description = "用户状态（0 正常、1 停用）")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "最后登录ip")
     private String loginIp;

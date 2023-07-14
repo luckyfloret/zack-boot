@@ -12,9 +12,14 @@ import lombok.Getter;
 public enum LoginResultEnum {
 
     /**
-     *
+     * 登录成功结果码为200，  登录失败结果码范围是10-50
      */
-    SUCCESS(200, "登录成功"),;
+    SUCCESS(200, "登录成功"),
+    BAD_CREDENTIALS(10, "账号或密码不正确"),
+    USER_DISABLED(11, "账号被禁用"),
+    CAPTCHA_ERROR(12, "验证码错误")
+    ;
+
 
     LoginResultEnum(Integer result, String description) {
         this.result = result;

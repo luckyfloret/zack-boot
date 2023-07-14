@@ -37,7 +37,7 @@ public class DictType extends BaseEntity implements Serializable {
     private String type;
 
     @Schema(description = "状态（0正常 1禁用）")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "备注")
     private String remark;

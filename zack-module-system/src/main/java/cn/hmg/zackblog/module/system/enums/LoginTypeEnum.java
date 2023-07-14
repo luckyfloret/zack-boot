@@ -14,7 +14,8 @@ public enum LoginTypeEnum {
     /**
      * 登录类型范围 100 - 150
      */
-    LOGIN_USERNAME(100, "账户密码登录"),;
+    LOGIN_USERNAME(100, "账户密码登录"),
+    LOGIN_EMAIL(101, "邮箱登录");
 
 
     LoginTypeEnum(Integer type, String description){

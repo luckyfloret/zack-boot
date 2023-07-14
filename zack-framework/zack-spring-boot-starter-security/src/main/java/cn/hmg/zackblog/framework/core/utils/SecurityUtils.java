@@ -15,6 +15,7 @@ import java.security.Security;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author hmg
@@ -81,7 +82,11 @@ public class SecurityUtils {
      * @return LoginUser
      */
     public static LoginUser getLoginUser(){
-        return (LoginUser) getAuthentication().getPrincipal();
+        Authentication authentication = getAuthentication();
+        if (Objects.isNull(authentication)) {
+            return null;
+        }
+        return authentication.getPrincipal() instanceof LoginUser ? (LoginUser) authentication.getPrincipal() : null;
     }
 
     /**
@@ -90,5 +95,13 @@ public class SecurityUtils {
      */
     public static Authentication getAuthentication(){
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    public static Long getLoginUserId(){
+        LoginUser loginUser = getLoginUser();
+        if (Objects.isNull(loginUser)) {
+            return null;
+        }
+        return loginUser.getUserId();
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023-07-08 11:10
  * @description: 认证控制器、用于登录、登出
  */
-@Tag(name = "认证控制器")
+@Tag(name = "用户认证")
 @RestController
 @RequiredArgsConstructor
 public class AuthController {

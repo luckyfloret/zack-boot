@@ -34,10 +34,10 @@ public class Menu extends BaseEntity implements Serializable {
     private String permission;
 
     @Schema(description = "菜单类型")
-    private Byte type;
+    private Integer type;
 
     @Schema(description = "用户类型（用于分辨菜单导航）")
-    private Byte userType;
+    private Integer userType;
 
     @Schema(description = "排序")
     private Integer sort;
@@ -55,7 +55,7 @@ public class Menu extends BaseEntity implements Serializable {
     private String component;
 
     @Schema(description = "菜单状态（0 正常、1 停用）")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "是否可见 （ 1 可见、2 不可见）")
     private Boolean visible;

@@ -15,4 +15,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapperExtend<User> {
 
+    /**
+     * 根据用户名查询用户信息
+     * @param username 用户名
+     * @return User
+     */
+    default User selectByUsername(String username){
+        return selectOne(User::getUsername, username);
+    };
 }
