@@ -1,11 +1,15 @@
 package cn.hmg.zackblog.framework.core.handler;
 
+import cn.hmg.zackblog.common.exception.ServiceException;
+import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
+import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author hmg
@@ -20,11 +24,21 @@ public class DefaultMetaObjectHandler implements MetaObjectHandler {
         log.info("start insert time and update time fill...");
         this.strictInsertFill(metaObject, "createTime", LocalDateTime::now, LocalDateTime.class);
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
+        Long loginUserId = SecurityUtils.getLoginUserId();
+        if (Objects.nonNull(loginUserId)) {
+            setFieldValByName("creator", loginUserId, metaObject);
+            setFieldValByName("updater", loginUserId, metaObject);
+        }
+
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("start update time fill...");
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
+        Long loginUserId = SecurityUtils.getLoginUserId();
+        if (Objects.nonNull(loginUserId)) {
+            setFieldValByName("updater", loginUserId, metaObject);
+        }
     }
 }
