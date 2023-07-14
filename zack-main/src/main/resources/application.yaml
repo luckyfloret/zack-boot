@@ -13,7 +13,6 @@ zack:
     permit-all-urls:
       - /login
       - /logout
-  
 ############################## mybatis-plus配置 ##############################
 mybatis-plus:
   global-config:

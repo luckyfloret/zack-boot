@@ -40,7 +40,7 @@ public class LoginLog extends BaseEntity implements Serializable {
     private Integer loginType;
 
     @Schema(description = "用户类型（前台用户，后台用户）")
-    private Byte userType;
+    private Integer userType;
 
     @Schema(description = "用户ip")
     private String userIp;
@@ -49,7 +49,7 @@ public class LoginLog extends BaseEntity implements Serializable {
     private String userAgent;
 
     @Schema(description = "登录结果 （0 成功， 1 失败）")
-    private Byte result;
+    private Integer result;
 
     @Schema(description = "用户id")
     private Long userId;

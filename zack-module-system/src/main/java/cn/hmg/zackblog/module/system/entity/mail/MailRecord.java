@@ -35,7 +35,7 @@ public class MailRecord extends BaseEntity implements Serializable {
     private Long userId;
 
     @Schema(description = "用户类型（1 前台用户， 2 后台用户）")
-    private Byte userType;
+    private Integer userType;
 
     @Schema(description = "邮箱账号id")
     private Long accountId;
@@ -62,7 +62,7 @@ public class MailRecord extends BaseEntity implements Serializable {
     private String templateParams;
 
     @Schema(description = "发送状态（0 发送失败， 1 发送成功）")
-    private Byte sendStatus;
+    private Integer sendStatus;
 
     @Schema(description = "发送时间")
     private LocalDateTime sendTime;

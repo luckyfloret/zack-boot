@@ -49,7 +49,7 @@ public class MailTemplate extends BaseEntity implements Serializable {
     private String params;
 
     @Schema(description = "状态（0 关闭，1 开启 ）")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "备注")
     private String remark;

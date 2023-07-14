@@ -1,6 +1,7 @@
 package cn.hmg.zackblog.module.system.service.logger;
 
 import cn.hmg.zackblog.module.system.entity.logger.LoginLog;
+import cn.hmg.zackblog.module.system.service.logger.dto.LoginLogCreateDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ILoginLogService extends IService<LoginLog> {
 
+    /**
+     * 创建登录日志
+     * @param loginLogCreateDTO 创建登录日志dto
+     */
+    void createLoginLog(LoginLogCreateDTO loginLogCreateDTO);
 }

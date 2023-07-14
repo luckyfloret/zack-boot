@@ -43,7 +43,7 @@ public class DictData extends BaseEntity implements Serializable {
     private String dictType;
 
     @Schema(description = "状态 (0正常，1禁用）")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "备注")
     private String remark;

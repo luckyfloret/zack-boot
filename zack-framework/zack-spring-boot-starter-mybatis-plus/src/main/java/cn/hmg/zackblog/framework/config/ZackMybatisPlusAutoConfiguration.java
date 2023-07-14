@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
  * @description: MybatisPlus自动配置类
  */
 @AutoConfiguration
-@MapperScan(basePackages = "${zack.info.base-package}", annotationClass = Mapper.class)
+@MapperScan(basePackages = "${zack.info.base-package:cn.hmg.zackblog}", annotationClass = Mapper.class)
 public class ZackMybatisPlusAutoConfiguration {
     /**
      * 分页插件

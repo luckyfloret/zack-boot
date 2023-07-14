@@ -22,12 +22,12 @@ public abstract class BaseEntity implements Serializable {
 
     private Long creator;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     private Long updater;
 
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @TableLogic

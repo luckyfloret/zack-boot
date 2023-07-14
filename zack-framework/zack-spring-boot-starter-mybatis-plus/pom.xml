@@ -41,6 +41,11 @@
             <groupId>cn.hmg.zackblog</groupId>
             <artifactId>zack-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
