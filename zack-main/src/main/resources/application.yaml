@@ -4,6 +4,9 @@ spring:
     name: zack
   profiles:
     active: dev
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: Asia/Shanghai
 
 ############################## zack相关配置 ##############################
 zack:
@@ -11,7 +14,7 @@ zack:
     base-package: cn.hmg.zackblog
   security:
     permit-all-urls:
-      - /login
+      - /admin/auth/login
       - /logout
 ############################## mybatis-plus配置 ##############################
 mybatis-plus:
@@ -41,4 +44,3 @@ aj:
     slip-offset: 5    # 校验滑动拼图允许误差偏移量(默认5像素).
     type: blockPuzzle   #验证码类型.
     water-mark: zack    #右下角水印文字(我的水印).
-
