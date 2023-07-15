@@ -3,7 +3,6 @@ package cn.hmg.zackblog.framework.config;
 import cn.hmg.zackblog.framework.core.filter.TokenAuthenticationFilter;
 import cn.hmg.zackblog.framework.core.handler.AccessDeniedHandlerImpl;
 import cn.hmg.zackblog.framework.core.handler.AuthenticationEntryPointImpl;
-import jdk.nashorn.internal.parser.Token;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

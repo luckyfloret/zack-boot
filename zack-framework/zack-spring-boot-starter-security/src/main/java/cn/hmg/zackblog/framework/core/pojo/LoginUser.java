@@ -41,4 +41,9 @@ public class LoginUser {
      * 刷新令牌，刷新令牌的过期时间为redis key timeout时间，如redis key过期，即refresh_token过期
      */
     private String refreshToken;
+
+    /**
+     * 刷新令牌的过期时间
+     */
+    private LocalDateTime refreshTokenExpireTime;
 }

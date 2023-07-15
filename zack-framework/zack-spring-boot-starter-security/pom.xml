@@ -49,5 +49,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
+
+        <!-- 业务模块，用于认证 -->
+<!--        <dependency>-->
+<!--            <groupId>cn.hmg.zackblog</groupId>-->
+<!--            <artifactId>zack-module-system</artifactId>-->
+<!--            <version>${revision}</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
     </dependencies>
 </project>
