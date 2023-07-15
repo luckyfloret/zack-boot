@@ -44,11 +44,12 @@ public class SecurityUtils {
             return null;
         }
 
-        int index = token.indexOf(AUTHENTICATION_BEARER);
-        if (-1 == index) {
-            return null;
-        }
-        return token.substring(index + 7).trim();
+        return token;
+//        int index = token.indexOf(AUTHENTICATION_BEARER);
+//        if (-1 == index) {
+//            return null;
+//        }
+//        return token.substring(index + 7).trim();
     }
 
     public static UserTypeEnum getUserType(Integer userType){
