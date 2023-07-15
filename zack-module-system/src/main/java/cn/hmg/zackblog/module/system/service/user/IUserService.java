@@ -29,4 +29,5 @@ public interface IUserService extends IService<User> {
      * @return true or false
      */
     boolean ifPasswordMatch(String password, String encodePassword);
+
 }

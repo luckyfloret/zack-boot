@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginReqVO {
+public class AdminAuthLoginReqVO {
     @Schema(description = "用户名", required = true, example = "admin")
     @NotBlank
     private String username;
