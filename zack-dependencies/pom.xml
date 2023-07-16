@@ -20,7 +20,7 @@
         <druid.version>1.2.15</druid.version>
         <lombok.version>1.18.26</lombok.version>
         <hutool-all.version>5.8.11</hutool-all.version>
-        <redisson.version>3.22.1</redisson.version>
+        <redisson.version>3.18.0</redisson.version>
         <captcha.version>1.3.0</captcha.version>
         <springdoc.version>1.6.14</springdoc.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
