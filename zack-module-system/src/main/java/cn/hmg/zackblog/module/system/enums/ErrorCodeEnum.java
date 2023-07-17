@@ -22,7 +22,8 @@ public enum ErrorCodeEnum {
     /**
      * ############################ User模块 10201000 ############################
      */
-    USER_USERNAME_EXISTS(10201000,"用户账号已存在"),;
+    USER_USERNAME_EXISTS(10201000,"用户账号已存在"),
+    USER_NOT_EXISTS(10201001, "用户不存在，请联系管理员！");
 
 
 

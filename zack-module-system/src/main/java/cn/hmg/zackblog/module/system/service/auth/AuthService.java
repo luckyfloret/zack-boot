@@ -19,4 +19,11 @@ public interface AuthService {
      * @return AdminAuthLoginRespVO
      */
     AdminAuthLoginRespVO login(AdminAuthLoginReqVO adminAuthLoginReqVO, UserTypeEnum userTypeEnum);
+
+    /**
+     * 根据刷新令牌重新生成访问令牌与刷新令牌
+     * @param refreshToken 刷新令牌
+     * @return AdminAuthLoginRespVO
+     */
+    AdminAuthLoginRespVO refreshToken(String refreshToken);
 }

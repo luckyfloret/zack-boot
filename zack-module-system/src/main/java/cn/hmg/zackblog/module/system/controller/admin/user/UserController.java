@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "用户管理模块")
 @RequestMapping("/users")
 public class UserController {
-    @Operation(description = "测试方法")
+    @Operation(summary = "测试方法")
     @GetMapping("test")
     public String test(){
         log.info("进入test方法。。。");

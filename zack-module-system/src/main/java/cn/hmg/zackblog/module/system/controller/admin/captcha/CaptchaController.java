@@ -29,7 +29,7 @@ public class CaptchaController {
     private CaptchaService captchaService;
 
     @PostMapping("/get")
-    @Operation(description = "获取验证码")
+    @Operation(summary = "获取验证码")
     public ResponseModel get(@RequestBody CaptchaVO captchaVO, HttpServletRequest request){
         assert request.getRemoteHost() != null;
         captchaVO.setBrowserInfo(getRemoteId(request));
@@ -37,7 +37,7 @@ public class CaptchaController {
     }
 
     @PostMapping("/check")
-    @Operation(description = "校验验证码")
+    @Operation(summary = "校验验证码")
     public ResponseModel check(@RequestBody CaptchaVO captchaVO, HttpServletRequest request) {
         log.info("captcha check start....");
         captchaVO.setBrowserInfo(getRemoteId(request));
