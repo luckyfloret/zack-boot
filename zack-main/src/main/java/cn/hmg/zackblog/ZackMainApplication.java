@@ -3,6 +3,7 @@ package cn.hmg.zackblog;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import javax.annotation.PostConstruct;
 
@@ -12,8 +13,8 @@ import javax.annotation.PostConstruct;
  * @date 2023-06-30 16:46
  * @description: 主启动
  */
-//@SuppressWarnings("SpringComponentScan")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "cn.hmg.zackblog")
+@EnableCaching
 public class ZackMainApplication {
 
     @Value("${zack.info.base-package}")
