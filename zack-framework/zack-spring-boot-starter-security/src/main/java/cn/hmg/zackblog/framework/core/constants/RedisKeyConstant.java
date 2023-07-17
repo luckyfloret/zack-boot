@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
  * @description:  Redis Key 常量
  */
 public interface RedisKeyConstant {
-    RedisKeyDefinition TOKEN_INFO =
-            new RedisKeyDefinition("access_token:%s", LoginUser.class, 4200, TimeUnit.SECONDS, "缓存令牌与用户信息");
+    RedisKeyDefinition ACCESS_TOKEN =
+            new RedisKeyDefinition("access_token:%s", LoginUser.class, 1800, TimeUnit.SECONDS, "缓存访问令牌与用户信息");
+
+    RedisKeyDefinition REFRESH_TOKEN = new RedisKeyDefinition("refresh_token:%s", String.class, 4200, TimeUnit.SECONDS, "缓存刷新令牌");
 }
