@@ -5,17 +5,24 @@ spring:
   profiles:
     active: dev
   jackson:
-    date-format: "yyyy-MM-dd HH:mm:ss"
+    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
+    serialization:
+      fail-on-empty-beans: false
 
 ############################## zack相关配置 ##############################
 zack:
   info:
+    version: 1.0
     base-package: cn.hmg.zackblog
   security:
     permit-all-urls:
-      - /admin/auth/login
-      - /logout
+      - /admin/system/auth/login
+      - /admin/system/auth/logout
+      - /admin/system/captcha/**
+      - /admin/system/auth/refresh-token
+  captcha:
+    enabled: false
 ############################## mybatis-plus配置 ##############################
 mybatis-plus:
   global-config:
