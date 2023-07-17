@@ -50,6 +50,11 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- 业务模块，用于认证 -->
 <!--        <dependency>-->
 <!--            <groupId>cn.hmg.zackblog</groupId>-->
