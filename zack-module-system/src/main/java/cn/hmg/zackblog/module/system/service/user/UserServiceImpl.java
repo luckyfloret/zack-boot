@@ -4,6 +4,7 @@ import cn.hmg.zackblog.common.exception.ServiceException;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import cn.hmg.zackblog.module.system.mapper.user.UserMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
 
     @Resource
+    @Lazy
     private PasswordEncoder passwordEncoder;
 
     @Override

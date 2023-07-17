@@ -24,14 +24,21 @@ import javax.annotation.security.PermitAll;
 @Tag(name = "用户认证")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/admin/auth")
+@RequestMapping(value = "/admin/system/auth")
 public class AdminAuthController {
     private final AuthService authService;
 
-    @PermitAll
     @PostMapping("/login")
-    @Operation(description = "账号密码登录")
+    @Operation(summary = "账号密码登录")
     public CommonResult<AdminAuthLoginRespVO> login(@RequestBody AdminAuthLoginReqVO adminAuthLoginReqVO){
         return CommonResult.success(authService.login(adminAuthLoginReqVO, UserTypeEnum.ADMIN_USER));
+    }
+
+
+    @PostMapping("refresh-token")
+    @Operation(summary = "刷新令牌")
+    public CommonResult<AdminAuthLoginRespVO> refreshToken(String refreshToken){
+        AdminAuthLoginRespVO adminAuthLoginRespVO = authService.refreshToken(refreshToken);
+        return CommonResult.success(adminAuthLoginRespVO);
     }
 }
