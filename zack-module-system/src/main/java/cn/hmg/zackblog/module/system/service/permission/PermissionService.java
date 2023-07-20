@@ -8,4 +8,5 @@ package cn.hmg.zackblog.module.system.service.permission;
  */
 public interface PermissionService {
 
+    void initLocalCache();
 }

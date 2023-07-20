@@ -51,7 +51,6 @@ public class AdminAuthController {
     @GetMapping("/user-menu-nav")
     @Operation(summary = "登录用户的菜单导航")
     public CommonResult<AdminAuthMenuRespVO> getUserMenuNav(){
-
         return CommonResult.success();
     }
 }
