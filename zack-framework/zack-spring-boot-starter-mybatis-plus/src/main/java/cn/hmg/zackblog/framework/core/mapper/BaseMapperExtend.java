@@ -1,8 +1,11 @@
 package cn.hmg.zackblog.framework.core.mapper;
 
 import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -19,5 +22,9 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
      */
     default T selectOne(SFunction<T, ?> field, Object value){
         return selectOne(new LambdaQueryWrapperExtend<T>().eq(field, value));
+    }
+
+    default List<T> selectList(){
+        return selectList(new QueryWrapper<>());
     }
 }
