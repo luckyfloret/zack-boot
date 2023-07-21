@@ -2,9 +2,14 @@ package cn.hmg.zackblog.module.system.convert.auth;
 
 import cn.hmg.zackblog.framework.core.pojo.LoginUser;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespVO;
+import cn.hmg.zackblog.module.system.entity.permission.Menu;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author hmg
@@ -24,4 +29,10 @@ public interface AdminAuthConvert {
      */
     @Mapping(target = "expireTime", source = "refreshTokenExpireTime")
     AdminAuthLoginRespVO convert(LoginUser loginUser);
+
+    default AdminAuthMenuRespVO buildMenuTree(List<Menu> menuListFromCache){
+        menuListFromCache.sort(Comparator.comparing(Menu::getSort));
+
+        return null;
+    }
 }

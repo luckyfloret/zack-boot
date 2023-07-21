@@ -13,4 +13,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRoleService extends IService<Role> {
 
+    /**
+     * 初始化本地缓存
+     */
+    void initLocalCache();
+
+    /**
+     * 根据角色id从缓存中获取角色信息
+     * @param roleId 角色id
+     * @return Role
+     */
+    Role getRoleByIdFromCache(Long roleId);
 }

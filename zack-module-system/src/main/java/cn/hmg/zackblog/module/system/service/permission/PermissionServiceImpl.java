@@ -1,19 +1,19 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
 import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.entity.permission.Role;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import cn.hmg.zackblog.module.system.entity.permission.UserRole;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.UserRoleMapper;
+import cn.hutool.core.util.ObjUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -24,21 +24,19 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class PermissionServiceImpl implements PermissionService{
+public class PermissionServiceImpl implements PermissionService {
 
     /**
      * 角色和菜单关联表的缓存，采用set是为了去重
-     *
      * 使用volatile关键字修饰是为了在高并发场景下保证变量的可见性，有更新立即从主存中读取
      */
-    private volatile Map<Long, Set<Long>> roleMenuCache = new HashMap<>();
+    private volatile Map<Long, Set<Long>> roleMenuCache;
 
     /**
      * 用户和角色关联表的缓存，采用set是为了去重
-     *
      * 使用volatile关键字修饰是为了在高并发场景下保证变量的可见性，有更新立即从主存中读取
      */
-    private volatile Map<Long, Set<Long>> userRoleCache = new HashMap<>();
+    private volatile Map<Long, Set<Long>> userRoleCache;
 
 
     @Resource
@@ -47,26 +45,35 @@ public class PermissionServiceImpl implements PermissionService{
     @Resource
     private UserRoleMapper userRoleMapper;
 
+    @Resource
+    private IRoleService roleService;
 
-    private void initRoleMenuCache(){
+    @Resource
+    private IMenuService menuService;
+
+
+    /**
+     * 初始化角色菜单缓存
+     */
+    private void initRoleMenuCache() {
         //查询数据
         List<RoleMenu> roleMenus = roleMenuMapper.selectList();
         log.info("[initRoleMenuCache] => 初始化角色菜单缓存，数量为：{}", roleMenus.size());
         //构建缓存
-        roleMenuCache = CollectionUtils.convertMap(roleMenus, RoleMenu::getRoleId, RoleMenu::getMenuId, Collectors.toSet());
-        log.info("初始化角色菜单缓存 => {}", roleMenuCache.get(1L));
+        roleMenuCache = CollectionUtils.convertMapByGrouping(roleMenus, RoleMenu::getRoleId, RoleMenu::getMenuId, Collectors.toSet());
     }
 
-    private void initUserRoleCache(){
+    /**
+     * 初始化用户角色缓存
+     */
+    private void initUserRoleCache() {
         //查询数据
         List<UserRole> userRoles =
                 userRoleMapper.selectList();
         log.info("[initUserRoleCache] => 初始化用户角色缓存，数量为：{}", userRoles.size());
 
         //构建缓存
-        userRoleCache = CollectionUtils.convertMap(userRoles, UserRole::getUserId, UserRole::getRoleId, Collectors.toSet());
-
-        log.info("初始化用户角色缓存 => {}", userRoleCache.get(1L));
+        userRoleCache = CollectionUtils.convertMapByGrouping(userRoles, UserRole::getUserId, UserRole::getRoleId, Collectors.toSet());
     }
 
 
@@ -77,5 +84,50 @@ public class PermissionServiceImpl implements PermissionService{
         initUserRoleCache();
     }
 
+    @Override
+    public Set<Long> getRoleIdsByUserIdFromCache(Long userId, Integer roleStatus) {
+        //从缓存中获取roleIds
+        Set<Long> roleIds = userRoleCache.get(userId);
+
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return Collections.emptySet();
+        }
+
+        //状态过滤
+        roleIds.removeIf(roleId -> {
+            Role role = roleService.getRoleByIdFromCache(roleId);
+            return role == null || ObjUtil.notEqual(roleStatus, role.getStatus());
+        });
+        return roleIds;
+    }
+
+    @Override
+    public Set<Long> getMenuIdsByRoleIdsFromCache(Set<Long> roleIds, Set<Integer> menuTypes, Integer menuStatus) {
+        //任意一个参数为空直接返回空菜单id
+        if (CollectionUtils.isAnyEmpty(roleIds, menuTypes)) {
+            return Collections.emptySet();
+        }
+
+        Set<Long> menuIds = new HashSet<>();
+        //获取到所有菜单id
+        roleIds.forEach(roleId -> menuIds.addAll(roleMenuCache.get(roleId)));
+
+        //过滤状态与菜单类型
+        menuIds.removeIf(menuId -> {
+            Menu menu = menuService.getMenuByIdFromCache(menuId);
+            return menu == null || !menuTypes.contains(menu.getType()) || ObjUtil.notEqual(menuStatus, menu.getStatus());
+        });
+
+        return menuIds;
+    }
+
+    @Override
+    public List<Menu> getMenuListFromCache(Set<Long> menuIds) {
+        if (CollectionUtils.isEmpty(menuIds)) {
+            return Collections.emptyList();
+        }
+
+        return menuService.getMenuListByIdsFromCache(menuIds);
+    }
 
 }
