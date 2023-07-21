@@ -1,17 +1,26 @@
 package cn.hmg.zackblog.module.system.controller.admin.auth;
 
+import cn.hmg.zackblog.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.common.pojo.CommonResult;
+import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.convert.auth.AdminAuthConvert;
+import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.enums.MenuTypeEnum;
 import cn.hmg.zackblog.module.system.service.auth.AuthService;
 import cn.hmg.zackblog.module.system.service.permission.PermissionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author hmg
@@ -50,7 +59,12 @@ public class AdminAuthController {
 
     @GetMapping("/user-menu-nav")
     @Operation(summary = "登录用户的菜单导航")
-    public CommonResult<AdminAuthMenuRespVO> getUserMenuNav(){
-        return CommonResult.success();
+    public CommonResult<List<Menu>> getUserMenuNav(){
+        Set<Long> roleIds = permissionService.getRoleIdsByUserIdFromCache(SecurityUtils.getLoginUserId(), CommonStatusEnum.ENABLED.getStatusCode());
+        Set<Long> menuIds = permissionService.getMenuIdsByRoleIdsFromCache(roleIds, CollectionUtils.asSet(MenuTypeEnum.DIR.getCode(),
+                MenuTypeEnum.MENU.getCode()), CommonStatusEnum.ENABLED.getStatusCode());
+        List<Menu> menuListFromCache = permissionService.getMenuListFromCache(menuIds);
+        return CommonResult.success(menuListFromCache);
+//        return CommonResult.success(AdminAuthConvert.INSTANCE.buildMenuTree(menuListFromCache));
     }
 }
