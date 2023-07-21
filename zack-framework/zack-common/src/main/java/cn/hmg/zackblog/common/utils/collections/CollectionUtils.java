@@ -1,7 +1,6 @@
 package cn.hmg.zackblog.common.utils.collections;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -14,10 +13,39 @@ import java.util.stream.Collectors;
  */
 public class CollectionUtils {
 
-    public static <T, K, A, U, R> Map<K, R> convertMap(List<T> data, Function<? super T, ? extends K> classifier,
-                                                                    Function<? super T, ? extends U> mapper,
-                                                                    Collector<? super U, A, R> downstream){
-        return data.stream().collect(Collectors.groupingBy(classifier,
+    @SafeVarargs
+    public static <T> Set<T> asSet(T... value){
+        return new HashSet<>(Arrays.asList(value));
+    }
+
+    /**
+     * 任何一个为空都直接返回false
+     *
+     * @param collection 集合
+     * @return boolean
+     */
+    public static boolean isAnyEmpty(Collection<?>... collection) {
+        return Arrays.stream(collection).anyMatch(CollectionUtils::isEmpty);
+    }
+
+    public static <T> boolean isEmpty(Collection<T> collection) {
+        return (collection == null || collection.isEmpty());
+    }
+
+    public static <K, T> Map<K, T> convertMap(Collection<T> val, Function<T, K> key) {
+        if (isEmpty(val)) {
+            return new HashMap<>();
+        }
+        return val.stream().collect(Collectors.toMap(key, Function.identity()));
+    }
+
+    public static <T, K, A, U, V> Map<K, V> convertMapByGrouping(List<T> val, Function<T, K> classifier,
+                                                                 Function<T, U> mapper,
+                                                                 Collector<U, A, V> downstream) {
+        if (isEmpty(val)) {
+            return new HashMap<>();
+        }
+        return val.stream().collect(Collectors.groupingBy(classifier,
                 Collectors.mapping(mapper, downstream)));
     }
 }
