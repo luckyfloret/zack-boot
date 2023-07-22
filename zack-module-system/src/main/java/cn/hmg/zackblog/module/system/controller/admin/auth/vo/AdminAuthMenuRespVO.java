@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,8 @@ public class AdminAuthMenuRespVO {
     @Schema(description = "是否缓存（1 缓存、2 不缓存）")
     private Boolean keepAlive;
 
-    //子菜单
+    /**
+     * 子菜单
+     */
     private List<AdminAuthMenuRespVO> children;
 }

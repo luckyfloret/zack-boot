@@ -21,7 +21,17 @@ public interface IMenuService extends IService<Menu> {
      */
     void initLocalCache();
 
+    /**
+     * 根据menuId从缓存中获取菜单信息
+     * @param menuId 菜单id
+     * @return Menu
+     */
     Menu getMenuByIdFromCache(Long menuId);
 
+    /**
+     * 根据menuIds从缓存中获取菜单列表
+     * @param menuIds 菜单id集合
+     * @return 菜单列表
+     */
     List<Menu> getMenuListByIdsFromCache(Set<Long> menuIds);
 }

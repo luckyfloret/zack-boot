@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.module.system.controller.admin.permission.vo;
+package cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu;
 
 import lombok.Data;
 

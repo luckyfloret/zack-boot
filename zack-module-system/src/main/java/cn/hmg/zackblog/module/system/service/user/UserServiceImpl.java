@@ -38,4 +38,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public boolean ifPasswordMatch(String password, String encodePassword) {
         return passwordEncoder.matches(password, encodePassword);
     }
+
+    @Override
+    public Optional<User> getUserById(Long userId) {
+        return Optional.ofNullable(userMapper.selectById(userId));
+    }
 }
