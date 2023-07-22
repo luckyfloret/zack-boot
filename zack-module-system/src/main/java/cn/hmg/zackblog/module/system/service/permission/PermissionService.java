@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.MenuRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 
 import java.util.List;
@@ -38,5 +38,18 @@ public interface PermissionService {
      */
     Set<Long> getMenuIdsByRoleIdsFromCache(Set<Long> roleIds, Set<Integer> menuTypes, Integer menuStatus);
 
-    List<Menu> getMenuListFromCache(Set<Long> menuIds);
+    /**
+     * 根据menuIds从缓存中获取菜单列表
+     * @param menuIds 菜单id集合
+     * @return 菜单列表
+     */
+    List<Menu> getMenuListByIdsFromCache(Set<Long> menuIds);
+
+
+    /**
+     * 获取用户权限信息
+     * @param menuList 菜单列表
+     * @return AdminAuthPermissionRespVO
+     */
+    AdminAuthPermissionRespVO getPermissionInfo(List<Menu> menuList);
 }

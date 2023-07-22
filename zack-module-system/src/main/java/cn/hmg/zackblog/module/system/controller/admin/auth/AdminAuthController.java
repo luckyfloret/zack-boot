@@ -17,6 +17,7 @@ import cn.hmg.zackblog.module.system.service.permission.PermissionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,17 +55,22 @@ public class AdminAuthController {
     @GetMapping("/get-permission")
     @Operation(summary = "获取权限信息")
     public CommonResult<AdminAuthPermissionRespVO> getPermission(){
-        return CommonResult.success();
+        return CommonResult.success(permissionService.getPermissionInfo(getMenuListFromCache(MenuTypeEnum.DIR.getCode(),
+                MenuTypeEnum.MENU.getCode(), MenuTypeEnum.BUTTON.getCode())));
     }
 
     @GetMapping("/user-menu-nav")
     @Operation(summary = "登录用户的菜单导航")
-    public CommonResult<List<Menu>> getUserMenuNav(){
+    public CommonResult<List<AdminAuthMenuRespVO>> getUserMenuNav(){
+        LoggerFactory.getLogger(getClass()).info("[getUserMenuNav] => 请求进来了。。。");
+        return CommonResult.success(AdminAuthConvert.INSTANCE.buildMenuTree(getMenuListFromCache(MenuTypeEnum.DIR.getCode(),
+                MenuTypeEnum.MENU.getCode())));
+    }
+
+
+    private List<Menu> getMenuListFromCache(Integer ...menuType){
         Set<Long> roleIds = permissionService.getRoleIdsByUserIdFromCache(SecurityUtils.getLoginUserId(), CommonStatusEnum.ENABLED.getStatusCode());
-        Set<Long> menuIds = permissionService.getMenuIdsByRoleIdsFromCache(roleIds, CollectionUtils.asSet(MenuTypeEnum.DIR.getCode(),
-                MenuTypeEnum.MENU.getCode()), CommonStatusEnum.ENABLED.getStatusCode());
-        List<Menu> menuListFromCache = permissionService.getMenuListFromCache(menuIds);
-        return CommonResult.success(menuListFromCache);
-//        return CommonResult.success(AdminAuthConvert.INSTANCE.buildMenuTree(menuListFromCache));
+        Set<Long> menuIds = permissionService.getMenuIdsByRoleIdsFromCache(roleIds, CollectionUtils.asSet(menuType), CommonStatusEnum.ENABLED.getStatusCode());
+        return permissionService.getMenuListByIdsFromCache(menuIds);
     }
 }

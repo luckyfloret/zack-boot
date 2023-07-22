@@ -1,20 +1,19 @@
-package cn.hmg.zackblog.module.system.controller.admin.permission.vo;
+package cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * @author hmg
  * @version 1.0
- * @date 2023-07-17 23:16
- * @description: 菜单 response vo
+ * @date 2023-07-22 23:01
+ * @description: 基础菜单VO
  */
-@Schema(name = "菜单 response VO", description = "菜单 response VO")
 @Data
-public class MenuRespVO {
-    @Schema(description = "id 主键")
-    private Long id;
-
+@Builder
+@Schema(name = "基础菜单VO")
+public class BaseMenuVO {
     @Schema(description = "菜单名称")
     private String name;
 

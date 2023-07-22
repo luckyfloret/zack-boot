@@ -1,8 +1,10 @@
 package cn.hmg.zackblog.module.system.controller.admin.auth.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -16,5 +18,24 @@ import java.util.Set;
 @Data
 @Builder
 public class AdminAuthPermissionRespVO {
+
+    private UserVO userVO;
+
     private Set<String> permissions;
+
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class UserVO{
+        //用户id
+        private Long userId;
+
+        //昵称
+        private String nickname;
+
+        //用户头像
+        private String avatar;
+    }
 }

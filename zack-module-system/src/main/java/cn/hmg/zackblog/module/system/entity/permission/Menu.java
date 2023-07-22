@@ -24,6 +24,8 @@ public class Menu extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Long ROOT = 0L;
+
     @Schema(description = "id 主键")
     private Long id;
 

@@ -30,4 +30,11 @@ public interface IUserService extends IService<User> {
      */
     boolean ifPasswordMatch(String password, String encodePassword);
 
+    /**
+     * 根据用户id获取用户信息
+     * @param userId 用户id
+     * @return User
+     */
+    Optional<User> getUserById(Long userId);
+
 }
