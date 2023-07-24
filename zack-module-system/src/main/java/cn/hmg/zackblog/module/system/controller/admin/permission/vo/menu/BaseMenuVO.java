@@ -1,8 +1,14 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author hmg
@@ -11,24 +17,27 @@ import lombok.Data;
  * @description: 基础菜单VO
  */
 @Data
-@Builder
 @Schema(name = "基础菜单VO")
-public class BaseMenuVO {
+public class BaseMenuVO implements Serializable {
+    @NotBlank(message = "菜单名称不能为空")
     @Schema(description = "菜单名称")
     private String name;
 
     @Schema(description = "权限标识 or 权限编码哪种叫法都行")
     private String permission;
 
+    @NotNull(message = "菜单类型不能为空")
     @Schema(description = "菜单类型")
     private Integer type;
 
+    @NotNull(message = "用户类型不能为空")
     @Schema(description = "用户类型（用于分辨菜单导航）")
     private Integer userType;
 
     @Schema(description = "排序")
     private Integer sort;
 
+    @NotNull(message = "父菜单id不能为空")
     @Schema(description = "父菜单id")
     private Long parentId;
 
@@ -41,6 +50,7 @@ public class BaseMenuVO {
     @Schema(description = "组件路径")
     private String component;
 
+    @NotNull(message = "菜单状态不能为空")
     @Schema(description = "菜单状态（0 正常、1 停用）")
     private Integer status;
 

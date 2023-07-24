@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
+import cn.hmg.zackblog.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.common.exception.ServiceException;
 import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.common.utils.collections.MapUtils;
@@ -146,5 +147,23 @@ public class PermissionServiceImpl implements PermissionService {
         Set<String> permissions = menuList.stream().map(Menu::getPermission).collect(Collectors.toSet());
         return AdminAuthConvert.INSTANCE.convertAdminAuthPermissionRespVO(user, permissions);
     }
+
+    @Override
+    public boolean hasAnyPermission(Long userId, String... permissions) {
+        //根据用户id获取角色
+        Set<Long> roleIds = getRoleIdsByUserIdFromCache(userId, CommonStatusEnum.ENABLED.getStatusCode());
+        //角色为空说明没有权限
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return false;
+        }
+
+        //根据角色获取对应的权限信息
+        Set<Long> menuIds = MapUtils.mapConvertSet(roleMenuCache, roleIds);
+        //构建权限编码
+        Set<String> permissionsFromCache = getMenuListByIdsFromCache(menuIds).stream().map(Menu::getPermission).collect(Collectors.toSet());
+        //当前拥有的角色是否拥有此权限
+        return permissionsFromCache.containsAll(Arrays.asList(permissions));
+    }
+
 
 }

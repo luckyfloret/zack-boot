@@ -23,8 +23,27 @@ public enum ErrorCodeEnum {
      * ############################ User模块 10201000 ############################
      */
     USER_USERNAME_EXISTS(10201000,"用户账号已存在"),
-    USER_NOT_EXISTS(10201001, "用户不存在，请联系管理员！");
+    USER_NOT_EXISTS(10201001, "用户不存在，请联系管理员！"),
 
+
+    /**
+     *  ############################ Role模块 10202000 ############################
+     */
+    ROLE_NOT_EXISTS(10202000, "角色不存在"),
+
+
+    /**
+     *  ############################ Menu模块 10203000 ############################
+     */
+    MENU_SET_PARENT_MENU_ERROR(10203000, "不能设置自己为父菜单"),
+    MENU_PARENT_NOT_EXISTS(10203001, "父菜单不存在"),
+    MENU_TYPE_ERROR(10203002, "菜单类型错误"),
+    MENU_PRIMARY_KEY_ID_ERROR(10203003, "菜单id有误，请输入合法的id"),
+    MENU_HAS_BEEN_ASSIGN(10203004, "菜单已经被分配，无法删除"),
+    MENU_NOT_EXISTS(10203005, "菜单不存在"),
+    MENU_EXISTS_CHILD(10203006, "子菜单存在，无法删除"),
+    MENU_ALREADY_EXISTS(10203007, "菜单已存在"),
+    ;
 
 
     ErrorCodeEnum(Integer code, String message){

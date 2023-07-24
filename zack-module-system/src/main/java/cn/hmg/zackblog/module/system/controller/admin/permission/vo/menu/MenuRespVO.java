@@ -1,9 +1,9 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -14,8 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Schema(name = "菜单 response VO", description = "菜单 response VO")
 @Data
-@Builder
 public class MenuRespVO extends BaseMenuVO{
     @Schema(description = "id 主键")
     private Long id;
+
+    @Schema(description = "子菜单")
+    private List<MenuRespVO> children;
 }
