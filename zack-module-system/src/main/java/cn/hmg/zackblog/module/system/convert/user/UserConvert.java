@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
  * @author hmg
  * @version 1.0
  * @date 2023-07-17 0:21
- * @description:
+ * @description: 用户convert 接口
  */
 @Mapper
 public interface UserConvert {

@@ -2,6 +2,7 @@ package cn.hmg.zackblog.module.system.controller.admin.permission;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author hmg
  * @since 2023-07-02
  */
-@Controller
-@RequestMapping("/module.system/role")
+@RestController
+@RequestMapping("/admin/system/role")
 public class RoleController {
 
 }

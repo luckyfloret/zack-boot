@@ -13,7 +13,6 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
 @Schema(name = "菜单创建 request VO")
 public class MenuCreateReqVO extends BaseMenuVO{
 

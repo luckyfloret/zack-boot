@@ -47,7 +47,7 @@ public class AdminAuthController {
 
     @PostMapping("refresh-token")
     @Operation(summary = "刷新令牌")
-    public CommonResult<AdminAuthLoginRespVO> refreshToken(String refreshToken){
+    public CommonResult<AdminAuthLoginRespVO> refreshToken(@RequestParam("refreshToken") String refreshToken){
         AdminAuthLoginRespVO adminAuthLoginRespVO = authService.refreshToken(refreshToken);
         return CommonResult.success(adminAuthLoginRespVO);
     }

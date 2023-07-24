@@ -40,6 +40,7 @@ public interface PermissionService {
 
     /**
      * 根据menuIds从缓存中获取菜单列表
+     *
      * @param menuIds 菜单id集合
      * @return 菜单列表
      */
@@ -48,8 +49,18 @@ public interface PermissionService {
 
     /**
      * 获取用户权限信息
+     *
      * @param menuList 菜单列表
      * @return AdminAuthPermissionRespVO
      */
     AdminAuthPermissionRespVO getPermissionInfo(List<Menu> menuList);
+
+    /**
+     * 校验权限
+     *
+     * @param userId 登录用户id
+     * @param permissions 权限编码
+     * @return true or false
+     */
+    boolean hasAnyPermission(Long userId, String... permissions);
 }

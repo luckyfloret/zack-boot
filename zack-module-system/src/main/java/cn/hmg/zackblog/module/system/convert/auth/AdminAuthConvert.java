@@ -6,7 +6,6 @@ import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespV
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 import cn.hmg.zackblog.module.system.entity.user.User;
-import org.jboss.logging.Logger;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -21,7 +20,7 @@ import static cn.hmg.zackblog.module.system.entity.permission.Menu.ROOT;
  * @author hmg
  * @version 1.0
  * @date 2023-07-15 15:52
- * @description: admin 认证转换类
+ * @description: admin 认证convert接口
  */
 @Mapper
 public interface AdminAuthConvert {
@@ -29,12 +28,18 @@ public interface AdminAuthConvert {
 
 
     /**
+     * 登录用户转换为登录 response vo
      * @param loginUser 登录用户
      * @return AdminAuthLoginRespVO
      */
     @Mapping(target = "expireTime", source = "refreshTokenExpireTime")
     AdminAuthLoginRespVO convert(LoginUser loginUser);
 
+    /**
+     * 菜单转换为用户菜单导航
+     * @param menu 菜单
+     * @return AdminAuthMenuRespVO
+     */
     AdminAuthMenuRespVO convertAdminAuthMenuRespVO(Menu menu);
 
     /**

@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
  * @author hmg
  * @version 1.0
  * @date 2023-07-14 13:47
- * @description:
+ * @description: 登录日志convert接口
  */
 @Mapper
 public interface LoginLogConvert {
