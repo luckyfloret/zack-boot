@@ -3,6 +3,9 @@ package cn.hmg.zackblog.framework.config;
 import cn.hmg.zackblog.framework.core.filter.TokenAuthenticationFilter;
 import cn.hmg.zackblog.framework.core.handler.AccessDeniedHandlerImpl;
 import cn.hmg.zackblog.framework.core.handler.AuthenticationEntryPointImpl;
+import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpression;
+import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpressionImpl;
+import cn.hmg.zackblog.framework.core.service.SecurityPermissionService;
 import cn.hmg.zackblog.framework.core.service.SecurityUserService;
 import cn.hmg.zackblog.framework.core.utils.RedisUtils;
 import cn.hmg.zackblog.framework.web.core.handler.GlobalExceptionHandler;
@@ -49,6 +52,11 @@ public class ZackSecurityAutoConfiguration {
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter(RedisUtils redisUtils, SecurityUserService securityUserService, GlobalExceptionHandler globalExceptionHandler) {
         return new TokenAuthenticationFilter(securityProperties, redisUtils,securityUserService,globalExceptionHandler);
+    }
+
+    @Bean("spe")
+    public SecurityPermissionExpression securityPermissionExpression(SecurityPermissionService securityPermissionService){
+        return new SecurityPermissionExpressionImpl(securityPermissionService);
     }
 
     /**
