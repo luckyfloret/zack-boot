@@ -28,12 +28,11 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
 
     /**
      * 查询一个
-     *
      * @param field 字段名
      * @param value 值
      * @return T
      */
-    default T selectOne(SFunction<T, ?> field, Object value) {
+    default T selectOne(SFunction<T, ?> field, Object value){
         return selectOne(new LambdaQueryWrapperExtend<T>().eq(field, value));
     }
 
