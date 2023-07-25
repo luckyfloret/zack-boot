@@ -55,5 +55,11 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <scope>provided</scope>  <!-- 设置为 provided，主要是 PageQueryParam 使用到 -->
+        </dependency>
     </dependencies>
 </project>

@@ -3,12 +3,18 @@ package cn.hmg.zackblog.framework.config;
 import cn.hmg.zackblog.framework.core.filter.TokenAuthenticationFilter;
 import cn.hmg.zackblog.framework.core.handler.AccessDeniedHandlerImpl;
 import cn.hmg.zackblog.framework.core.handler.AuthenticationEntryPointImpl;
-import jdk.nashorn.internal.parser.Token;
+import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpression;
+import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpressionImpl;
+import cn.hmg.zackblog.framework.core.service.SecurityPermissionService;
+import cn.hmg.zackblog.framework.core.service.SecurityUserService;
+import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.framework.web.core.handler.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,14 +34,10 @@ import javax.annotation.Resource;
  * @description: security自动配置类
  */
 @AutoConfiguration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(value = SecurityProperties.class)
 public class ZackSecurityAutoConfiguration {
     @Resource
     private SecurityProperties securityProperties;
-
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
@@ -48,41 +50,30 @@ public class ZackSecurityAutoConfiguration {
     }
 
     @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter(securityProperties, stringRedisTemplate);
+    public TokenAuthenticationFilter tokenAuthenticationFilter(RedisUtils redisUtils, SecurityUserService securityUserService, GlobalExceptionHandler globalExceptionHandler) {
+        return new TokenAuthenticationFilter(securityProperties, redisUtils,securityUserService,globalExceptionHandler);
     }
 
+    @Bean("spe")
+    public SecurityPermissionExpression securityPermissionExpression(SecurityPermissionService securityPermissionService){
+        return new SecurityPermissionExpressionImpl(securityPermissionService);
+    }
+
+    /**
+     * 注册AuthenticationManager，用户的身份验证交由我接管
+     * @param authenticationConfiguration 认证配置
+     * @return AuthenticationManager
+     * @throws Exception 抛出异常
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                //禁用csrf
-                .csrf().disable()
-                //开启跨域
-                .cors()
-                .and()
-                //永久关闭session，因为用不到
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                //配置授权规则
-                .and().authorizeRequests()
-                //在yaml里配置的zack.security.permitAllUrls无需认证
-                .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
-                .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.js", "/**/*.css",
-                        "/*/api-docs/**").permitAll()
-                .antMatchers("/admin/captcha/**").permitAll()
-                .anyRequest().authenticated()
-                //配置异常处理
-                .and().exceptionHandling()
-                //权限不足时的处理器
-                .accessDeniedHandler(accessDeniedHandler())
-                //未认证处理器
-                .authenticationEntryPoint(authenticationEntryPoint())
-                //添加token过滤器
-                .and().addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-        ;
-        return httpSecurity.build();
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
-
+    /**
+     * 采用BCryptPasswordEncoder进行密码加密
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

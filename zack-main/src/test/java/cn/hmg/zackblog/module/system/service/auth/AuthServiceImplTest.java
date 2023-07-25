@@ -1,9 +1,15 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
 import cn.hmg.zackblog.ZackMainApplication;
-import cn.hmg.zackblog.module.system.controller.admin.auth.vo.LoginReqVO;
+import cn.hmg.zackblog.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.Resource;
 
@@ -14,14 +20,29 @@ import javax.annotation.Resource;
  * @description: 认证测试类
  */
 @SpringBootTest(classes = ZackMainApplication.class)
+@ExtendWith(value = SpringExtension.class)
 public class AuthServiceImplTest {
     @Resource
     private AuthServiceImpl authService;
 
+    @Resource
+    private RedisUtils redisUtils;
+
+
+    @Test
+    public void redisUtilTest(){
+        String s = redisUtils.get("sdfsd");
+        System.out.println(s);
+
+
+        LoginUser loginUser = redisUtils.get("dsjfsdsfd", LoginUser.class);
+        System.out.println(loginUser);
+    }
+
     @Test
     public void testAuthentication(){
-        LoginReqVO loginReqVO = new LoginReqVO();
-        loginReqVO.setUsername("sdfdsfsd");
-        authService.authentication(loginReqVO);
+        AdminAuthLoginReqVO adminAuthLoginReqVO = new AdminAuthLoginReqVO();
+        adminAuthLoginReqVO.setUsername("sdfdsfsd");
+        authService.authentication(adminAuthLoginReqVO, UserTypeEnum.ADMIN_USER);
     }
 }
