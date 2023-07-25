@@ -1,6 +1,7 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 
 import java.util.List;
@@ -63,4 +64,10 @@ public interface PermissionService {
      * @return true or false
      */
     boolean hasAnyPermission(Long userId, String... permissions);
+
+    void deleteRoleAssociation(Long roleId);
+
+    List<PermissionMenuListRespVO> getMenuListByStatus(Integer status);
+
+    Set<Long> getRolePermissionByRoleIdFromCache(Long roleId);
 }

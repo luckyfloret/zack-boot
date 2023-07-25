@@ -3,6 +3,7 @@ package cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ import java.util.List;
 public class MenuRespVO extends BaseMenuVO{
     @Schema(description = "id 主键")
     private Long id;
+
+    @Schema(description = "创建时间", required = true, example = "时间戳格式")
+    private LocalDateTime createTime;
 
     @Schema(description = "子菜单")
     private List<MenuRespVO> children;

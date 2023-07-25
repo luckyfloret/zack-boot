@@ -137,6 +137,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     }
 
+    @Override
+    public List<Menu> getMenuListByStatus(Integer status) {
+        return menuMapper.selectList();
+    }
+
 
     /**
      * 校验菜单是否存在

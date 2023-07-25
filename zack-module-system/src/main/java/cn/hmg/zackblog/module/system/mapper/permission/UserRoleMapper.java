@@ -15,4 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRoleMapper extends BaseMapperExtend<UserRole> {
 
+    default void deleteByRoleId(Long roleId) {
+        delete(UserRole::getRoleId, roleId);
+    }
 }

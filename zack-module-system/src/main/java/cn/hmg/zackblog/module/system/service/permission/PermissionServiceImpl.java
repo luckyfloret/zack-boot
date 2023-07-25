@@ -6,7 +6,10 @@ import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.common.utils.collections.MapUtils;
 import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
 import cn.hmg.zackblog.module.system.convert.auth.AdminAuthConvert;
+import cn.hmg.zackblog.module.system.convert.permission.PermissionConvert;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 import cn.hmg.zackblog.module.system.entity.permission.Role;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
@@ -17,8 +20,10 @@ import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.UserRoleMapper;
 import cn.hmg.zackblog.module.system.service.user.IUserService;
 import cn.hutool.core.util.ObjUtil;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -39,12 +44,14 @@ public class PermissionServiceImpl implements PermissionService {
      * 角色和菜单关联表的缓存，采用set是为了去重
      * 使用volatile关键字修饰是为了在高并发场景下保证变量的可见性，有更新立即从主存中读取
      */
+    @Getter
     private volatile Map<Long, Set<Long>> roleMenuCache;
 
     /**
      * 用户和角色关联表的缓存，采用set是为了去重
      * 使用volatile关键字修饰是为了在高并发场景下保证变量的可见性，有更新立即从主存中读取
      */
+    @Getter
     private volatile Map<Long, Set<Long>> userRoleCache;
 
 
@@ -165,5 +172,26 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionsFromCache.containsAll(Arrays.asList(permissions));
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteRoleAssociation(Long roleId) {
+        //删除UserRole
+        userRoleMapper.deleteByRoleId(roleId);
+
+        //删除RoleMenu
+        roleMenuMapper.deleteByRoleId(roleId);
+
+        //TODO 通知MQ发送刷新缓存消息
+    }
+
+    @Override
+    public List<PermissionMenuListRespVO> getMenuListByStatus(Integer status) {
+        return PermissionConvert.INSTANCE.convert(menuService.getMenuListByStatus(status));
+    }
+
+    @Override
+    public Set<Long> getRolePermissionByRoleIdFromCache(Long roleId) {
+        return roleMenuCache.get(roleId);
+    }
 
 }

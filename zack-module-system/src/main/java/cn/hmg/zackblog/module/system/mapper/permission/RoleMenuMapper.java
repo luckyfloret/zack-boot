@@ -25,4 +25,8 @@ public interface RoleMenuMapper extends BaseMapperExtend<RoleMenu> {
     default List<RoleMenu> selectList(Long menuId){
         return selectList(new LambdaQueryWrapperExtend<RoleMenu>().eqIfExists(RoleMenu::getMenuId, menuId));
     }
+
+    default void deleteByRoleId(Long roleId) {
+        delete(RoleMenu::getRoleId, roleId);
+    }
 }

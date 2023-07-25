@@ -18,6 +18,11 @@ import java.util.List;
  */
 @Mapper
 public interface MenuMapper extends BaseMapperExtend<Menu> {
+
+    default List<Menu> selectList(Integer status){
+        return selectList(new LambdaQueryWrapperExtend<Menu>().eq(Menu::getStatus, status));
+    }
+
     /**
      * 获取菜单列表，请求参数[可有可无]
      * @param reqVO 请求参数

@@ -62,4 +62,6 @@ public interface IMenuService extends IService<Menu> {
      * @param menuId 菜单id
      */
     void deleteMenuById(Long menuId);
+
+    List<Menu> getMenuListByStatus(Integer status);
 }
