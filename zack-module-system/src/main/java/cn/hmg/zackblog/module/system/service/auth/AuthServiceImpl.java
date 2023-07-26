@@ -143,9 +143,9 @@ public class AuthServiceImpl implements AuthService {
         loginUser.setUserType(userType);
         loginUser.setStatus(status);
         loginUser.setAccessToken(accessToken);
-        loginUser.setAccessTokenExpireTime(LocalDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRE_TIME));
+        loginUser.setAccessTokenExpireTime(LocalDateTime.now().plusSeconds(ACCESS_TOKEN.getExpireTime()));
         loginUser.setRefreshToken(refreshToken);
-        loginUser.setRefreshTokenExpireTime(LocalDateTime.now().plusSeconds(ACCESS_TOKEN.getExpireTime()));
+        loginUser.setRefreshTokenExpireTime(LocalDateTime.now().plusSeconds(REFRESH_TOKEN.getExpireTime()));
 
         redisUtils.set(ACCESS_TOKEN.format(accessToken), JSONUtil.toJsonStr(loginUser), ACCESS_TOKEN.getExpireTime(), ACCESS_TOKEN.getTimeType());
         redisUtils.set(REFRESH_TOKEN.format(refreshToken), loginUser, REFRESH_TOKEN.getExpireTime(), REFRESH_TOKEN.getTimeType());

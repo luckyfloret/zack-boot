@@ -7,13 +7,16 @@ import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuLis
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuUpdateReqVO;
 import cn.hmg.zackblog.module.system.convert.permission.MenuConvert;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.entity.permission.Role;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import cn.hmg.zackblog.module.system.enums.MenuTypeEnum;
+import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.MenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -46,6 +49,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Resource
     private RoleMenuMapper roleMenuMapper;
 
+    @Resource
+    private IRoleService roleService;
+
     private void initMenuCache() {
         List<Menu> menus = menuMapper.selectList();
         log.info("[initMenuCache] => 初始化菜单信息缓存， 数量为：{}", menus.size());
@@ -73,6 +79,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return menuMapper.selectList(menuListReqVO);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createMenu(MenuCreateReqVO menuCreateReqVO) {
         Long parentId = menuCreateReqVO.getParentId();
@@ -87,7 +94,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //插入菜单信息
         menuMapper.insert(menu);
-
+        //新增菜单更新到超管权限菜单里
+        Role superAdminRole = roleService.getSuperAdminRole(RoleCodeEnum.SUPER_ADMIN.getCode());
+        roleMenuMapper.insert(new RoleMenu(null, superAdminRole.getId(), menu.getId()));
         //TODO 通知MQ刷新缓存
 
     }
@@ -124,11 +133,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             throw new ServiceException(MENU_EXISTS_CHILD.getCode(), MENU_EXISTS_CHILD.getMessage());
         }
 
-        //校验菜单是否已被分配，如果已经被分配了则不能删除
-        List<RoleMenu> roleMenus = roleMenuMapper.selectList(menuId);
-        if (!CollectionUtils.isEmpty(roleMenus)) {
-            throw new ServiceException(MENU_HAS_BEEN_ASSIGN.getCode(), MENU_HAS_BEEN_ASSIGN.getMessage());
-        }
+        //删除roleMenu
+        roleMenuMapper.deleteByMenuId(menuId);
 
         //删除菜单
         menuMapper.deleteById(menuId);

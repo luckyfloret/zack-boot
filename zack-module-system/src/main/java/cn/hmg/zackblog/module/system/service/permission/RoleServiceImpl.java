@@ -119,8 +119,24 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         //TODO 通知MQ发送刷新缓存消息
     }
 
+    @Override
+    public Role getRoleById(Long roleId) {
+        return roleMapper.selectOne(roleId);
+    }
+
+    @Override
+    public Role getSuperAdminRole(String code) {
+        return roleMapper.selectOne(code);
+    }
+
+    @Override
+    public List<Role> getRoleListFromDbByStatus(Integer status) {
+        return roleMapper.selectListByStatus(status);
+    }
+
     /**
      * 校验角色类型，不能操作系统内置角色
+     *
      * @param roleId 角色id
      */
     private void verifyRoleType(Long roleId) {
@@ -135,10 +151,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     /**
      * 校验部分角色信息是否唯一、角色状态是否合法等
+     *
      * @param roleName 角色名称
-     * @param code 角色编码
-     * @param status 角色状态
-     * @param roleId 角色id
+     * @param code     角色编码
+     * @param status   角色状态
+     * @param roleId   角色id
      */
     private void verifyRoleInfo(String roleName, String code, Integer status, Long roleId) {
         //判断角色编码是否是超管与普通用户，如果是直接抛出异常（因为是内置角色， 所以超管只能query， 普通用户只能query、assignPermission）

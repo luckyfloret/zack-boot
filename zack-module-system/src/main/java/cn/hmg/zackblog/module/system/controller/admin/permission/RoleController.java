@@ -2,15 +2,14 @@ package cn.hmg.zackblog.module.system.controller.admin.permission;
 
 import cn.hmg.zackblog.common.pojo.CommonResult;
 import cn.hmg.zackblog.common.pojo.PageResult;
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCreateReqVO;
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageReqVO;
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleUpdateReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.*;
+import cn.hmg.zackblog.module.system.convert.permission.RoleConvert;
 import cn.hmg.zackblog.module.system.service.permission.IRoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -63,6 +62,13 @@ public class RoleController {
     public CommonResult<Boolean> deleteRoleById(@PathVariable("id") Long id){
         roleService.deleteRoleById(id);
         return success(true);
+    }
+
+    @GetMapping("/get/{id}")
+    @Operation(summary = "根据id获取角色信息")
+    @PreAuthorize("@spe.hasPermission('system:role:query')")
+    public CommonResult<RoleRespVO> getById(@PathVariable("id") Long id){
+        return success(RoleConvert.INSTANCE.convertRoleRespVO(roleService.getRoleById(id)));
     }
 
     @GetMapping("/export")

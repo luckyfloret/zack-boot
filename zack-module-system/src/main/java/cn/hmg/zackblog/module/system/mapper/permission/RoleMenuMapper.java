@@ -4,7 +4,9 @@ import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
 import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,5 +30,17 @@ public interface RoleMenuMapper extends BaseMapperExtend<RoleMenu> {
 
     default void deleteByRoleId(Long roleId) {
         delete(RoleMenu::getRoleId, roleId);
+    }
+
+    default List<RoleMenu> selectListByRoleId(Long roleId) {
+        return selectList(new LambdaQueryWrapperExtend<RoleMenu>().eq(RoleMenu::getRoleId, roleId));
+    }
+
+    default void deleteByRoleId(Long roleId, Collection<Long> deleteMenuIds) {
+        delete(new LambdaQueryWrapperExtend<RoleMenu>().eq(RoleMenu::getRoleId, roleId).in(RoleMenu::getMenuId, deleteMenuIds));
+    }
+
+    default void deleteByMenuId(Long menuId) {
+        delete(new LambdaQueryWrapperExtend<RoleMenu>().eq(RoleMenu::getMenuId, menuId));
     }
 }

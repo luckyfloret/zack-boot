@@ -24,6 +24,12 @@ public enum ErrorCodeEnum {
      */
     USER_USERNAME_EXISTS(10201000,"用户账号已存在"),
     USER_NOT_EXISTS(10201001, "用户不存在，请联系管理员！"),
+    USER_EMAIL_EXISTS(10201002, "邮箱已经被绑定，请换个邮箱试试"),
+    USER_MOBILE_EXISTS(10201003, "手机号已经被绑定账号"),
+    USER_STATUS_ERROR(10201004, "用户状态错误，只能是开启或关闭"),
+    USER_TYPE_ERROR(10201005, "用户类型错误，只能是前台用户或后台用户"),
+    USER_SEX_ERROR(10201006, "用户性别错误，只能是男或女"),
+    USER_OLD_PASSWORD_ERROR(10201007, "旧密码错误"),
 
 
     /**
@@ -34,6 +40,7 @@ public enum ErrorCodeEnum {
     ROLE_CODE_CANNOT_USE(10202002, "角色编码不能使用，请更换角色编码"),
     ROLE_STATUS_ERROR(10202003, "角色状态错误，只能是开启或关闭"),
     ROLE_CANNOT_OPERATE_SYSTEM_ROLE(10202004, "不能操作系统内置角色"),
+    ROLE_NOT_ALLOWED_ASSIGN_PERMISSION(10202005, "不允许分配权限"),
 
 
     /**

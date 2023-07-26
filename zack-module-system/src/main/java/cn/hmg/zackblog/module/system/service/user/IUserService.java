@@ -1,5 +1,7 @@
 package cn.hmg.zackblog.module.system.service.user;
 
+import cn.hmg.zackblog.common.pojo.PageResult;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -37,4 +39,15 @@ public interface IUserService extends IService<User> {
      */
     Optional<User> getUserById(Long userId);
 
+    PageResult<UserPageRespVO> getPage(UserPageReqVO userPageReqVO);
+
+    void createUser(UserCreateReqVO userCreateReqVO);
+
+    void updateUser(UserUpdateReqVO userUpdateReqVO);
+
+    void deleteById(Long id);
+
+    void resetPassword(UserResetPasswordReqVO userResetPasswordReqVO);
+
+    void verifyUserIsExistsByUserId(Long userId);
 }

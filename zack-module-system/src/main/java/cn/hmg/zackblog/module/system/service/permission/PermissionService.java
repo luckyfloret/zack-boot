@@ -1,8 +1,11 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.entity.permission.Role;
 
 import java.util.List;
 import java.util.Set;
@@ -70,4 +73,12 @@ public interface PermissionService {
     List<PermissionMenuListRespVO> getMenuListByStatus(Integer status);
 
     Set<Long> getRolePermissionByRoleIdFromCache(Long roleId);
+
+    void assignMenuPermission(PermissionMenuAssignReqVO reqVO);
+
+    void deleteUserRoleAssociation(Long userId);
+
+    void assignUserRole(PermissionAssignUserRoleReqVO reqVO);
+
+    List<Role> listRoleByStatus(Integer status);
 }

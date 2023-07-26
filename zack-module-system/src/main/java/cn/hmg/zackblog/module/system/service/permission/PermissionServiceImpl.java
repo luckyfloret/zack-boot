@@ -6,7 +6,8 @@ import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.common.utils.collections.MapUtils;
 import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
 import cn.hmg.zackblog.module.system.convert.auth.AdminAuthConvert;
 import cn.hmg.zackblog.module.system.convert.permission.PermissionConvert;
@@ -16,9 +17,12 @@ import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import cn.hmg.zackblog.module.system.entity.permission.UserRole;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import cn.hmg.zackblog.module.system.enums.ErrorCodeEnum;
+import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.UserRoleMapper;
 import cn.hmg.zackblog.module.system.service.user.IUserService;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +33,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static cn.hmg.zackblog.common.enums.CommonStatusEnum.*;
+import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
 
 /**
  * @author hmg
@@ -192,6 +199,109 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Set<Long> getRolePermissionByRoleIdFromCache(Long roleId) {
         return roleMenuCache.get(roleId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void assignMenuPermission(PermissionMenuAssignReqVO reqVO) {
+        //校验角色信息与菜单信息
+        verifyPermissionAssignInfo(reqVO.getRoleId(), reqVO.getMenuIds());
+
+        //根据roleId从db中获取menuIds，用于对比传进来的menuIds
+        Long roleId = reqVO.getRoleId();
+        Set<Long> dbMenuIds = CollectionUtils.convetSet(roleMenuMapper.selectListByRoleId(roleId), RoleMenu::getMenuId);
+
+        //计算menuIds差集
+        Collection<Long> createMenuIds = CollectionUtil.subtract(reqVO.getMenuIds(), dbMenuIds);
+        Collection<Long> deleteMenuIds = CollectionUtil.subtract(dbMenuIds, reqVO.getMenuIds());
+
+
+        if (!createMenuIds.isEmpty()) {
+            //新增逻辑
+            List<RoleMenu> roleMenuList = createMenuIds.stream().map(menuId -> {
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setRoleId(roleId);
+                roleMenu.setMenuId(menuId);
+                return roleMenu;
+            }).collect(Collectors.toList());
+            roleMenuMapper.insertBatch(roleMenuList);
+
+        }
+
+        if (!deleteMenuIds.isEmpty()) {
+            //删除逻辑
+            roleMenuMapper.deleteByRoleId(roleId, deleteMenuIds);
+        }
+
+        //TODO 通知MQ发送刷新缓存消息
+    }
+
+    @Override
+    public void deleteUserRoleAssociation(Long userId) {
+        userRoleMapper.deleteByUserId(userId);
+
+        //TODO 通知MQ发送刷新缓存消息
+    }
+
+    @Override
+    public void assignUserRole(PermissionAssignUserRoleReqVO reqVO) {
+        //校验用户角色信息
+        Long userId = reqVO.getUserId();
+        Set<Long> dbRoleIds = CollectionUtils.convetSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
+        verifyUserRoleInfo(userId, reqVO.getRoleIds(), dbRoleIds);
+
+        //计算roleIds差集
+        Collection<Long> createRoleIds = CollectionUtil.subtract(reqVO.getRoleIds(), dbRoleIds);
+        Collection<Long> deleteRoleIds = CollectionUtil.subtract(dbRoleIds, reqVO.getRoleIds());
+
+        if (!createRoleIds.isEmpty()) {
+            //新增userRole
+            List<UserRole> userRoleList = createRoleIds.stream().map(createRoleId -> {
+                UserRole userRole = new UserRole();
+                userRole.setUserId(userId);
+                userRole.setRoleId(createRoleId);
+                return userRole;
+            }).collect(Collectors.toList());
+            userRoleMapper.insertBatch(userRoleList);
+        }
+
+
+        if (!deleteRoleIds.isEmpty()) {
+            //删除userRole
+            userRoleMapper.deleteByUserId(userId, deleteRoleIds);
+        }
+
+        // TODO 通知MQ发送刷新缓存通知
+
+    }
+
+    @Override
+    public List<Role> listRoleByStatus(Integer status) {
+        return roleService.getRoleListFromDbByStatus(status);
+    }
+
+    private void verifyUserRoleInfo(Long userId, Set<Long> reqRoleIds, Set<Long> dbRoleIds) {
+        //校验用户是否存在
+        userService.verifyUserIsExistsByUserId(userId);
+
+        //校验roleIds是否全部存在、开启状态
+        Assert.isTrue(dbRoleIds.containsAll(reqRoleIds), () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+    }
+
+
+    private void verifyPermissionAssignInfo(Long roleId, Set<Long> menuIds) {
+        //校验角色是否存在
+        Role role = roleService.getRoleById(roleId);
+        Assert.notNull(role, () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+
+        //校验角色是否是超管，如果是超管直接抛出异常
+        Assert.isTrue(!RoleCodeEnum.isSuperAdmin(role.getCode()),
+                () -> new ServiceException(ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getCode(),
+                        ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getMessage()));
+
+        //先校验菜单id集合是否全部合法
+        Set<Long> dbMenuIds = CollectionUtils.convetSet(menuService.getMenuListByStatus(ENABLED.getStatusCode()), Menu::getId);
+        Assert.isTrue(dbMenuIds.containsAll(menuIds), () -> new ServiceException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage()));
     }
 
 }

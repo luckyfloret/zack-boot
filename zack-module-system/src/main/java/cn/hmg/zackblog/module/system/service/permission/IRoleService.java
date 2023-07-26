@@ -8,6 +8,8 @@ import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleUpd
 import cn.hmg.zackblog.module.system.entity.permission.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色管理 服务类
@@ -37,4 +39,10 @@ public interface IRoleService extends IService<Role> {
     void updateRole(RoleUpdateReqVO roleUpdateReqVO);
 
     void deleteRoleById(Long id);
+
+    Role getRoleById(Long roleId);
+
+    Role getSuperAdminRole(String code);
+
+   List<Role> getRoleListFromDbByStatus(Integer status);
 }

@@ -2,6 +2,7 @@ package cn.hmg.zackblog.module.system.convert.permission;
 
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleUpdateReqVO;
 import cn.hmg.zackblog.module.system.entity.permission.Role;
 import org.mapstruct.Mapper;
@@ -29,4 +30,6 @@ public interface RoleConvert {
     Role convert(RoleCreateReqVO roleCreateReqVO);
 
     Role convert(RoleUpdateReqVO roleUpdateReqVO);
+
+    RoleRespVO convertRoleRespVO(Role role);
 }
