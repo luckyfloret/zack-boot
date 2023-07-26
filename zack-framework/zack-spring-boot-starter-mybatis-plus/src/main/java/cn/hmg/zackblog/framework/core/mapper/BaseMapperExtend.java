@@ -9,7 +9,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -55,4 +57,9 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
     default void delete(SFunction<T, ?> field1, Object value1) {
         delete(new LambdaQueryWrapperExtend<T>().eq(field1, value1));
     }
+
+    default void insertBatch(Collection<T> entities) {
+        Db.saveBatch(entities);
+    }
+
 }
