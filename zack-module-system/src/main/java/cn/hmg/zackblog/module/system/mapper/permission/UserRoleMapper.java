@@ -6,6 +6,7 @@ import cn.hmg.zackblog.module.system.entity.permission.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -28,5 +29,9 @@ public interface UserRoleMapper extends BaseMapperExtend<UserRole> {
 
     default void deleteByUserId(Long userId, Collection<Long> roleIds) {
         delete(new LambdaQueryWrapperExtend<UserRole>().eq(UserRole::getUserId, userId).in(UserRole::getRoleId, roleIds));
+    }
+
+    default List<UserRole> getUserRoleListFromDbByUserId(Long userId) {
+        return selectList(new LambdaQueryWrapperExtend<UserRole>().eq(UserRole::getUserId, userId));
     }
 }

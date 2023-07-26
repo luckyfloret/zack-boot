@@ -247,10 +247,10 @@ public class PermissionServiceImpl implements PermissionService {
     public void assignUserRole(PermissionAssignUserRoleReqVO reqVO) {
         //校验用户角色信息
         Long userId = reqVO.getUserId();
-        Set<Long> dbRoleIds = CollectionUtils.convetSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
-        verifyUserRoleInfo(userId, reqVO.getRoleIds(), dbRoleIds);
+        verifyUserRoleInfo(userId, reqVO.getRoleIds());
 
         //计算roleIds差集
+        Set<Long> dbRoleIds = CollectionUtils.convetSet(userRoleMapper.getUserRoleListFromDbByUserId(userId), UserRole::getRoleId);
         Collection<Long> createRoleIds = CollectionUtil.subtract(reqVO.getRoleIds(), dbRoleIds);
         Collection<Long> deleteRoleIds = CollectionUtil.subtract(dbRoleIds, reqVO.getRoleIds());
 
@@ -280,12 +280,13 @@ public class PermissionServiceImpl implements PermissionService {
         return roleService.getRoleListFromDbByStatus(status);
     }
 
-    private void verifyUserRoleInfo(Long userId, Set<Long> reqRoleIds, Set<Long> dbRoleIds) {
+    private void verifyUserRoleInfo(Long userId, Set<Long> roleIds) {
         //校验用户是否存在
         userService.verifyUserIsExistsByUserId(userId);
 
         //校验roleIds是否全部存在、开启状态
-        Assert.isTrue(dbRoleIds.containsAll(reqRoleIds), () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+        Set<Long> dbRoleIds = CollectionUtils.convetSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
+        Assert.isTrue(dbRoleIds.containsAll(roleIds), () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
     }
 
 
