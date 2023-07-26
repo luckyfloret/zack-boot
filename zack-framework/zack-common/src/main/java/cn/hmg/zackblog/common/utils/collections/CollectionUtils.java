@@ -51,4 +51,12 @@ public class CollectionUtils {
         return val.stream().collect(Collectors.groupingBy(classifier,
                 Collectors.mapping(mapper, downstream)));
     }
+
+
+    public static <T, F> Set<F> convetSet(List<T> value, Function<T, F> field){
+        if (isEmpty(value)) {
+            return Collections.emptySet();
+        }
+        return value.stream().map(field).collect(Collectors.toSet());
+    }
 }

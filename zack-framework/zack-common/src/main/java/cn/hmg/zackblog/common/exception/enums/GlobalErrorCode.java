@@ -20,6 +20,7 @@ public enum GlobalErrorCode {
     /**
      * 全局通用异常
      */
+    BAD_REQUEST(400, "请求参数错误"),
     UNAUTHORIZED(401, "请登录再试"),
     FORBIDDEN(403, "没有权限，请联系管理员"),
     NOT_FOUND(404, "找不到请求"),
