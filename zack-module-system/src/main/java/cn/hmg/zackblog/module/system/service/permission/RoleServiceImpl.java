@@ -77,6 +77,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         return new PageResult<>(RoleConvert.INSTANCE.convert(page.getData()), page.getTotal());
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createRole(RoleCreateReqVO roleCreateReqVO) {
         //校验部分角色信息是否唯一
@@ -91,6 +92,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateRole(RoleUpdateReqVO roleUpdateReqVO) {
         //校验是否是内置角色

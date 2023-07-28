@@ -280,6 +280,11 @@ public class PermissionServiceImpl implements PermissionService {
         return roleService.getRoleListFromDbByStatus(status);
     }
 
+    /**
+     * 校验用户角色信息
+     * @param userId 用户id
+     * @param roleIds 角色ids
+     */
     private void verifyUserRoleInfo(Long userId, Set<Long> roleIds) {
         //校验用户是否存在
         userService.verifyUserIsExistsByUserId(userId);
@@ -290,6 +295,11 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
 
+    /**
+     * 校验权限信息
+     * @param roleId 角色id
+     * @param menuIds 菜单ids
+     */
     private void verifyPermissionAssignInfo(Long roleId, Set<Long> menuIds) {
         //校验角色是否存在
         Role role = roleService.getRoleById(roleId);

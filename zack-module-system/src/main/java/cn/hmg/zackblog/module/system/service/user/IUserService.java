@@ -39,15 +39,40 @@ public interface IUserService extends IService<User> {
      */
     Optional<User> getUserById(Long userId);
 
+    /**
+     * 用户分页
+     * @param userPageReqVO 用户分页 request vo
+     * @return PageResult<UserPageRespVO>
+     */
     PageResult<UserPageRespVO> getPage(UserPageReqVO userPageReqVO);
 
+    /**
+     * 创建用户
+     * @param userCreateReqVO 创建用户 request vo
+     */
     void createUser(UserCreateReqVO userCreateReqVO);
 
+    /**
+     * 更新用户
+     * @param userUpdateReqVO 更新用户 request vo
+     */
     void updateUser(UserUpdateReqVO userUpdateReqVO);
 
+    /**
+     * 根据id删除用户
+     * @param id 用户id
+     */
     void deleteById(Long id);
 
+    /**
+     * 重置密码
+     * @param userResetPasswordReqVO 重置密码 request vo
+     */
     void resetPassword(UserResetPasswordReqVO userResetPasswordReqVO);
 
+    /**
+     * 根据用户id校验用户是否存在
+     * @param userId 用户id
+     */
     void verifyUserIsExistsByUserId(Long userId);
 }

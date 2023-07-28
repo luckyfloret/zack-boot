@@ -133,17 +133,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         verifyUserIsExistsById(userId);
     }
 
+    /**
+     * 校验用户是否存在
+     * @param userId 用户id
+     */
     private void verifyUserIsExistsById(Long userId) {
         User user = userMapper.selectById(userId);
         Assert.notNull(user, () -> new ServiceException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
     }
 
+    /**
+     * 设置用户默认值
+     * @param user 用户
+     */
     private void setUserDefaultValue(User user) {
         user.setAvatar(DEFAULT_AVATAR_URL);
         user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
     }
 
 
+    /**
+     * 校验用户信息， create update时使用
+     * @param userId 用户id
+     * @param username 用户名
+     * @param email 邮箱
+     * @param mobile 手机号
+     * @param status 用户状态
+     * @param userType 用户类型
+     * @param sex 性别
+     */
     private void verifyUser(Long userId, String username, String email, String mobile, Integer status, Integer userType, Integer sex) {
         //校验用户名是否存在
         verifyUsernameIsExists(userId, username);
@@ -175,6 +193,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     }
 
+    /**
+     * 校验用户名是否存在
+     * @param userId 用户id
+     * @param username 用户名
+     */
     private void verifyUsernameIsExists(Long userId, String username) {
         //根据用户名查询用户
         User user = userMapper.selectByUsername(username);
@@ -190,6 +213,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Assert.isTrue(user.getId().equals(userId), () -> new ServiceException(USER_USERNAME_EXISTS.getCode(), USER_USERNAME_EXISTS.getMessage()));
     }
 
+    /**
+     * 校验邮箱是否是唯一的
+     * @param userId 用户id
+     * @param email 用户邮箱
+     */
     private void verifyEmailIsUnique(Long userId, String email) {
         //根据邮箱查询用户
         User user = userMapper.selectByEmail(email);
@@ -204,6 +232,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Assert.isTrue(user.getId().equals(userId), () -> new ServiceException(USER_EMAIL_EXISTS.getCode(), USER_EMAIL_EXISTS.getMessage()));
     }
 
+    /**
+     * 校验手机号是否唯一
+     * @param userId 用户id
+     * @param mobile 手机号
+     */
     private void verifyMobileIsUnique(Long userId, String mobile) {
         //根据手机号查询用户
         User user = userMapper.selectByMobile(mobile);
