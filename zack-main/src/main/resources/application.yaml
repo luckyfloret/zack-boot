@@ -21,6 +21,8 @@ zack:
       - /admin/system/auth/logout
       - /admin/system/captcha/**
       - /admin/system/auth/refresh-token
+      - /springboot/admin/**
+      - /actuator/**
   captcha:
     enabled: false
 ############################## mybatis-plus配置 ##############################

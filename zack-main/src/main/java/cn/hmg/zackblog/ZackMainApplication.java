@@ -1,11 +1,8 @@
 package cn.hmg.zackblog;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author hmg
@@ -16,14 +13,6 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication(scanBasePackages = "cn.hmg.zackblog")
 @EnableCaching
 public class ZackMainApplication {
-
-    @Value("${zack.info.base-package}")
-    private String basePackage;
-
-    @PostConstruct
-    public void init(){
-        System.out.println("base package ==> " + basePackage);
-    }
     public static void main(String[] args) {
         SpringApplication.run(ZackMainApplication.class, args);
     }
