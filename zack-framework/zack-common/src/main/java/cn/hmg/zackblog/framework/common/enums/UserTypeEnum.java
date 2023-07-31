@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.enums;
+package cn.hmg.zackblog.framework.common.enums;
 
 import lombok.Getter;
 

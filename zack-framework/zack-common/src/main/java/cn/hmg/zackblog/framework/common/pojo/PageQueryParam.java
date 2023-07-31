@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.pojo;
+package cn.hmg.zackblog.framework.common.pojo;
 
 import lombok.Data;
 

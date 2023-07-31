@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.utils.collections;
+package cn.hmg.zackblog.framework.common.utils.collections;
 
 import java.util.*;
 import java.util.function.Function;

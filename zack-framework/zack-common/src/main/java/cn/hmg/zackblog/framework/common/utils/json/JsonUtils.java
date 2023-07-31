@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.utils.json;
+package cn.hmg.zackblog.framework.common.utils.json;
 
 import cn.hutool.json.JSONUtil;
 

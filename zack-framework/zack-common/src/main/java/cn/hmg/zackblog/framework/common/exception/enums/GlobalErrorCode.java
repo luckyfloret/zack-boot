@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.exception.enums;
+package cn.hmg.zackblog.framework.common.exception.enums;
 
 import lombok.Getter;
 

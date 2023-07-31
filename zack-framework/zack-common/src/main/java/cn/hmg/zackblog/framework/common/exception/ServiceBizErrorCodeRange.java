@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.exception;
+package cn.hmg.zackblog.framework.common.exception;
 
 /**
  * @author hmg

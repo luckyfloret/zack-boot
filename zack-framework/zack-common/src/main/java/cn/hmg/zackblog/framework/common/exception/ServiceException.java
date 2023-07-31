@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.exception;
+package cn.hmg.zackblog.framework.common.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -6,12 +6,12 @@ import lombok.EqualsAndHashCode;
 /**
  * @author hmg
  * @version 1.0
- * @date 2023-07-07 9:54
- * @description: 服务器异常
+ * @date 2023-07-07 9:39
+ * @description: 业务服务异常
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ServerException extends RuntimeException{
+public class ServiceException extends RuntimeException{
     /**
      * 状态码
      */
@@ -22,9 +22,10 @@ public class ServerException extends RuntimeException{
      */
     private String message;
 
-    public ServerException(){}
+    public ServiceException(){}
 
-    public ServerException(Integer code, String message) {
+
+    public ServiceException(Integer code, String message){
         this.code = code;
         this.message = message;
     }

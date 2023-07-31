@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.utils.date;
+package cn.hmg.zackblog.framework.common.utils.date;
 
 import java.time.LocalDateTime;
 

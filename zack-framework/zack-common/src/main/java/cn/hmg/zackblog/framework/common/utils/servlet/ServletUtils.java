@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.common.utils.servlet;
+package cn.hmg.zackblog.framework.common.utils.servlet;
 
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.json.JSONUtil;
