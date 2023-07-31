@@ -1,6 +1,6 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.redis.autoconfigure;
 
-import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

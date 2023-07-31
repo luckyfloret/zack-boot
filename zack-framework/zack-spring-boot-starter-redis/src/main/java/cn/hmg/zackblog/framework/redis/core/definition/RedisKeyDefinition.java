@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.definition;
+package cn.hmg.zackblog.framework.redis.core.definition;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

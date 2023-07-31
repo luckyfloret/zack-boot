@@ -1,1 +1,1 @@
-cn.hmg.zackblog.framework.config.ZackRedisAutoConfiguration
+cn.hmg.zackblog.framework.redis.autoconfigure.ZackRedisAutoConfiguration
