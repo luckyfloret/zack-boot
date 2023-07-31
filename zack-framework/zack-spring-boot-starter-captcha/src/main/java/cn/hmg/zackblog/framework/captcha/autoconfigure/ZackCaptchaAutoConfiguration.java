@@ -1,6 +1,6 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.captcha.autoconfigure;
 
-import cn.hmg.zackblog.framework.core.service.RedisCaptchaCacheServiceImpl;
+import cn.hmg.zackblog.framework.captcha.core.service.RedisCaptchaCacheServiceImpl;
 import com.anji.captcha.service.CaptchaCacheService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

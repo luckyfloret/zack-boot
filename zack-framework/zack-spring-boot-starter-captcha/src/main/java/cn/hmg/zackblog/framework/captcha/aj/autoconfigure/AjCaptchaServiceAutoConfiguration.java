@@ -1,7 +1,7 @@
-package cn.hmg.zackblog.framework.aj.config;
+package cn.hmg.zackblog.framework.captcha.aj.autoconfigure;
 
 
-import cn.hmg.zackblog.framework.aj.properties.AjCaptchaProperties;
+import cn.hmg.zackblog.framework.captcha.aj.properties.AjCaptchaProperties;
 import com.anji.captcha.model.common.Const;
 import com.anji.captcha.service.CaptchaService;
 import com.anji.captcha.service.impl.CaptchaServiceFactory;

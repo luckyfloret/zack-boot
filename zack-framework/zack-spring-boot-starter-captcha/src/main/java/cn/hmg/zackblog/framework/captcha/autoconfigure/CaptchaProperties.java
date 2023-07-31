@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.captcha.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
-import static cn.hmg.zackblog.framework.config.CaptchaProperties.PREFIX;
+import static cn.hmg.zackblog.framework.captcha.autoconfigure.CaptchaProperties.PREFIX;
 
 /**
  * @author hmg

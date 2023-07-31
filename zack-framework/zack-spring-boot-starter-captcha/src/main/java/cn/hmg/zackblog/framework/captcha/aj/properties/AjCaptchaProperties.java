@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.aj.properties;
+package cn.hmg.zackblog.framework.captcha.aj.properties;
 
 import com.anji.captcha.model.common.CaptchaTypeEnum;
 import org.springframework.boot.context.properties.ConfigurationProperties;

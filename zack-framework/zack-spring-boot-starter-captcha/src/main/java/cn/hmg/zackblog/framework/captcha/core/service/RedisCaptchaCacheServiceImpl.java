@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.service;
+package cn.hmg.zackblog.framework.captcha.core.service;
 
 import com.anji.captcha.service.CaptchaCacheService;
 import lombok.AllArgsConstructor;
