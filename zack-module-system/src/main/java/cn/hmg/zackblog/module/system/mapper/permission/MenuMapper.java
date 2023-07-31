@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.mapper.permission;
 
-import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
-import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 import org.apache.ibatis.annotations.Mapper;

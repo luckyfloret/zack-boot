@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 

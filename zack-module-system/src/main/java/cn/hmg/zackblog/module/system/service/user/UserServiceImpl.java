@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.system.service.user;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.pojo.PageResult;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.convert.user.UserConvert;
 import cn.hmg.zackblog.module.system.entity.user.User;
@@ -23,9 +23,9 @@ import java.util.Set;
 import static cn.hmg.zackblog.module.system.constants.CommonConstant.DEFAULT_AVATAR_URL;
 import static cn.hmg.zackblog.module.system.constants.CommonConstant.DEFAULT_PASSWORD;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
-import static cn.hmg.zackblog.common.enums.CommonStatusEnum.*;
-import static cn.hmg.zackblog.common.enums.UserTypeEnum.*;
-import static cn.hmg.zackblog.common.enums.UserSexEnum.*;
+import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
+import static cn.hmg.zackblog.framework.common.enums.UserSexEnum.*;
+import static cn.hmg.zackblog.framework.common.enums.UserTypeEnum.*;
 
 /**
  * <p>

@@ -1,14 +1,14 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuUpdateReqVO;
 import cn.hmg.zackblog.module.system.convert.permission.MenuConvert;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
-import cn.hmg.zackblog.module.system.enums.ErrorCodeEnum;
 import cn.hmg.zackblog.module.system.service.permission.IMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,10 +20,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.hmg.zackblog.common.pojo.CommonResult.success;
+import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.MENU_NOT_EXISTS;
-import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.USER_NOT_EXISTS;
-
+import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 /**
  * <p>
  * 后台系统菜单 前端控制器
@@ -74,6 +73,7 @@ public class MenuController {
     }
 
 
+    @OperateLog(operateType = QUERY, operateName = "根据id获取菜单信息")
     @PreAuthorize("@spe.hasPermission('system:menu:query')")
     @GetMapping("/get/{id}")
     @Operation(summary = "根据id获取菜单信息")

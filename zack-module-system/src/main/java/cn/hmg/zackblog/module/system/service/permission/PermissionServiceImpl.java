@@ -1,10 +1,10 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.common.enums.CommonStatusEnum;
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
-import cn.hmg.zackblog.common.utils.collections.MapUtils;
-import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
+import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.common.utils.collections.MapUtils;
+import cn.hmg.zackblog.framework.security.core.utils.SecurityUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
@@ -20,6 +20,7 @@ import cn.hmg.zackblog.module.system.enums.ErrorCodeEnum;
 import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.UserRoleMapper;
+import cn.hmg.zackblog.module.system.mq.producer.permission.PermissionProducer;
 import cn.hmg.zackblog.module.system.service.user.IUserService;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Assert;
@@ -28,15 +29,16 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.hmg.zackblog.common.enums.CommonStatusEnum.*;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
-
+import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
 /**
  * @author hmg
  * @version 1.0
@@ -76,6 +78,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private PermissionProducer permissionProducer;
 
     /**
      * 初始化角色菜单缓存
@@ -188,7 +193,13 @@ public class PermissionServiceImpl implements PermissionService {
         //删除RoleMenu
         roleMenuMapper.deleteByRoleId(roleId);
 
-        //TODO 通知MQ发送刷新缓存消息
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+            }
+        });
     }
 
     @Override
@@ -233,16 +244,30 @@ public class PermissionServiceImpl implements PermissionService {
             roleMenuMapper.deleteByRoleId(roleId, deleteMenuIds);
         }
 
-        //TODO 通知MQ发送刷新缓存消息
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+            }
+        });
     }
 
     @Override
     public void deleteUserRoleAssociation(Long userId) {
         userRoleMapper.deleteByUserId(userId);
 
-        //TODO 通知MQ发送刷新缓存消息
+
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+            }
+        });
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void assignUserRole(PermissionAssignUserRoleReqVO reqVO) {
         //校验用户角色信息
@@ -271,7 +296,13 @@ public class PermissionServiceImpl implements PermissionService {
             userRoleMapper.deleteByUserId(userId, deleteRoleIds);
         }
 
-        // TODO 通知MQ发送刷新缓存通知
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+            }
+        });
 
     }
 

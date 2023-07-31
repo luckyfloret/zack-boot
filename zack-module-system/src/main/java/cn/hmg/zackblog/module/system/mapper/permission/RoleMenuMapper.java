@@ -1,10 +1,9 @@
 package cn.hmg.zackblog.module.system.mapper.permission;
 
-import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
-import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuUpdateReqVO;
@@ -16,9 +16,10 @@ import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mq.producer.menu.MenuProducer;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -102,8 +103,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         //新增菜单更新到超管权限菜单里
         Role superAdminRole = roleService.getSuperAdminRole(RoleCodeEnum.SUPER_ADMIN.getCode());
         roleMenuMapper.insert(new RoleMenu(null, superAdminRole.getId(), menu.getId()));
-        //TODO 通知MQ刷新缓存
-
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+            }
+        });
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -125,8 +132,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //更新菜单信息
         menuMapper.updateById(menu);
-
-        //TODO 通知MQ刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+            }
+        });
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -145,8 +158,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //删除菜单
         menuMapper.deleteById(menuId);
-
-        //TODO 通知MQ刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+            }
+        });
 
     }
 

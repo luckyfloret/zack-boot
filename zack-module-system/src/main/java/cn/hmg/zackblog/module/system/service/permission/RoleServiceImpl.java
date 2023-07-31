@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.pojo.PageResult;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageRespVO;
@@ -12,6 +12,7 @@ import cn.hmg.zackblog.module.system.entity.permission.Role;
 import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.enums.RoleTypeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMapper;
+import cn.hmg.zackblog.module.system.mq.producer.role.RoleProducer;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.Getter;
@@ -19,14 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
 
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
-import static cn.hmg.zackblog.common.enums.CommonStatusEnum.*;
-
+import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
 /**
  * <p>
  * 角色管理 服务实现类
@@ -52,6 +54,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Resource
     @Lazy //懒加载， 避免循环依赖报错
     private PermissionService permissionService;
+
+    @Resource
+    private RoleProducer roleProducer;
 
 
     private void initRoleCache() {
@@ -88,7 +93,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         role.setType(RoleTypeEnum.CUSTOM.getType());
         roleMapper.insert(role);
 
-        //TODO 通知MQ发送刷新缓存消息
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                roleProducer.asyncSendRoleRefreshCacheMessage();
+            }
+        });
 
     }
 
@@ -105,7 +116,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         Role role = RoleConvert.INSTANCE.convert(roleUpdateReqVO);
         roleMapper.updateById(role);
 
-        //TODO 通知MQ发送刷新缓存消息
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                roleProducer.asyncSendRoleRefreshCacheMessage();
+            }
+        });
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -118,7 +135,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         permissionService.deleteRoleAssociation(id);
         roleMapper.deleteById(id);
 
-        //TODO 通知MQ发送刷新缓存消息
+        //事务提交之后刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                roleProducer.asyncSendRoleRefreshCacheMessage();
+            }
+        });
     }
 
     @Override

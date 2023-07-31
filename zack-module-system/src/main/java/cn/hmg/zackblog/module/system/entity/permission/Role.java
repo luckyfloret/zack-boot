@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.entity.permission;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

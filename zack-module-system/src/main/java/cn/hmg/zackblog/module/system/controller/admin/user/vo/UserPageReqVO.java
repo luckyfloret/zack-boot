@@ -1,11 +1,9 @@
 package cn.hmg.zackblog.module.system.controller.admin.user.vo;
 
-import cn.hmg.zackblog.common.pojo.PageQueryParam;
+import cn.hmg.zackblog.framework.common.pojo.PageQueryParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.time.LocalDateTime;
 
 /**
  * @author hmg

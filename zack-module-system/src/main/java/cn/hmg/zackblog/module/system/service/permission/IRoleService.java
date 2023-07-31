@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageRespVO;

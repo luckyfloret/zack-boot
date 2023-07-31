@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission;
 
-import cn.hmg.zackblog.common.pojo.CommonResult;
-import cn.hmg.zackblog.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.*;
 import cn.hmg.zackblog.module.system.convert.permission.RoleConvert;
 import cn.hmg.zackblog.module.system.service.permission.IRoleService;
@@ -9,12 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static cn.hmg.zackblog.common.pojo.CommonResult.success;
+import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 
 /**
  * <p>

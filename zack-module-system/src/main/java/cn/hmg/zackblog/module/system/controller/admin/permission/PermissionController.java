@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission;
 
-import cn.hmg.zackblog.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
@@ -18,9 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
-import static cn.hmg.zackblog.common.pojo.CommonResult.success;
-import static cn.hmg.zackblog.common.enums.CommonStatusEnum.*;
-
+import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
+import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
 /**
  * @author hmg
  * @version 1.0

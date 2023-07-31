@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.convert.user;
 
-import cn.hmg.zackblog.framework.core.pojo.UserDetails;
+import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import org.mapstruct.Mapper;

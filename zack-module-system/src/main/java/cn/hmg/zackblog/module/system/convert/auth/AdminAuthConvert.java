@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.convert.auth;
 
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;

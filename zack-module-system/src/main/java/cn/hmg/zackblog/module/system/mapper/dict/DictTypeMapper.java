@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.mapper.dict;
 
-import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
 import cn.hmg.zackblog.module.system.entity.dict.DictType;
 import org.apache.ibatis.annotations.Mapper;
 

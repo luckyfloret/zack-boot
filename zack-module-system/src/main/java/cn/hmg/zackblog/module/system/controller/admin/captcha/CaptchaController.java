@@ -1,6 +1,5 @@
 package cn.hmg.zackblog.module.system.controller.admin.captcha;
 
-import cn.hmg.zackblog.common.pojo.CommonResult;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;

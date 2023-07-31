@@ -1,10 +1,10 @@
 package cn.hmg.zackblog.module.system.controller.admin.auth;
 
-import cn.hmg.zackblog.common.enums.CommonStatusEnum;
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.common.pojo.CommonResult;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
-import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
+import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.security.core.utils.SecurityUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespVO;

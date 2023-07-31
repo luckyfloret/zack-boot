@@ -1,12 +1,11 @@
 package cn.hmg.zackblog.module.system.entity.dict;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,8 +17,10 @@ import java.io.Serializable;
  * @author hmg
  * @since 2023-07-02
  */
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("system_dict_data")
 @Schema(name = "DictData对象", description = "数据字典")
 public class DictData extends BaseEntity implements Serializable {

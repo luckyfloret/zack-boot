@@ -1,13 +1,13 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
-import cn.hmg.zackblog.common.enums.CommonStatusEnum;
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
-import cn.hmg.zackblog.common.utils.servlet.ServletUtils;
-import cn.hmg.zackblog.framework.config.CaptchaProperties;
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
-import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
+import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
+import cn.hmg.zackblog.framework.captcha.autoconfigure.CaptchaProperties;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 import cn.hmg.zackblog.module.system.convert.auth.AdminAuthConvert;
@@ -31,9 +31,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-import static cn.hmg.zackblog.framework.core.constants.RedisKeyConstant.ACCESS_TOKEN;
-import static cn.hmg.zackblog.framework.core.constants.RedisKeyConstant.REFRESH_TOKEN;
-import static cn.hmg.zackblog.module.system.constants.CommonConstant.ACCESS_TOKEN_EXPIRE_TIME;
+import static cn.hmg.zackblog.framework.security.core.constants.RedisKeyConstant.ACCESS_TOKEN;
+import static cn.hmg.zackblog.framework.security.core.constants.RedisKeyConstant.REFRESH_TOKEN;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
 
 /**
@@ -87,15 +86,16 @@ public class AuthServiceImpl implements AuthService {
         redisUtils.delete(refreshTokenKey);
 
         //构建loginUser
-        loginUser =  buildLoginUser(loginUser.getUserId(), loginUser.getUserType(), loginUser.getStatus());
+        loginUser = buildLoginUser(loginUser.getUserId(), loginUser.getUsername(), loginUser.getUserType(), loginUser.getStatus());
         return AdminAuthConvert.INSTANCE.convert(loginUser);
     }
 
     /**
      * 构建AdminAuthLoginRespVO
-     * @param userId 用户id
-     * @param status 状态
-     * @param username 用户名
+     *
+     * @param userId       用户id
+     * @param status       状态
+     * @param username     用户名
      * @param userTypeEnum 用户类型枚举
      * @return AdminAuthLoginRespVO
      */
@@ -104,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
         createLoginLog(userId, username, LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.SUCCESS);
 
         //构建LoginUser，保存到Redis中
-        LoginUser loginUser = buildLoginUser(userId, userTypeEnum.getType(), status);
+        LoginUser loginUser = buildLoginUser(userId, username, userTypeEnum.getType(), status);
 
         //更新用户账号的登录ip与登录时间
         User user = buildUser(userId);
@@ -114,6 +114,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 构建用户信息
+     *
      * @param userId 用户id
      * @return User
      */
@@ -127,12 +128,13 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 构建登录用户信息
-     * @param userId 用户id
+     *
+     * @param userId   用户id
      * @param userType 用户类型
-     * @param status 状态
+     * @param status   状态
      * @return LoginUser
      */
-    private LoginUser buildLoginUser(Long userId, Integer userType, Integer status) {
+    private LoginUser buildLoginUser(Long userId, String username, Integer userType, Integer status) {
         //创建访问令牌
         String accessToken = createAccessToken();
         //创建刷新令牌
@@ -140,6 +142,7 @@ public class AuthServiceImpl implements AuthService {
 
         LoginUser loginUser = new LoginUser();
         loginUser.setUserId(userId);
+        loginUser.setUsername(username);
         loginUser.setUserType(userType);
         loginUser.setStatus(status);
         loginUser.setAccessToken(accessToken);
@@ -154,6 +157,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 创建访问令牌
+     *
      * @return accessToken
      */
     private String createRefreshToken() {
@@ -162,6 +166,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 创建刷新令牌
+     *
      * @return refreshToken
      */
     private String createAccessToken() {
@@ -170,6 +175,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 用户认证，校验用户名密码、用户是否被禁用、用户类型等等
+     *
      * @param adminAuthLoginReqVO 登录请求VO
      * @return user
      */
@@ -203,6 +209,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 校验验证码
+     *
      * @param adminAuthLoginReqVO 登录请求VO
      */
     public void verifyCaptcha(AdminAuthLoginReqVO adminAuthLoginReqVO) {
@@ -225,10 +232,11 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 创建登录日志
-     * @param userId 用户id
-     * @param username 用户名
-     * @param loginTypeEnum 登录类型枚举
-     * @param userTypeEnum 用户类型枚举
+     *
+     * @param userId          用户id
+     * @param username        用户名
+     * @param loginTypeEnum   登录类型枚举
+     * @param userTypeEnum    用户类型枚举
      * @param loginResultEnum 登录结果枚举
      */
     private void createLoginLog(Long userId, String username, LoginTypeEnum loginTypeEnum, UserTypeEnum userTypeEnum, LoginResultEnum loginResultEnum) {

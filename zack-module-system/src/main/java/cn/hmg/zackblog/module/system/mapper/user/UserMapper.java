@@ -1,10 +1,9 @@
 package cn.hmg.zackblog.module.system.mapper.user;
 
-import cn.hmg.zackblog.common.pojo.PageResult;
-import cn.hmg.zackblog.framework.core.mapper.BaseMapperExtend;
-import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
+import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.UserPageReqVO;
-import cn.hmg.zackblog.module.system.controller.admin.user.vo.UserPageRespVO;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import org.apache.ibatis.annotations.Mapper;
 

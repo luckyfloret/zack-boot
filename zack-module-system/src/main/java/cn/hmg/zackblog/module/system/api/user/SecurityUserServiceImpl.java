@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.system.api.user;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.framework.core.pojo.UserDetails;
-import cn.hmg.zackblog.framework.core.service.SecurityUserService;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
+import cn.hmg.zackblog.framework.security.core.service.SecurityUserService;
 import cn.hmg.zackblog.module.system.convert.user.UserConvert;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import cn.hmg.zackblog.module.system.service.user.IUserService;

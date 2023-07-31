@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission.vo.role;
 
-import cn.hmg.zackblog.common.pojo.PageQueryParam;
+import cn.hmg.zackblog.framework.common.pojo.PageQueryParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,7 @@
 package cn.hmg.zackblog.module.system.service.logger;
 
 import cn.hmg.zackblog.module.system.entity.logger.OperateLog;
+import cn.hmg.zackblog.module.system.service.logger.dto.OperateLogCreateDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOperateLogService extends IService<OperateLog> {
 
+    void createOperateLog(OperateLogCreateDTO operateLogCreateDTO);
 }

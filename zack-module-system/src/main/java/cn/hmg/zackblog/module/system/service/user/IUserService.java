@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.user;
 
-import cn.hmg.zackblog.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import com.baomidou.mybatisplus.extension.service.IService;
