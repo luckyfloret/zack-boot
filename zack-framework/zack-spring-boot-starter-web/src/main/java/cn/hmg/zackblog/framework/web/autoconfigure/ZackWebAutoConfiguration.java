@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.web.config;
+package cn.hmg.zackblog.framework.web.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;

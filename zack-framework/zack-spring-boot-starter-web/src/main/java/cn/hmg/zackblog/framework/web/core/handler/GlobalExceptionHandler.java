@@ -1,11 +1,9 @@
 package cn.hmg.zackblog.framework.web.core.handler;
 
-import cn.hmg.zackblog.common.exception.ServerException;
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
-import cn.hmg.zackblog.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.exception.ServerException;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.web.core.utils.WebFrameworkUtils;
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
-import static cn.hmg.zackblog.common.exception.enums.GlobalErrorCode.*;
+
+import static cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode.*;
 
 /**
  * @author hmg

@@ -1,2 +1,2 @@
-cn.hmg.zackblog.framework.swagger.config.Knife4jAutoConfiguration
-cn.hmg.zackblog.framework.web.config.ZackWebAutoConfiguration
+cn.hmg.zackblog.framework.swagger.autoconfigure.Knife4jAutoConfiguration
+cn.hmg.zackblog.framework.web.autoconfigure.ZackWebAutoConfiguration

@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.swagger.config;
+package cn.hmg.zackblog.framework.swagger.autoconfigure;
 
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.models.Components;
