@@ -1,12 +1,9 @@
-package cn.hmg.zackblog.framework.core.handler;
+package cn.hmg.zackblog.framework.mybatisplus.core.handler;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
-import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
+import cn.hmg.zackblog.framework.security.core.utils.SecurityUtils;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

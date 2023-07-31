@@ -1,10 +1,11 @@
-package cn.hmg.zackblog.framework.core.entity;
+package cn.hmg.zackblog.framework.mybatisplus.core.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
+import lombok.ToString;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.cglib.core.Local;
 
@@ -19,7 +20,6 @@ import java.time.LocalDateTime;
  */
 @Data
 public abstract class BaseEntity implements Serializable {
-    private static final Long serialVersionUID = 1L;
     @TableField(fill = FieldFill.INSERT, jdbcType = JdbcType.BIGINT)
     private Long creator;
 

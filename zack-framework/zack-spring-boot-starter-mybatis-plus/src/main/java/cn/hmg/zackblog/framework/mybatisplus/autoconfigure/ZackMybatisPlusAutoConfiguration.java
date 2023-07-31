@@ -1,15 +1,12 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.mybatisplus.autoconfigure;
 
-import cn.hmg.zackblog.framework.core.handler.DefaultMetaObjectHandler;
+import cn.hmg.zackblog.framework.mybatisplus.core.handler.DefaultMetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author hmg

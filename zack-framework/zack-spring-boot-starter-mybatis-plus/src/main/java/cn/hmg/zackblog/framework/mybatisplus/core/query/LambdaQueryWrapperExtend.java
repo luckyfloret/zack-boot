@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.query;
+package cn.hmg.zackblog.framework.mybatisplus.core.query;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

@@ -1,8 +1,8 @@
-package cn.hmg.zackblog.framework.core.mapper;
+package cn.hmg.zackblog.framework.mybatisplus.core.mapper;
 
-import cn.hmg.zackblog.common.pojo.PageQueryParam;
-import cn.hmg.zackblog.common.pojo.PageResult;
-import cn.hmg.zackblog.framework.core.query.LambdaQueryWrapperExtend;
+import cn.hmg.zackblog.framework.common.pojo.PageQueryParam;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

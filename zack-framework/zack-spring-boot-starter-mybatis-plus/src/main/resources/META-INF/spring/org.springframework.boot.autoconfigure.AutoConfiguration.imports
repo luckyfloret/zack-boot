@@ -1,1 +1,1 @@
-cn.hmg.zackblog.framework.config.ZackMybatisPlusAutoConfiguration
+cn.hmg.zackblog.framework.mybatisplus.autoconfigure.ZackMybatisPlusAutoConfiguration
