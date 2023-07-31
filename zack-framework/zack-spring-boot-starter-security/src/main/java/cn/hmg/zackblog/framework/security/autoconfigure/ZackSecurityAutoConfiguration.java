@@ -1,29 +1,23 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.security.autoconfigure;
 
-import cn.hmg.zackblog.framework.core.filter.TokenAuthenticationFilter;
-import cn.hmg.zackblog.framework.core.handler.AccessDeniedHandlerImpl;
-import cn.hmg.zackblog.framework.core.handler.AuthenticationEntryPointImpl;
-import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpression;
-import cn.hmg.zackblog.framework.core.permission.SecurityPermissionExpressionImpl;
-import cn.hmg.zackblog.framework.core.service.SecurityPermissionService;
-import cn.hmg.zackblog.framework.core.service.SecurityUserService;
-import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.framework.security.core.filter.TokenAuthenticationFilter;
+import cn.hmg.zackblog.framework.security.core.handler.AccessDeniedHandlerImpl;
+import cn.hmg.zackblog.framework.security.core.handler.AuthenticationEntryPointImpl;
+import cn.hmg.zackblog.framework.security.core.permission.SecurityPermissionExpression;
+import cn.hmg.zackblog.framework.security.core.permission.SecurityPermissionExpressionImpl;
+import cn.hmg.zackblog.framework.security.core.service.SecurityPermissionService;
+import cn.hmg.zackblog.framework.security.core.service.SecurityUserService;
+import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
 import cn.hmg.zackblog.framework.web.core.handler.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 

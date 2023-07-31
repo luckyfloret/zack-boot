@@ -1,7 +1,6 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.security.autoconfigure;
 
-import cn.hmg.zackblog.framework.core.filter.TokenAuthenticationFilter;
-import cn.hmg.zackblog.framework.core.handler.AuthenticationEntryPointImpl;
+import cn.hmg.zackblog.framework.security.core.filter.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

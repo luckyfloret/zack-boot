@@ -1,9 +1,9 @@
-package cn.hmg.zackblog.framework.core.permission;
+package cn.hmg.zackblog.framework.security.core.permission;
 
-import cn.hmg.zackblog.framework.core.service.SecurityPermissionService;
+import cn.hmg.zackblog.framework.security.core.service.SecurityPermissionService;
 import lombok.RequiredArgsConstructor;
 
-import static cn.hmg.zackblog.framework.core.utils.SecurityUtils.getLoginUserId;
+import static cn.hmg.zackblog.framework.security.core.utils.SecurityUtils.getLoginUserId;
 
 /**
  * @author hmg

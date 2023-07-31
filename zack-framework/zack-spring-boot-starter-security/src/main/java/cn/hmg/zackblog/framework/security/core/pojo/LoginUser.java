@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.pojo;
+package cn.hmg.zackblog.framework.security.core.pojo;
 
 import lombok.Data;
 
@@ -16,6 +16,11 @@ public class LoginUser {
      * 用户id
      */
     private Long userId;
+
+    /**
+     * 用户名
+     */
+    private String username;
 
     /**
      * 用户类型 => 前台用户 or 后台用户

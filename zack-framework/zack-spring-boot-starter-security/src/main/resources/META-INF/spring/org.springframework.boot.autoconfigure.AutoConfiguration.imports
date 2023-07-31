@@ -1,1 +1,1 @@
-cn.hmg.zackblog.framework.config.ZackSecurityAutoConfiguration
+cn.hmg.zackblog.framework.security.autoconfigure.ZackSecurityAutoConfiguration

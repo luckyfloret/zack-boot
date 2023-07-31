@@ -1,9 +1,7 @@
-package cn.hmg.zackblog.framework.core.utils;
+package cn.hmg.zackblog.framework.security.core.utils;
 
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +9,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Security;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

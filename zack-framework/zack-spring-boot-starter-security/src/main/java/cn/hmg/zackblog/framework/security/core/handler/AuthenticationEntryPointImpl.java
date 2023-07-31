@@ -1,8 +1,8 @@
-package cn.hmg.zackblog.framework.core.handler;
+package cn.hmg.zackblog.framework.security.core.handler;
 
-import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
-import cn.hmg.zackblog.common.pojo.CommonResult;
-import cn.hmg.zackblog.common.utils.servlet.ServletUtils;
+import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

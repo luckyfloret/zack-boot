@@ -1,20 +1,20 @@
-package cn.hmg.zackblog.framework.core.filter;
+package cn.hmg.zackblog.framework.security.core.filter;
 
-import cn.hmg.zackblog.common.enums.CommonStatusEnum;
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.exception.enums.GlobalErrorCode;
-import cn.hmg.zackblog.common.pojo.CommonResult;
-import cn.hmg.zackblog.common.utils.date.DateUtils;
-import cn.hmg.zackblog.common.utils.json.JsonUtils;
-import cn.hmg.zackblog.common.utils.servlet.ServletUtils;
-import cn.hmg.zackblog.framework.config.SecurityProperties;
-import cn.hmg.zackblog.framework.core.constants.RedisKeyConstant;
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
-import cn.hmg.zackblog.framework.core.pojo.UserDetails;
-import cn.hmg.zackblog.framework.core.service.SecurityUserService;
-import cn.hmg.zackblog.framework.core.utils.RedisUtils;
-import cn.hmg.zackblog.framework.core.utils.SecurityUtils;
+import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
+import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.common.utils.date.DateUtils;
+import cn.hmg.zackblog.framework.common.utils.json.JsonUtils;
+import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
+import cn.hmg.zackblog.framework.security.autoconfigure.SecurityProperties;
+import cn.hmg.zackblog.framework.security.core.constants.RedisKeyConstant;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
+import cn.hmg.zackblog.framework.security.core.service.SecurityUserService;
+import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
+import cn.hmg.zackblog.framework.security.core.utils.SecurityUtils;
 import cn.hmg.zackblog.framework.web.core.handler.GlobalExceptionHandler;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
@@ -53,7 +53,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         //获取token
         String token = SecurityUtils.getToken(request, securityProperties.getHeader());
-
         if (StrUtil.isNotEmpty(token)) {
             try {
                 //校验token

@@ -1,8 +1,7 @@
-package cn.hmg.zackblog.framework.config;
+package cn.hmg.zackblog.framework.security.autoconfigure;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;

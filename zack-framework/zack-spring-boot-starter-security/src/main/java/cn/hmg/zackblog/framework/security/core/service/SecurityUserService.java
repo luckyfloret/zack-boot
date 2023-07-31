@@ -1,6 +1,6 @@
-package cn.hmg.zackblog.framework.core.service;
+package cn.hmg.zackblog.framework.security.core.service;
 
-import cn.hmg.zackblog.framework.core.pojo.UserDetails;
+import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
 
 /**
  * @author hmg

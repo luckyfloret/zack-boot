@@ -1,7 +1,7 @@
-package cn.hmg.zackblog.framework.core.constants;
+package cn.hmg.zackblog.framework.security.core.constants;
 
-import cn.hmg.zackblog.framework.core.definition.RedisKeyDefinition;
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.redis.core.definition.RedisKeyDefinition;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 
 import java.util.concurrent.TimeUnit;
 

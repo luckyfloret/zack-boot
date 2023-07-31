@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.service;
+package cn.hmg.zackblog.framework.security.core.service;
 
 /**
  * @author hmg

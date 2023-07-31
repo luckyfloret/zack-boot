@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.pojo;
+package cn.hmg.zackblog.framework.security.core.pojo;
 
 import lombok.Data;
 

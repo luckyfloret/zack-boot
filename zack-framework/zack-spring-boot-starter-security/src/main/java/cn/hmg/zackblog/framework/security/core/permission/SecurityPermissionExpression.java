@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.core.permission;
+package cn.hmg.zackblog.framework.security.core.permission;
 
 /**
  * @author hmg
