@@ -4,9 +4,9 @@ package cn.hmg.zackblog.framework.common.exception;
  * @author hmg
  * @version 1.0
  * @date 2023-07-14 14:16
- * @description: 服务业务错误码范围，只提供规范不提供实现
+ * @description: 业务错误码范围，只提供规范不提供实现
  */
-public abstract class ServiceBizErrorCodeRange {
+public abstract class BusinessErrorCodeRange {
 
     /**
      * 业务异常的错误码范围区间，解决：解决各模块错误码定义，避免重复，在此只声明不做实际使用

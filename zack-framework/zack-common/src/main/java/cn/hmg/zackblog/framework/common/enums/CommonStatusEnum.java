@@ -2,6 +2,10 @@ package cn.hmg.zackblog.framework.common.enums;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author hmg
  * @version 1.0
@@ -35,4 +39,15 @@ public enum CommonStatusEnum {
      * 描述
      */
     private final String description;
+
+
+    /**
+     * 校验状态是否存在，存在返回true 否则返回false
+     * @param status 状态
+     * @return true or false
+     */
+    public static boolean verifyStatusIsExists(Integer status){
+        List<Integer> statusList = Arrays.stream(CommonStatusEnum.values()).map(CommonStatusEnum::getStatusCode).collect(Collectors.toList());
+        return statusList.contains(status);
+    }
 }

@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ServiceException extends RuntimeException{
+public class BusinessException extends RuntimeException{
     /**
      * 状态码
      */
@@ -22,10 +22,10 @@ public class ServiceException extends RuntimeException{
      */
     private String message;
 
-    public ServiceException(){}
+    public BusinessException(){}
 
 
-    public ServiceException(Integer code, String message){
+    public BusinessException(Integer code, String message){
         this.code = code;
         this.message = message;
     }
