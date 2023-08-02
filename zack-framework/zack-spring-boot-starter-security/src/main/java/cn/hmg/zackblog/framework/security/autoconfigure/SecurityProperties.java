@@ -26,12 +26,6 @@ public class SecurityProperties {
     private String header = "Authorization";
 
     /**
-     * token 过期时间（默认为 30分钟）
-     */
-    @NotNull(message = "过期时间不能为空")
-    private Integer expire = 1800;
-
-    /**
      *  免登录的url
      */
     private List<String> permitAllUrls = new ArrayList<>();

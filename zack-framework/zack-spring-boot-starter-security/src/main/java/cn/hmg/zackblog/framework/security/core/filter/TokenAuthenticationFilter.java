@@ -2,7 +2,7 @@ package cn.hmg.zackblog.framework.security.core.filter;
 
 import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.utils.date.DateUtils;
@@ -66,7 +66,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
                 //设置security 上下文
                 SecurityUtils.setLoginUser(loginUser, request);
-            } catch (ServiceException e) {
+            } catch (BusinessException e) {
                 log.error("exception => code => {}，message => {}", e.getCode(), e.getMessage());
                 CommonResult<?> commonResult = globalExceptionHandler.serviceException(e);
                 ServletUtils.writeJson(response, commonResult);
@@ -88,7 +88,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         //校验用户账号状态
         if (!ObjUtil.notEqual(user.getStatus(), CommonStatusEnum.DISABLED.getStatusCode())) {
-            throw new ServiceException(10200001, "账号已被禁用，请联系管理员");
+            throw new BusinessException(10200001, "账号已被禁用，请联系管理员");
         }
     }
 
@@ -104,12 +104,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         LoginUser loginUser = JsonUtils.parseObject(redisUtils.get(formatAccessToken), LoginUser.class);
 
         if (Objects.isNull(loginUser)) {
-            throw new ServiceException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
+            throw new BusinessException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
         }
 
         //校验token是否过期
         if (DateUtils.isExpire(loginUser.getAccessTokenExpireTime())) {
-            throw new ServiceException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
+            throw new BusinessException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
         }
         return loginUser;
     }
