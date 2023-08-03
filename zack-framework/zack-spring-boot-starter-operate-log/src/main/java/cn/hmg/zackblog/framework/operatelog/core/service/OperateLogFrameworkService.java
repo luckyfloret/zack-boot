@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.framework.operatelog.core.service;
 
-import cn.hmg.zackblog.framework.operatelog.pojo.OperateLog;
+import cn.hmg.zackblog.framework.operatelog.core.pojo.OperateLog;
 
 /**
  * @author hmg

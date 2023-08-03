@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.framework.operatelog.pojo;
+package cn.hmg.zackblog.framework.operatelog.core.pojo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
