@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableConfigurationProperties(AjCaptchaProperties.class)
-@ComponentScan("cn.hmg.zackblog.framework.aj")
+@ComponentScan("cn.hmg.zackblog.framework.captcha.aj")
 @Import({AjCaptchaServiceAutoConfiguration.class, AjCaptchaStorageAutoConfiguration.class})
 public class AjCaptchaAutoConfiguration {
 }
