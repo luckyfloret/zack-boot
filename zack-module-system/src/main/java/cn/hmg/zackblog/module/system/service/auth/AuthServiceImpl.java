@@ -2,7 +2,7 @@ package cn.hmg.zackblog.module.system.service.auth;
 
 import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
 import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
 import cn.hmg.zackblog.framework.captcha.autoconfigure.CaptchaProperties;
@@ -79,7 +79,7 @@ public class AuthServiceImpl implements AuthService {
         LoginUser loginUser = redisUtils.get(refreshTokenKey, LoginUser.class);
 
         if (Objects.isNull(loginUser)) {
-            throw new ServiceException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
+            throw new BusinessException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
         }
 
         //删除刷新令牌
@@ -185,23 +185,23 @@ public class AuthServiceImpl implements AuthService {
         //判断用户是否存在
         User user = userOptional.orElseThrow(() -> {
             createLoginLog(null, adminAuthLoginReqVO.getUsername(), LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.BAD_CREDENTIALS);
-            return new ServiceException(AUTH_BAD_CREDENTIALS.getCode(), AUTH_BAD_CREDENTIALS.getMessage());
+            return new BusinessException(AUTH_BAD_CREDENTIALS.getCode(), AUTH_BAD_CREDENTIALS.getMessage());
         });
         //校验用户密码
         if (!userService.ifPasswordMatch(adminAuthLoginReqVO.getPassword(), user.getPassword())) {
             createLoginLog(user.getId(), user.getUsername(), LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.BAD_CREDENTIALS);
-            throw new ServiceException(AUTH_BAD_CREDENTIALS.getCode(), AUTH_BAD_CREDENTIALS.getMessage());
+            throw new BusinessException(AUTH_BAD_CREDENTIALS.getCode(), AUTH_BAD_CREDENTIALS.getMessage());
         }
         //判断用户是否被禁用
         if (Objects.equals(user.getStatus(), CommonStatusEnum.DISABLED.getStatusCode())) {
             createLoginLog(user.getId(), user.getUsername(), LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.USER_DISABLED);
-            throw new ServiceException(AUTH_USER_DISABLED.getCode(), AUTH_USER_DISABLED.getMessage());
+            throw new BusinessException(AUTH_USER_DISABLED.getCode(), AUTH_USER_DISABLED.getMessage());
         }
 
         //校验用户类型是否合法
         if (ObjUtil.notEqual(userTypeEnum.getType(), user.getType())) {
             createLoginLog(user.getId(), user.getUsername(), LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.USER_ILLEGAL_LOGIN);
-            throw new ServiceException(AUTH_USER_ILLEGAL_LOGIN.getCode(), AUTH_USER_ILLEGAL_LOGIN.getMessage());
+            throw new BusinessException(AUTH_USER_ILLEGAL_LOGIN.getCode(), AUTH_USER_ILLEGAL_LOGIN.getMessage());
         }
 
         return user;
@@ -226,7 +226,7 @@ public class AuthServiceImpl implements AuthService {
             //创建验证码校验失败的登录日志
             createLoginLog(null, adminAuthLoginReqVO.getUsername(), LoginTypeEnum.LOGIN_USERNAME, UserTypeEnum.ADMIN_USER, LoginResultEnum.CAPTCHA_ERROR);
             //抛出异常
-            throw new ServiceException(AUTH_CAPTCHA_ERROR.getCode(), AUTH_CAPTCHA_ERROR.getMessage());
+            throw new BusinessException(AUTH_CAPTCHA_ERROR.getCode(), AUTH_CAPTCHA_ERROR.getMessage());
         }
     }
 

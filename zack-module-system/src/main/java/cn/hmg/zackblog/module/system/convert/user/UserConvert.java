@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.convert.user;
 
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.entity.user.User;
@@ -25,7 +26,7 @@ public interface UserConvert {
      */
     UserDetails convertToUserDetails(User user);
 
-    List<UserPageRespVO> convert(List<User> user);
+    PageResult<UserPageRespVO> convert(PageResult<User> user);
 
     User convert(UserCreateReqVO userCreateReqVO);
 

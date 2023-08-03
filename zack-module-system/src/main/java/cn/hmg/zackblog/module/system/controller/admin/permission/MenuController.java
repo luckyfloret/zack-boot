@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission;
 
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
@@ -31,7 +31,7 @@ import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum
  * @author hmg
  * @since 2023-07-02
  */
-@Tag(name = "菜单管理")
+@Tag(name = "后台-菜单管理")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/system/menu")
@@ -78,6 +78,6 @@ public class MenuController {
     @GetMapping("/get/{id}")
     @Operation(summary = "根据id获取菜单信息")
     public CommonResult<Menu> getMenuById(@PathVariable("id") Long id){
-        return success(Optional.ofNullable(menuService.getMenuByIdFromCache(id)).orElseThrow(() -> new ServiceException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage())));
+        return success(Optional.ofNullable(menuService.getMenuByIdFromCache(id)).orElseThrow(() -> new BusinessException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage())));
     }
 }

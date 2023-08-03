@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.controller.admin.user;
 
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
@@ -30,7 +30,7 @@ import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.USER_NOT_EXISTS;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "用户管理")
+@Tag(name = "后台-用户管理")
 @RequestMapping("/admin/system/user")
 public class UserController {
 
@@ -74,7 +74,7 @@ public class UserController {
     @PreAuthorize("@spe.hasPermission('system:user:query')")
     public CommonResult<UserRespVO> getById(@PathVariable("id") Long id) {
         User user = userService.getUserById(id)
-                .orElseThrow(() -> new ServiceException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
+                .orElseThrow(() -> new BusinessException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
         return success(UserConvert.INSTANCE.convert(user));
     }
 

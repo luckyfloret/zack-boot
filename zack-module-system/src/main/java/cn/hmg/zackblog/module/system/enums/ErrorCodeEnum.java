@@ -54,6 +54,26 @@ public enum ErrorCodeEnum {
     MENU_NOT_EXISTS(10203005, "菜单不存在"),
     MENU_EXISTS_CHILD(10203006, "子菜单存在，无法删除"),
     MENU_ALREADY_EXISTS(10203007, "菜单已存在"),
+
+
+    /**
+     * ############################ Dict Type模块 10204000 ############################
+     */
+    DICT_TYPE_NAME_ALREADY_EXISTS(10204000, "字典类型名称已存在"),
+    DICT_TYPE_TYPE_ALREADY_EXISTS(10204001, "字典类型已存在"),
+    DICT_TYPE_NOT_EXISTS(10204002, "字典类型不存在"),
+    DICT_TYPE_EXISTS_DICT_DATA(10204003, "字典类型存在字典数据，无法删除"),
+    DICT_TYPE_STATUS_ERROR(10204004, "字典类型状态错误，只能是开启或关闭"),
+    DICT_TYPE_NOT_ENABLE(10204005, "该字典类型未启用，不能选择该字典类型"),
+
+
+    /**
+     * ############################ Dict Data模块 10205000 ############################
+     */
+    DICT_DATA_VALUE_ALREADY_EXISTS(10205000, "字典数据键值已存在"),
+    DICT_DATA_STATUS_ERROR(10205001, "字典数据状态错误，只能是开启或关闭"),
+    DICT_DATA_NOT_EXISTS(10205002, "字典数据不存在"),
+
     ;
 
 

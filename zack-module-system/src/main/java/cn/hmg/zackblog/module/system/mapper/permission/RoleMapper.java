@@ -23,6 +23,7 @@ public interface RoleMapper extends BaseMapperExtend<Role> {
         return page(reqVO, new LambdaQueryWrapperExtend<Role>()
                 .likeIfExists(Role::getName, reqVO.getName())
                 .eqIfExists(Role::getStatus, reqVO.getStatus())
+                .orderByAsc(Role::getSort)
         );
     }
 

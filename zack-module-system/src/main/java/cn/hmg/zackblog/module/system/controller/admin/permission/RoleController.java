@@ -23,7 +23,7 @@ import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
  * @author hmg
  * @since 2023-07-02
  */
-@Tag(name = "角色管理")
+@Tag(name = "后台-角色管理")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/system/role")
@@ -32,7 +32,7 @@ public class RoleController {
     private final IRoleService roleService;
 
     @GetMapping("/page")
-    @Operation(summary = "角色列表")
+    @Operation(summary = "角色分页")
     @PreAuthorize("@spe.hasPermission('system:role:list')")
     public CommonResult<PageResult<RolePageRespVO>> page(@Valid RolePageReqVO rolePageReqVO){
         PageResult<RolePageRespVO> pageResult = roleService.getPage(rolePageReqVO);

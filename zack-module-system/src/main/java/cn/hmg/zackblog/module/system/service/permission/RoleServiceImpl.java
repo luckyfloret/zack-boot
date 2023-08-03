@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCreateReqVO;
@@ -78,8 +78,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     public PageResult<RolePageRespVO> getPage(RolePageReqVO rolePageReqVO) {
-        PageResult<Role> page = roleMapper.getPage(rolePageReqVO);
-        return new PageResult<>(RoleConvert.INSTANCE.convert(page.getData()), page.getTotal());
+        PageResult<Role> pageResult = roleMapper.getPage(rolePageReqVO);
+        return RoleConvert.INSTANCE.convert(pageResult);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -167,11 +167,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     private void verifyRoleType(Long roleId) {
         Role role = roleMapper.selectById(roleId);
         //角色不存在
-        Assert.notNull(role, () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+        Assert.notNull(role, () -> new BusinessException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
 
         //不能操作系统内置角色
         Assert.isFalse(role.getType().equals(RoleTypeEnum.SYSTEM.getType()),
-                () -> new ServiceException(ROLE_CANNOT_OPERATE_SYSTEM_ROLE.getCode(), ROLE_CANNOT_OPERATE_SYSTEM_ROLE.getMessage()));
+                () -> new BusinessException(ROLE_CANNOT_OPERATE_SYSTEM_ROLE.getCode(), ROLE_CANNOT_OPERATE_SYSTEM_ROLE.getMessage()));
     }
 
     /**
@@ -185,12 +185,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     private void verifyRoleInfo(String roleName, String code, Integer status, Long roleId) {
         //判断角色编码是否是超管与普通用户，如果是直接抛出异常（因为是内置角色， 所以超管只能query， 普通用户只能query、assignPermission）
         Assert.isFalse(RoleCodeEnum.isSuperAdmin(code) || RoleCodeEnum.isNormal(code),
-                () -> new ServiceException(ROLE_CODE_CANNOT_USE.getCode(),
+                () -> new BusinessException(ROLE_CODE_CANNOT_USE.getCode(),
                         ROLE_CODE_CANNOT_USE.getMessage()));
 
         //校验角色状态（只能是开启或关闭状态）
         Set<Integer> statusSet = CollectionUtils.asSet(ENABLED.getStatusCode(), DISABLED.getStatusCode());
-        Assert.isTrue(statusSet.contains(status), () -> new ServiceException(ROLE_STATUS_ERROR.getCode(), ROLE_STATUS_ERROR.getMessage()));
+        Assert.isTrue(statusSet.contains(status), () -> new BusinessException(ROLE_STATUS_ERROR.getCode(), ROLE_STATUS_ERROR.getMessage()));
 
         //根据角色id查询角色信息
         Role role = roleMapper.selectByRoleName(roleName);
@@ -201,10 +201,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         }
 
         //如果查询到角色，roleId为null的话，表示角色已存在，并且是新增操作，而不是更新操作，所以直接断言抛出异常即可
-        Assert.notNull(roleId, () -> new ServiceException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
+        Assert.notNull(roleId, () -> new BusinessException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
 
         //如果是更新操作，id必须是相同的，不然就是角色名相同了
-        Assert.isTrue(roleId.equals(role.getId()), () -> new ServiceException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
+        Assert.isTrue(roleId.equals(role.getId()), () -> new BusinessException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
     }
 
 

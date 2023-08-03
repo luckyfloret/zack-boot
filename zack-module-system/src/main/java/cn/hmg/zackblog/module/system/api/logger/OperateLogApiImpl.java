@@ -1,8 +1,7 @@
 package cn.hmg.zackblog.module.system.api.logger;
 
 import cn.hmg.zackblog.framework.operatelog.core.api.OperateLogApi;
-import cn.hmg.zackblog.framework.operatelog.core.service.OperateLogFrameworkService;
-import cn.hmg.zackblog.framework.operatelog.pojo.OperateLog;
+import cn.hmg.zackblog.framework.operatelog.core.pojo.OperateLog;
 import cn.hmg.zackblog.module.system.service.logger.IOperateLogService;
 import cn.hmg.zackblog.module.system.service.logger.dto.OperateLogCreateDTO;
 import org.springframework.beans.BeanUtils;

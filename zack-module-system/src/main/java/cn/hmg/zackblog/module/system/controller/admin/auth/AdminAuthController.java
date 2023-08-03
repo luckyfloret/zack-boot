@@ -29,7 +29,7 @@ import java.util.Set;
  * @date 2023-07-08 11:10
  * @description: 认证控制器、用于登录、登出
  */
-@Tag(name = "用户认证")
+@Tag(name = "后台-用户认证")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin/system/auth")

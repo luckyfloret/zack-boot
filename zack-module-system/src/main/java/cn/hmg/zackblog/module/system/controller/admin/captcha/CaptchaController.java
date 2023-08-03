@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description: 验证码控制器
  */
 @RestController
-@Tag(name = "验证码")
+@Tag(name = "后台-验证码")
 @RequestMapping("/admin/captcha")
 @Slf4j
 public class CaptchaController {

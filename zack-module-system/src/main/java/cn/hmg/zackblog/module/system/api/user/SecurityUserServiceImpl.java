@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.api.user;
 
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
 import cn.hmg.zackblog.framework.security.core.service.SecurityUserService;
 import cn.hmg.zackblog.module.system.convert.user.UserConvert;
@@ -28,7 +28,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     public UserDetails getUserDetailsByUserId(Long userId) {
         User user = userService.getById(userId);
         if (Objects.isNull(user)) {
-            throw new ServiceException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage());
+            throw new BusinessException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage());
         }
         return UserConvert.INSTANCE.convertToUserDetails(user);
     }

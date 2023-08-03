@@ -26,7 +26,7 @@ import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
  * @date 2023-07-18 16:29
  * @description: 权限控制器
  */
-@Tag(name = "权限控制")
+@Tag(name = "后台-权限控制")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/system/permission")

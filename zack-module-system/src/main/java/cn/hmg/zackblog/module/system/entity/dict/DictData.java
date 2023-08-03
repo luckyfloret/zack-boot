@@ -48,4 +48,7 @@ public class DictData extends BaseEntity implements Serializable {
 
     @Schema(description = "备注")
     private String remark;
+
+    @Schema(description = "颜色类型")
+    private String colorType;
 }

@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
 import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.framework.common.utils.collections.MapUtils;
 import cn.hmg.zackblog.framework.security.core.utils.SecurityUtils;
@@ -161,7 +161,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public AdminAuthPermissionRespVO getPermissionInfo(List<Menu> menuList) {
         //获取用户信息
-        User user = userService.getUserById(SecurityUtils.getLoginUserId()).orElseThrow(() -> new ServiceException(ErrorCodeEnum.USER_NOT_EXISTS.getCode(), ErrorCodeEnum.USER_USERNAME_EXISTS.getMessage()));
+        User user = userService.getUserById(SecurityUtils.getLoginUserId()).orElseThrow(() -> new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS.getCode(), ErrorCodeEnum.USER_USERNAME_EXISTS.getMessage()));
         //构建权限信息
         Set<String> permissions = menuList.stream().map(Menu::getPermission).collect(Collectors.toSet());
         return AdminAuthConvert.INSTANCE.convertAdminAuthPermissionRespVO(user, permissions);
@@ -322,7 +322,7 @@ public class PermissionServiceImpl implements PermissionService {
 
         //校验roleIds是否全部存在、开启状态
         Set<Long> dbRoleIds = CollectionUtils.convetSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
-        Assert.isTrue(dbRoleIds.containsAll(roleIds), () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+        Assert.isTrue(dbRoleIds.containsAll(roleIds), () -> new BusinessException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
     }
 
 
@@ -334,16 +334,16 @@ public class PermissionServiceImpl implements PermissionService {
     private void verifyPermissionAssignInfo(Long roleId, Set<Long> menuIds) {
         //校验角色是否存在
         Role role = roleService.getRoleById(roleId);
-        Assert.notNull(role, () -> new ServiceException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
+        Assert.notNull(role, () -> new BusinessException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
 
         //校验角色是否是超管，如果是超管直接抛出异常
         Assert.isTrue(!RoleCodeEnum.isSuperAdmin(role.getCode()),
-                () -> new ServiceException(ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getCode(),
+                () -> new BusinessException(ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getCode(),
                         ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getMessage()));
 
         //先校验菜单id集合是否全部合法
         Set<Long> dbMenuIds = CollectionUtils.convetSet(menuService.getMenuListByStatus(ENABLED.getStatusCode()), Menu::getId);
-        Assert.isTrue(dbMenuIds.containsAll(menuIds), () -> new ServiceException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage()));
+        Assert.isTrue(dbMenuIds.containsAll(menuIds), () -> new BusinessException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage()));
     }
 
 }

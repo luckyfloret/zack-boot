@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023-07-26 19:54
  * @description: 用户中心 or 个人中心
  */
-@Tag(name = "用户中心 or 个人中心")
+@Tag(name = "后台-用户中心 or 个人中心")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/system/user-center")
 public class UserCenterController {
-    
+
 }

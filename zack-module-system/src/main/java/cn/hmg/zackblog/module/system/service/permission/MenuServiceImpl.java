@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
@@ -150,7 +150,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //校验是否有子菜单
         if (menuMapper.selectCountByParentId(menuId) > 0) {
-            throw new ServiceException(MENU_EXISTS_CHILD.getCode(), MENU_EXISTS_CHILD.getMessage());
+            throw new BusinessException(MENU_EXISTS_CHILD.getCode(), MENU_EXISTS_CHILD.getMessage());
         }
 
         //删除roleMenu
@@ -182,7 +182,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private void verifyMenuIsExists(Long menuId){
         Menu menu = menuMapper.selectOne(menuId);
         if (Objects.isNull(menu)) {
-            throw new ServiceException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage());
+            throw new BusinessException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage());
         }
     }
 
@@ -222,12 +222,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //如果找到了menu，但是menuId为空，说明是创建菜单操作，但是菜单已存在，所以抛出异常
         if (Objects.isNull(menuId)) {
-            throw new ServiceException(MENU_ALREADY_EXISTS.getCode(), MENU_ALREADY_EXISTS.getMessage());
+            throw new BusinessException(MENU_ALREADY_EXISTS.getCode(), MENU_ALREADY_EXISTS.getMessage());
         }
 
         //在更新菜单时菜单id要保持一致,不一致说明有相同菜单
         if (!menu.getId().equals(menuId)) {
-            throw new ServiceException(MENU_PRIMARY_KEY_ID_ERROR.getCode(), MENU_PRIMARY_KEY_ID_ERROR.getMessage());
+            throw new BusinessException(MENU_PRIMARY_KEY_ID_ERROR.getCode(), MENU_PRIMARY_KEY_ID_ERROR.getMessage());
         }
     }
 
@@ -239,7 +239,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private void verifyMenuType(Integer menuType) {
         Set<Integer> menuTypes = Arrays.stream(MenuTypeEnum.values()).map(MenuTypeEnum::getCode).collect(Collectors.toSet());
         if (!menuTypes.contains(menuType)) {
-            throw new ServiceException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
+            throw new BusinessException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
         }
     }
 
@@ -257,19 +257,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //父菜单不能是自己
         if (parentId.equals(childMenuId)) {
-            throw new ServiceException(MENU_SET_PARENT_MENU_ERROR.getCode(), MENU_SET_PARENT_MENU_ERROR.getMessage());
+            throw new BusinessException(MENU_SET_PARENT_MENU_ERROR.getCode(), MENU_SET_PARENT_MENU_ERROR.getMessage());
         }
 
         //父菜单不存在
         Menu parentMenu = menuMapper.selectOne(Menu::getId, parentId);
         if (Objects.isNull(parentMenu)) {
-            throw new ServiceException(MENU_PARENT_NOT_EXISTS.getCode(), MENU_PARENT_NOT_EXISTS.getMessage());
+            throw new BusinessException(MENU_PARENT_NOT_EXISTS.getCode(), MENU_PARENT_NOT_EXISTS.getMessage());
         }
 
         //父菜单类型必须是目录或者菜单
         if (!MenuTypeEnum.DIR.getCode().equals(parentMenu.getType())
                 && !MenuTypeEnum.MENU.getCode().equals(parentMenu.getType())) {
-            throw new ServiceException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
+            throw new BusinessException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
         }
     }
 }
