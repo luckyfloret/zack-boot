@@ -1,7 +1,7 @@
 package cn.hmg.zackblog.framework.web.core.handler;
 
 import cn.hmg.zackblog.framework.common.exception.ServerException;
-import cn.hmg.zackblog.framework.common.exception.ServiceException;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.web.core.utils.WebFrameworkUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -49,8 +49,8 @@ public class GlobalExceptionHandler {
      * @param ex 业务异常
      * @return CommonResult
      */
-    @ExceptionHandler(ServiceException.class)
-    public CommonResult<?> serviceException(ServiceException ex) {
+    @ExceptionHandler(BusinessException.class)
+    public CommonResult<?> serviceException(BusinessException ex) {
         log.error("serviceException => ", ex);
         return CommonResult.error(ex.getCode(), ex.getMessage());
     }
