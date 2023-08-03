@@ -41,12 +41,11 @@ public class SecurityUtils {
             return null;
         }
 
-        return token;
-//        int index = token.indexOf(AUTHENTICATION_BEARER);
-//        if (-1 == index) {
-//            return null;
-//        }
-//        return token.substring(index + 7).trim();
+        int index = token.indexOf(AUTHENTICATION_BEARER);
+        if (-1 == index) {
+            return null;
+        }
+        return token.substring(index + 7).trim();
     }
 
     public static UserTypeEnum getUserType(Integer userType){
