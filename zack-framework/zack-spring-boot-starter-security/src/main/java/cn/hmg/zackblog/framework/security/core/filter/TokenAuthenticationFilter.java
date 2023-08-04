@@ -6,7 +6,6 @@ import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.utils.date.DateUtils;
-import cn.hmg.zackblog.framework.common.utils.json.JsonUtils;
 import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
 import cn.hmg.zackblog.framework.security.autoconfigure.SecurityProperties;
 import cn.hmg.zackblog.framework.security.core.constants.RedisKeyConstant;
@@ -101,7 +100,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private LoginUser verityAccessToken(String accessToken) {
         //校验token是否存在
         String formatAccessToken = RedisKeyConstant.ACCESS_TOKEN.format(accessToken);
-        LoginUser loginUser = JsonUtils.parseObject(redisUtils.get(formatAccessToken), LoginUser.class);
+        LoginUser loginUser = redisUtils.get(formatAccessToken, LoginUser.class);
 
         if (Objects.isNull(loginUser)) {
             throw new BusinessException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
