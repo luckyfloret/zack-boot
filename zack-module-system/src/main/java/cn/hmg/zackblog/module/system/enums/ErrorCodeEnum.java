@@ -18,6 +18,7 @@ public enum ErrorCodeEnum {
     AUTH_USER_DISABLED(10200001, "账号已被禁用，请联系管理员"),
     AUTH_CAPTCHA_ERROR(10200002, "验证码错误"),
     AUTH_USER_ILLEGAL_LOGIN(10200003, "非法登录"),
+    AUTH_REFRESH_TOKEN_ALREADY_EXPIRE(10200004, "刷新令牌已过期"),
 
     /**
      * ############################ User模块 10201000 ############################
