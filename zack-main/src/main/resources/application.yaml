@@ -9,6 +9,8 @@ spring:
     time-zone: Asia/Shanghai
     serialization:
       fail-on-empty-beans: false
+  main:
+    allow-circular-references: true  #允许循环依赖，因为在当前架构中，无法避免循环依赖
 
 ############################## zack相关配置 ##############################
 zack:
