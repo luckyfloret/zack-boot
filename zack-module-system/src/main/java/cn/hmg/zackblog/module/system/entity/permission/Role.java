@@ -40,12 +40,6 @@ public class Role extends BaseEntity implements Serializable {
     @Schema(description = "排序")
     private Integer sort;
 
-    @Schema(description = "数据范围（1 全部数据权限、2 自定义数据权限、3 本部门数据），此字段作为扩展字段")
-    private Integer dataScope;
-
-    @Schema(description = "数据范围（指定部门的数组）ps: 扩展字段")
-    private String dataScopeDeptIds;
-
     @Schema(description = "角色状态（0 正常、1 停用）")
     private Integer status;
 
