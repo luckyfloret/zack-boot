@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,4 +30,14 @@ public class SecurityProperties {
      *  免登录的url
      */
     private List<String> permitAllUrls = new ArrayList<>();
+
+    /**
+     * 访问令牌过期时间，单位为秒
+     */
+    private long accessTokenExpireTime = 1800;
+
+    /**
+     * 刷新令牌过期时间，单位为秒
+     */
+    private long refreshTokenExpireTime = 4200;
 }

@@ -1,6 +1,9 @@
 package cn.hmg.zackblog.framework.security.core.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
  * @description:  用户实体
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LoginUser {
     /**
      * 用户id
