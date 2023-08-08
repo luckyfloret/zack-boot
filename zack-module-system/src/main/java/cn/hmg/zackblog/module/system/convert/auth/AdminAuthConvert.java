@@ -32,7 +32,7 @@ public interface AdminAuthConvert {
      * @param loginUser 登录用户
      * @return AdminAuthLoginRespVO
      */
-    @Mapping(target = "expireTime", source = "refreshTokenExpireTime")
+    @Mapping(target = "expireTime", source = "accessTokenExpireTime")
     AdminAuthLoginRespVO convert(LoginUser loginUser);
 
     /**

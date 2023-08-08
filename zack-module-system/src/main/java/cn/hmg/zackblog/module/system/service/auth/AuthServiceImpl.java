@@ -3,9 +3,10 @@ package cn.hmg.zackblog.module.system.service.auth;
 import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
-import cn.hmg.zackblog.framework.common.exception.enums.GlobalErrorCode;
+import cn.hmg.zackblog.framework.common.utils.date.DateUtils;
 import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
 import cn.hmg.zackblog.framework.captcha.autoconfigure.CaptchaProperties;
+import cn.hmg.zackblog.framework.security.autoconfigure.SecurityProperties;
 import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
@@ -60,6 +61,9 @@ public class AuthServiceImpl implements AuthService {
     @Resource
     private RedisUtils redisUtils;
 
+    @Resource
+    private SecurityProperties securityProperties;
+
     @Override
     public AdminAuthLoginRespVO login(AdminAuthLoginReqVO adminAuthLoginReqVO, UserTypeEnum userTypeEnum) {
         //校验验证码
@@ -74,20 +78,75 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AdminAuthLoginRespVO refreshToken(String refreshToken) {
-        String refreshTokenKey = REFRESH_TOKEN.format(refreshToken);
-        //校验刷新令牌是否过期
-        LoginUser loginUser = redisUtils.get(refreshTokenKey, LoginUser.class);
+        String refreshTokenRedisKey = REFRESH_TOKEN.format(refreshToken);
+        //校验刷新令牌的有效性
+        LoginUser loginUser = verifyRefreshTokenIsValid(refreshTokenRedisKey);
 
+        //校验访问令牌是否过期
+        if (DateUtils.isExpire(loginUser.getAccessTokenExpireTime())) {
+            //删除访问令牌缓存
+            deleteAccessTokenCache(loginUser.getAccessToken());
+
+            //构建loginUser
+            loginUser = buildLoginUser(loginUser.getUserId(), loginUser.getUsername(), loginUser.getUserType(),
+                    loginUser.getStatus());
+
+
+            //删除旧的刷新令牌
+            redisUtils.delete(refreshTokenRedisKey);
+            //把新构建的登录用户信息加入缓存
+            setTokenWithUserInfoCache(loginUser);
+        }
+        return AdminAuthConvert.INSTANCE.convert(loginUser);
+    }
+
+    /**
+     * 删除访问令牌缓存
+     * @param accessToken 访问令牌
+     */
+    private void deleteAccessTokenCache(String accessToken){
+        String accessTokenRedisKey = ACCESS_TOKEN.format(accessToken);
+        if (redisUtils.exists(accessTokenRedisKey)) {
+            redisUtils.delete(accessTokenRedisKey);
+        }
+    }
+
+    /**
+     * 校验刷新令牌的有效性
+     *
+     * @param refreshTokenRedisKey 刷新令牌 redis key
+     * @return 登录用户信息
+     */
+    private LoginUser verifyRefreshTokenIsValid(String refreshTokenRedisKey) {
+        LoginUser loginUser = redisUtils.get(refreshTokenRedisKey, LoginUser.class);
+        //缓存信息为空，说明刷新令牌无效
         if (Objects.isNull(loginUser)) {
-            throw new BusinessException(GlobalErrorCode.UNAUTHORIZED.getCode(), GlobalErrorCode.UNAUTHORIZED.getMessage());
+            throw new BusinessException(AUTH_INVALID_REFRESH_TOKEN.getCode(), AUTH_INVALID_REFRESH_TOKEN.getMessage());
         }
 
-        //删除刷新令牌
-        redisUtils.delete(refreshTokenKey);
+        //缓存信息存在，但是刷新令牌已过期
+        if (DateUtils.isExpire(loginUser.getRefreshTokenExpireTime())) {
+            //删除刷新令牌
+            redisUtils.delete(refreshTokenRedisKey);
+            redisUtils.delete(ACCESS_TOKEN.format(loginUser.getAccessToken()));
+            throw new BusinessException(AUTH_REFRESH_TOKEN_ALREADY_EXPIRE.getCode(), AUTH_REFRESH_TOKEN_ALREADY_EXPIRE.getMessage());
+        }
 
-        //构建loginUser
-        loginUser = buildLoginUser(loginUser.getUserId(), loginUser.getUsername(), loginUser.getUserType(), loginUser.getStatus());
-        return AdminAuthConvert.INSTANCE.convert(loginUser);
+        return loginUser;
+    }
+
+    @Override
+    public void logout(String token, LoginTypeEnum loginTypeEnum) {
+        String accessTokenRedisKey = ACCESS_TOKEN.format(token);
+        LoginUser loginUser = redisUtils.get(accessTokenRedisKey, LoginUser.class);
+        //缓存信息不为null，执行删除缓存
+        if (Objects.nonNull(loginUser)) {
+            String refreshTokenRedisKey = REFRESH_TOKEN.format(loginUser.getRefreshToken());
+            redisUtils.delete(accessTokenRedisKey);
+            redisUtils.delete(refreshTokenRedisKey);
+            //记录登出日志
+            createLogoutLog(loginUser.getUserId(), loginUser.getUsername(), loginTypeEnum, UserTypeEnum.ADMIN_USER);
+        }
     }
 
     /**
@@ -103,13 +162,26 @@ public class AuthServiceImpl implements AuthService {
         //创建登录日志
         createLoginLog(userId, username, LoginTypeEnum.LOGIN_USERNAME, userTypeEnum, LoginResultEnum.SUCCESS);
 
-        //构建LoginUser，保存到Redis中
+        //构建LoginUser
         LoginUser loginUser = buildLoginUser(userId, username, userTypeEnum.getType(), status);
+
+        //把令牌信息与用户信息放入缓存
+        setTokenWithUserInfoCache(loginUser);
 
         //更新用户账号的登录ip与登录时间
         User user = buildUser(userId);
         userService.updateById(user);
         return AdminAuthConvert.INSTANCE.convert(loginUser);
+    }
+
+    /**
+     * 把登录用户信息放入缓存
+     *
+     * @param loginUser 登录用户
+     */
+    private void setTokenWithUserInfoCache(LoginUser loginUser) {
+        redisUtils.set(ACCESS_TOKEN.format(loginUser.getAccessToken()), JSONUtil.toJsonStr(loginUser), ACCESS_TOKEN.getExpireTime(), ACCESS_TOKEN.getTimeType());
+        redisUtils.set(REFRESH_TOKEN.format(loginUser.getRefreshToken()), loginUser, REFRESH_TOKEN.getExpireTime(), REFRESH_TOKEN.getTimeType());
     }
 
     /**
@@ -134,25 +206,18 @@ public class AuthServiceImpl implements AuthService {
      * @param status   状态
      * @return LoginUser
      */
-    private LoginUser buildLoginUser(Long userId, String username, Integer userType, Integer status) {
-        //创建访问令牌
-        String accessToken = createAccessToken();
-        //创建刷新令牌
-        String refreshToken = createRefreshToken();
-
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(userId);
-        loginUser.setUsername(username);
-        loginUser.setUserType(userType);
-        loginUser.setStatus(status);
-        loginUser.setAccessToken(accessToken);
-        loginUser.setAccessTokenExpireTime(LocalDateTime.now().plusSeconds(ACCESS_TOKEN.getExpireTime()));
-        loginUser.setRefreshToken(refreshToken);
-        loginUser.setRefreshTokenExpireTime(LocalDateTime.now().plusSeconds(REFRESH_TOKEN.getExpireTime()));
-
-        redisUtils.set(ACCESS_TOKEN.format(accessToken), JSONUtil.toJsonStr(loginUser), ACCESS_TOKEN.getExpireTime(), ACCESS_TOKEN.getTimeType());
-        redisUtils.set(REFRESH_TOKEN.format(refreshToken), loginUser, REFRESH_TOKEN.getExpireTime(), REFRESH_TOKEN.getTimeType());
-        return loginUser;
+    private LoginUser buildLoginUser(Long userId, String username, Integer userType,
+                                     Integer status) {
+        return LoginUser.builder()
+                .userId(userId)
+                .username(username)
+                .userType(userType)
+                .status(status)
+                .accessToken(createAccessToken())
+                .refreshToken(createRefreshToken())
+                .accessTokenExpireTime(LocalDateTime.now().plusSeconds(securityProperties.getAccessTokenExpireTime()))
+                .refreshTokenExpireTime(LocalDateTime.now().plusSeconds(securityProperties.getRefreshTokenExpireTime()))
+                .build();
     }
 
     /**
@@ -247,5 +312,16 @@ public class AuthServiceImpl implements AuthService {
                         ServletUtils.getUserAgent(), ServletUtils.getClientIp());
         //创建登录日志
         loginLogService.createLoginLog(loginLogCreateDTO);
+    }
+
+    /**
+     * 创建登出日志
+     * @param userId 用户id
+     * @param username 用户名
+     * @param loginTypeEnum 登录日志类型枚举
+     * @param userTypeEnum 用户类型枚举
+     */
+    private void createLogoutLog(Long userId, String username, LoginTypeEnum loginTypeEnum, UserTypeEnum userTypeEnum){
+        createLoginLog(userId, username, loginTypeEnum, userTypeEnum, LoginResultEnum.SUCCESS);
     }
 }
