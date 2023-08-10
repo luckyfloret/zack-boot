@@ -42,6 +42,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final SecurityProperties securityProperties;
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return securityProperties.getPermitAllUrls().contains(request.getRequestURI());
+    }
+
     private final RedisUtils redisUtils;
 
     private final SecurityUserService securityUserService;
