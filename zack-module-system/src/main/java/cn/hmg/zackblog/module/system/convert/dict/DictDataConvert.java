@@ -1,13 +1,12 @@
 package cn.hmg.zackblog.module.system.convert.dict;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.data.DictDataCreateReqVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.data.DictDataPageRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.data.DictDataRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.data.DictDataUpdateReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.dict.vo.data.*;
 import cn.hmg.zackblog.module.system.entity.dict.DictData;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -26,4 +25,6 @@ public interface DictDataConvert {
     DictData convert(DictDataUpdateReqVO dictDataUpdateReqVO);
 
     DictDataRespVO convert(DictData dictData);
+
+    List<DictDataListRespVO> convert(List<DictData> dictDataList);
 }

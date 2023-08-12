@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 
@@ -75,5 +77,13 @@ public class DictDataController {
     public CommonResult<Boolean> deleteDictDataById(@PathVariable("id") Long id) {
         dictDataService.deleteDictDataById(id);
         return success(true);
+    }
+
+    @GetMapping("/list")
+    @Operation(summary = "字典数据列表")
+    @PreAuthorize("@spe.hasPermission('system:dict:list')")
+    @OperateLog(operateName = "字典数据列表", operateType = QUERY)
+    public CommonResult<List<DictDataListRespVO>> list() {
+        return success(DictDataConvert.INSTANCE.convert(dictDataService.list()));
     }
 }

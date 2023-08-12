@@ -91,7 +91,6 @@ public class AuthServiceImpl implements AuthService {
             loginUser = buildLoginUser(loginUser.getUserId(), loginUser.getUsername(), loginUser.getUserType(),
                     loginUser.getStatus());
 
-
             //删除旧的刷新令牌
             redisUtils.delete(refreshTokenRedisKey);
             //把新构建的登录用户信息加入缓存

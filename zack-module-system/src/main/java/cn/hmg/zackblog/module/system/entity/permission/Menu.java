@@ -41,7 +41,7 @@ public class Menu extends BaseEntity implements Serializable {
     @Schema(description = "菜单类型")
     private Integer type;
 
-    @Schema(description = "用户类型（用于分辨菜单导航）")
+    @Schema(description = "用户类型（用于分辨菜单导航）, ps: 扩展字段")
     private Integer userType;
 
     @Schema(description = "排序")

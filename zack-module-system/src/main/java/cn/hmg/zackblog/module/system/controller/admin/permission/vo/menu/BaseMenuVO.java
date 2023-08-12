@@ -30,10 +30,6 @@ public class BaseMenuVO implements Serializable {
     @Schema(description = "菜单类型")
     private Integer type;
 
-    @NotNull(message = "用户类型不能为空")
-    @Schema(description = "用户类型（用于分辨菜单导航）")
-    private Integer userType;
-
     @Schema(description = "排序")
     private Integer sort;
 
