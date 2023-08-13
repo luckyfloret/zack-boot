@@ -25,6 +25,8 @@ zack:
       - /admin/system/auth/refresh-token
       - /springboot/admin/**
       - /actuator/**
+    access-token-expire-time: 99999999
+    refresh-token-expire-time: 99999999
   captcha:
     enabled: false
 ############################## mybatis-plus配置 ##############################
