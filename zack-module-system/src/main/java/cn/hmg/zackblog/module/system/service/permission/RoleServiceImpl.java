@@ -29,6 +29,7 @@ import java.util.*;
 
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
 import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
+
 /**
  * <p>
  * 角色管理 服务实现类
@@ -192,19 +193,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         Set<Integer> statusSet = CollectionUtils.asSet(ENABLED.getStatusCode(), DISABLED.getStatusCode());
         Assert.isTrue(statusSet.contains(status), () -> new BusinessException(ROLE_STATUS_ERROR.getCode(), ROLE_STATUS_ERROR.getMessage()));
 
-        //根据角色id查询角色信息
+
+        //根据角色名称查询角色信息
         Role role = roleMapper.selectByRoleName(roleName);
 
-        //如果为null表示角色不存在，并且是新增操作，直接结束方法即可
-        if (Objects.isNull(role)) {
-            return;
+        //角色不为空并且传进来的角色id与查询的id不一致，说明角色名称已存在
+        if (Objects.nonNull(role) && !role.getId().equals(roleId)) {
+            throw new BusinessException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage());
         }
 
-        //如果查询到角色，roleId为null的话，表示角色已存在，并且是新增操作，而不是更新操作，所以直接断言抛出异常即可
-        Assert.notNull(roleId, () -> new BusinessException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
+        //判断角色编码是否唯一
+        role = roleMapper.selectByRoleCode(code);
 
-        //如果是更新操作，id必须是相同的，不然就是角色名相同了
-        Assert.isTrue(roleId.equals(role.getId()), () -> new BusinessException(ROLE_NAME_ALREADY_EXISTS.getCode(), ROLE_NAME_ALREADY_EXISTS.getMessage()));
+        if (Objects.nonNull(role) && !role.getId().equals(roleId)) {
+            throw new BusinessException(ROLE_CODE_ALREADY_EXISTS.getCode(), ROLE_CODE_ALREADY_EXISTS.getMessage());
+        }
     }
 
 

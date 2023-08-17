@@ -42,4 +42,8 @@ public interface RoleMapper extends BaseMapperExtend<Role> {
     default List<Role> selectListByStatus(Integer status) {
         return selectList(new LambdaQueryWrapperExtend<Role>().eq(Role::getStatus, status));
     }
+
+    default Role selectByRoleCode(String code) {
+        return selectOne(Role::getCode, code);
+    }
 }

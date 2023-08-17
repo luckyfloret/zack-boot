@@ -40,7 +40,7 @@ public class RoleController {
     }
 
     @PostMapping("/create")
-    @Operation(summary = "创建菜单")
+    @Operation(summary = "创建角色")
     @PreAuthorize("@spe.hasPermission('system:role:create')")
     public CommonResult<Boolean> createRole(@Valid @RequestBody RoleCreateReqVO roleCreateReqVO){
         roleService.createRole(roleCreateReqVO);
@@ -48,7 +48,7 @@ public class RoleController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "更新菜单")
+    @Operation(summary = "更新角色")
     @PreAuthorize("@spe.hasPermission('system:role:update')")
     public CommonResult<Boolean> updateRole(@Valid @RequestBody RoleUpdateReqVO roleUpdateReqVO){
         roleService.updateRole(roleUpdateReqVO);
@@ -56,7 +56,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @Operation(summary = "删除菜单")
+    @Operation(summary = "删除角色")
     @PreAuthorize("@spe.hasPermission('system:role:delete')")
     public CommonResult<Boolean> deleteRoleById(@PathVariable("id") Long id){
         roleService.deleteRoleById(id);

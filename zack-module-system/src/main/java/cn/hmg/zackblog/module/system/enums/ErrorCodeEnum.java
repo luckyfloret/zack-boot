@@ -43,6 +43,7 @@ public enum ErrorCodeEnum {
     ROLE_STATUS_ERROR(10202003, "角色状态错误，只能是开启或关闭"),
     ROLE_CANNOT_OPERATE_SYSTEM_ROLE(10202004, "不能操作系统内置角色"),
     ROLE_NOT_ALLOWED_ASSIGN_PERMISSION(10202005, "不允许分配权限"),
+    ROLE_CODE_ALREADY_EXISTS(10202006, "角色编码已经存在，请更换角色编码"),
 
 
     /**
