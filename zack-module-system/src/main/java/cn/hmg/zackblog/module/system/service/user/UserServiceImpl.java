@@ -118,19 +118,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //校验用户是否存在
         User user = userMapper.selectById(userResetPasswordReqVO.getUserId());
         Assert.notNull(user, () -> new BusinessException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
-
-        //对比旧密码和原密码
-        Assert.isTrue(passwordEncoder.matches(userResetPasswordReqVO.getOldPassword(), user.getPassword()),
-                () -> new BusinessException(USER_OLD_PASSWORD_ERROR.getCode(), USER_OLD_PASSWORD_ERROR.getMessage()));
-
-        //更新密码
-        user.setPassword(userResetPasswordReqVO.getNewPassword());
+        user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
+        //更新用户信息
         userMapper.updateById(user);
     }
 
     @Override
     public void verifyUserIsExistsByUserId(Long userId) {
         verifyUserIsExistsById(userId);
+    }
+
+    @Override
+    public void updateUserPassword(UserUpdatePasswordReqVO userUpdatePasswordReqVO) {
+        //校验用户是否存在
+        User user = userMapper.selectById(userUpdatePasswordReqVO.getUserId());
+        Assert.notNull(user, () -> new BusinessException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
+
+        //对比旧密码和原密码
+        Assert.isTrue(passwordEncoder.matches(userUpdatePasswordReqVO.getOldPassword(), user.getPassword()),
+                () -> new BusinessException(USER_OLD_PASSWORD_ERROR.getCode(), USER_OLD_PASSWORD_ERROR.getMessage()));
+
+        //更新密码
+        user.setPassword(passwordEncoder.encode(userUpdatePasswordReqVO.getNewPassword()));
+        userMapper.updateById(user);
     }
 
     /**

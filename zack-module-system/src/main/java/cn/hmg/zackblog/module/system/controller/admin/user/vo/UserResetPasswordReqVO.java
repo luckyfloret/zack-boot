@@ -3,26 +3,18 @@ package cn.hmg.zackblog.module.system.controller.admin.user.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author hmg
  * @version 1.0
- * @date 2023-07-26 20:11
+ * @date 2023-08-18 16:36
  * @description: 用户重置密码 request vo
  */
-@Schema(name = "用户重置密码 request vo")
 @Data
+@Schema(name = "用户重置密码 request vo")
 public class UserResetPasswordReqVO {
     @NotNull(message = "用户id不能为空")
+    @Schema(description = "用户id")
     private Long userId;
-
-    @NotBlank(message = "旧密码不能为空")
-    @Schema(description = "旧密码")
-    private String oldPassword;
-
-    @NotBlank(message = "新密码不能为空")
-    @Schema(description = "新密码")
-    private String newPassword;
 }

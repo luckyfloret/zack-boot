@@ -75,4 +75,6 @@ public interface IUserService extends IService<User> {
      * @param userId 用户id
      */
     void verifyUserIsExistsByUserId(Long userId);
+
+    void updateUserPassword(UserUpdatePasswordReqVO userUpdatePasswordReqVO);
 }

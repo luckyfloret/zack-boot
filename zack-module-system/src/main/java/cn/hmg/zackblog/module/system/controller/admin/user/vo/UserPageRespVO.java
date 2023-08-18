@@ -3,6 +3,7 @@ package cn.hmg.zackblog.module.system.controller.admin.user.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -27,4 +28,7 @@ public class UserPageRespVO extends BaseUserVO{
 
     @Schema(description = "最后登录时间")
     private LocalDateTime loginDate;
+
+    @Schema(description = "创建时间")
+    private LocalDateTime createTime;
 }
