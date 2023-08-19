@@ -14,5 +14,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Schema(name = "字典数据分页 response vo")
 public class DictDataPageRespVO extends BaseDictDataVO{
-
+    @Schema(description = "字典数据id")
+    private Long id;
 }

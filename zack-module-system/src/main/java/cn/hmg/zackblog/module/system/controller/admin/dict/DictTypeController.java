@@ -33,7 +33,7 @@ import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum
 public class DictTypeController {
     private final IDictTypeService dictTypeService;
 
-    @GetMapping("/ge")
+    @GetMapping("/page")
     @PreAuthorize("@spe.hasPermission('system:dict:list')")
     @Operation(summary = "字典类型分页")
     @OperateLog(operateName = "字典类型分页", operateType = QUERY)
