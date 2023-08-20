@@ -7,6 +7,8 @@ import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.DictTypeUpdat
 import cn.hmg.zackblog.module.system.entity.dict.DictType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 字典类型 服务类
@@ -61,4 +63,6 @@ public interface IDictTypeService extends IService<DictType> {
      * @return 字典类型
      */
     DictType selectByDictType(String type);
+
+    List<DictType> getDictTypeList();
 }

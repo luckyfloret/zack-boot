@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
@@ -89,6 +90,11 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> i
     @Override
     public DictType selectByDictType(String type) {
         return dictTypeMapper.selectByDictType(type);
+    }
+
+    @Override
+    public List<DictType> getDictTypeList() {
+        return dictTypeMapper.selectList();
     }
 
     /**

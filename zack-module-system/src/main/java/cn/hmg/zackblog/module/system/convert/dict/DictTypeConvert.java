@@ -1,13 +1,13 @@
 package cn.hmg.zackblog.module.system.convert.dict;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.DictTypeCreateReqVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.DictTypePageRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.DictTypeRespVO;
-import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.DictTypeUpdateReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.dict.vo.type.*;
 import cn.hmg.zackblog.module.system.entity.dict.DictType;
+import cn.hutool.core.lang.Dict;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -26,4 +26,6 @@ public interface DictTypeConvert {
     DictType convert(DictTypeUpdateReqVO dictTypeUpdateReqVO);
 
     DictTypeRespVO convert(DictType dictType);
+
+    List<DictTypeListRespVO> convert(List<DictType> dictTypeList);
 }
