@@ -112,4 +112,6 @@ public interface PermissionService {
      * @return 角色列表
      */
     List<Role> listRoleByStatus(Integer status);
+
+    Set<Long> getRoleIdsByUserId(Long loginUserId);
 }

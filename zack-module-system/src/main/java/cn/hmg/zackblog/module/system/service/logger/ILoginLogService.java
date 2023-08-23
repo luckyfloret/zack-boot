@@ -1,5 +1,7 @@
 package cn.hmg.zackblog.module.system.service.logger;
 
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.module.system.controller.admin.logger.vo.loginlog.LoginLogPageReqVO;
 import cn.hmg.zackblog.module.system.entity.logger.LoginLog;
 import cn.hmg.zackblog.module.system.service.logger.dto.LoginLogCreateDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -19,4 +21,8 @@ public interface ILoginLogService extends IService<LoginLog> {
      * @param loginLogCreateDTO 创建登录日志dto
      */
     void createLoginLog(LoginLogCreateDTO loginLogCreateDTO);
+
+    PageResult<LoginLog> getPage(LoginLogPageReqVO loginLogPageReqVO);
+
+    LoginLog getLoginLogById(Long id);
 }

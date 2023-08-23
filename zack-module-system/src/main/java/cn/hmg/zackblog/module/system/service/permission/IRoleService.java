@@ -9,6 +9,7 @@ import cn.hmg.zackblog.module.system.entity.permission.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -77,4 +78,6 @@ public interface IRoleService extends IService<Role> {
      * @return 角色列表
      */
    List<Role> getRoleListFromDbByStatus(Integer status);
+
+    List<Role> getRoleListFromCacheByIds(Set<Long> roleIds);
 }

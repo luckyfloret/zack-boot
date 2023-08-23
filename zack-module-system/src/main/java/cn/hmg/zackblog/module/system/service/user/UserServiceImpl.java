@@ -4,6 +4,7 @@ import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterUpdateReqVO;
 import cn.hmg.zackblog.module.system.convert.user.UserConvert;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import cn.hmg.zackblog.module.system.mapper.user.UserMapper;
@@ -129,9 +130,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public void updateUserPassword(UserUpdatePasswordReqVO userUpdatePasswordReqVO) {
+    public void updateUserPassword(Long userId, UserUpdatePasswordReqVO userUpdatePasswordReqVO) {
         //校验用户是否存在
-        User user = userMapper.selectById(userUpdatePasswordReqVO.getUserId());
+        User user = userMapper.selectById(userId);
         Assert.notNull(user, () -> new BusinessException(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMessage()));
 
         //对比旧密码和原密码
@@ -143,8 +144,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userMapper.updateById(user);
     }
 
+    @Override
+    public void updateUserPersonalInfo(Long loginUserId, UserCenterUpdateReqVO userCenterUpdateReqVO) {
+        //校验用户是否存在
+        verifyUserIsExistsById(loginUserId);
+        //校验邮箱是否唯一
+        verifyEmailIsUnique(loginUserId, userCenterUpdateReqVO.getEmail());
+        //校验手机号是否唯一
+        verifyMobileIsUnique(loginUserId, userCenterUpdateReqVO.getMobile());
+        //更新用户信息
+        userMapper.updateById(UserConvert.INSTANCE.convert(userCenterUpdateReqVO).setId(loginUserId));
+    }
+
     /**
      * 校验用户是否存在
+     *
      * @param userId 用户id
      */
     private void verifyUserIsExistsById(Long userId) {
@@ -154,6 +168,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 设置用户默认值
+     *
      * @param user 用户
      */
     private void setUserDefaultValue(User user) {
@@ -164,13 +179,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 校验用户信息， create update时使用
-     * @param userId 用户id
+     *
+     * @param userId   用户id
      * @param username 用户名
-     * @param email 邮箱
-     * @param mobile 手机号
-     * @param status 用户状态
+     * @param email    邮箱
+     * @param mobile   手机号
+     * @param status   用户状态
      * @param userType 用户类型
-     * @param sex 性别
+     * @param sex      性别
      */
     private void verifyUser(Long userId, String username, String email, String mobile, Integer status, Integer userType, Integer sex) {
         //校验用户名是否存在
@@ -205,7 +221,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 校验用户名是否存在
-     * @param userId 用户id
+     *
+     * @param userId   用户id
      * @param username 用户名
      */
     private void verifyUsernameIsExists(Long userId, String username) {
@@ -225,8 +242,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 校验邮箱是否是唯一的
+     *
      * @param userId 用户id
-     * @param email 用户邮箱
+     * @param email  用户邮箱
      */
     private void verifyEmailIsUnique(Long userId, String email) {
         //根据邮箱查询用户
@@ -244,6 +262,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 校验手机号是否唯一
+     *
      * @param userId 用户id
      * @param mobile 手机号
      */

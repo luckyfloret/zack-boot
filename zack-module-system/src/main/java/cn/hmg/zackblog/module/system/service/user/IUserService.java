@@ -2,6 +2,7 @@ package cn.hmg.zackblog.module.system.service.user;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterUpdateReqVO;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -76,5 +77,7 @@ public interface IUserService extends IService<User> {
      */
     void verifyUserIsExistsByUserId(Long userId);
 
-    void updateUserPassword(UserUpdatePasswordReqVO userUpdatePasswordReqVO);
+    void updateUserPassword(Long userId, UserUpdatePasswordReqVO userUpdatePasswordReqVO);
+
+    void updateUserPersonalInfo(Long loginUserId, UserCenterUpdateReqVO userCenterUpdateReqVO);
 }

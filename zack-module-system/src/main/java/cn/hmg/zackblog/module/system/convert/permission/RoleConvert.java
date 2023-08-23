@@ -5,6 +5,7 @@ import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleCre
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RolePageRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.RoleUpdateReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -31,4 +32,6 @@ public interface RoleConvert {
     Role convert(RoleUpdateReqVO roleUpdateReqVO);
 
     RoleRespVO convertRoleRespVO(Role role);
+
+    List<UserCenterRespVO.RoleVO> convert(List<Role> roles);
 }

@@ -26,6 +26,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
 import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
@@ -158,6 +159,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public List<Role> getRoleListFromDbByStatus(Integer status) {
         return roleMapper.selectListByStatus(status);
+    }
+
+    @Override
+    public List<Role> getRoleListFromCacheByIds(Set<Long> roleIds) {
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return Collections.emptyList();
+        }
+
+        return roleCache.values().stream().filter(role -> roleIds.contains(role.getId())).collect(Collectors.toList());
     }
 
     /**

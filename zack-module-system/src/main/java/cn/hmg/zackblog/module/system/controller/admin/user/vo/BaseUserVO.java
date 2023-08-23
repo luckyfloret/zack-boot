@@ -2,6 +2,7 @@ package cn.hmg.zackblog.module.system.controller.admin.user.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 
@@ -16,10 +17,12 @@ import javax.validation.constraints.*;
 public class BaseUserVO {
     @Schema(description = "用户名")
     @NotBlank(message = "用户名不能为空")
+    @Length(max = 20, message = "最大长度为20位")
     private String username;
 
     @Schema(description = "昵称")
     @NotBlank(message = "昵称不能为空")
+    @Length(max = 20, message = "最大长度为20位")
     private String nickname;
 
     @Schema(description = "用户邮箱")

@@ -49,7 +49,7 @@ public class LoginLog extends BaseEntity implements Serializable {
     @Schema(description = "浏览器UA")
     private String userAgent;
 
-    @Schema(description = "登录结果 （0 成功， 1 失败）")
+    @Schema(description = "登录结果 (200 成功，其他失败）")
     private Integer result;
 
     @Schema(description = "用户id")

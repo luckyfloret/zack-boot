@@ -3,6 +3,8 @@ package cn.hmg.zackblog.module.system.convert.user;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterUpdateReqVO;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -33,4 +35,8 @@ public interface UserConvert {
     User convert(UserUpdateReqVO userUpdateReqVO);
 
     UserRespVO convert(User user);
+
+    UserCenterRespVO convertUserCenterRespVO(User user);
+
+    User convert(UserCenterUpdateReqVO userCenterUpdateReqVO);
 }
