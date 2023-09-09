@@ -62,4 +62,8 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
         Db.saveBatch(entities);
     }
 
+    default void updateBatchById(Collection<T> entities) {
+        Db.updateBatchById(entities);
+    }
+
 }
