@@ -1,6 +1,7 @@
 package cn.hmg.zackblog.framework.security.autoconfigure;
 
 import cn.hmg.zackblog.framework.security.core.filter.TokenAuthenticationFilter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  * @date 2023-07-17 16:54
  * @description: 专门用于security 配置
  */
-@Configuration
+@AutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ZackWebSecurityConfigurerAdapter {
 
@@ -52,7 +53,7 @@ public class ZackWebSecurityConfigurerAdapter {
                 //在yaml里配置的zack.security.permitAllUrls无需认证
                 .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
                 .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.js", "/**/*.css",
-                        "/*/api-docs/**", "/favicon.ico").permitAll()
+                        "/*/api-docs/**", "/favicon.ico", "/swagger-resources").permitAll()
                 .anyRequest().authenticated()
                 //配置异常处理
                 .and().exceptionHandling()

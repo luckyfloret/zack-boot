@@ -42,16 +42,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final SecurityProperties securityProperties;
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return securityProperties.getPermitAllUrls().contains(request.getRequestURI());
-    }
-
     private final RedisUtils redisUtils;
 
     private final SecurityUserService securityUserService;
 
     private final GlobalExceptionHandler globalExceptionHandler;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return securityProperties.getPermitAllUrls().contains(request.getRequestURI());
+    }
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -63,7 +63,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 LoginUser loginUser = verityAccessToken(token);
 
                 //校验用户类型，前台用户 or 后台用户
-                verifyUserType(loginUser.getUserType());
+                verifyUserType(loginUser.getUserType(), request.getRequestURI());
 
                 //检查用户账号状态是否被禁用
                 checkUserStatus(loginUser.getUserId());
@@ -123,10 +123,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      *
      * @param userType 用户类型
      */
-    private void verifyUserType(Integer userType) {
+    private void verifyUserType(Integer userType, String requestUri) {
         UserTypeEnum userTypeEnum = SecurityUtils.getUserType(userType);
         if (Objects.isNull(userTypeEnum)) {
             throw new AccessDeniedException("错误的用户类型");
         }
+
+        //校验访问url，禁止前台用户访问后台接口，暂时通过访问前缀限制实现
+//        String prefixUri = "/admin";
+//        if (Objects.equals(userType, UserTypeEnum.FRONT_USER.getType()) && prefixUri.startsWith(requestUri)) {
+//            throw new AccessDeniedException("未授权");
+//        }
     }
 }
