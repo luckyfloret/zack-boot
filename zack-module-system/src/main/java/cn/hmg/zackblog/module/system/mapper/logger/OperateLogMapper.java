@@ -30,6 +30,7 @@ public interface OperateLogMapper extends BaseMapperExtend<OperateLog> {
                 .eqIfExists(OperateLog::getType, operateLogPageReqVO.getType())
                 .geIfExists(OperateLog::getOperateTime, operateLogPageReqVO.getStartTime())
                 .leIfExists(OperateLog::getOperateTime, operateLogPageReqVO.getEndTime())
+                .orderByDesc(OperateLog::getCreateTime)
         ;
 
         if (Boolean.TRUE.equals(operateLogPageReqVO.getResult())) {

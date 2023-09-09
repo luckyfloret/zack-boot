@@ -81,7 +81,6 @@ public class DictDataController {
 
     @GetMapping("/list")
     @Operation(summary = "字典数据列表")
-    @PreAuthorize("@spe.hasPermission('system:dict:list')")
     @OperateLog(operateName = "字典数据列表", operateType = QUERY)
     public CommonResult<List<DictDataListRespVO>> list() {
         return success(DictDataConvert.INSTANCE.convert(dictDataService.list()));

@@ -50,7 +50,6 @@ public class UserCenterController {
 
     @PutMapping("/update-password")
     @Operation(summary = "更新用户密码")
-    @PreAuthorize("@spe.hasPermission('system:user:update-user-password')")
     public CommonResult<Boolean> updateUserPassword(@Valid @RequestBody UserUpdatePasswordReqVO userUpdatePasswordReqVO) {
         userService.updateUserPassword(getLoginUserId(), userUpdatePasswordReqVO);
         return success(Boolean.TRUE);

@@ -4,6 +4,7 @@ import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthMenuRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import org.mapstruct.Mapper;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils.sort;
 import static cn.hmg.zackblog.module.system.entity.permission.Menu.ROOT;
 
 /**
@@ -52,7 +54,7 @@ public interface AdminAuthConvert {
      * @return AdminAuthMenuRespVO
      */
     default List<AdminAuthMenuRespVO> buildMenuTree(List<Menu> menuListFromCache) {
-        //先排序
+        //排序，保证菜单有序性
         menuListFromCache.sort(Comparator.comparing(Menu::getSort));
 
         //把menuListFromCache转成Map，key为menuId，value为menu对象
@@ -75,7 +77,8 @@ public interface AdminAuthConvert {
         });
 
         //最后取出所有根节点
-        return nodeMaps.values().stream().filter(node -> ROOT.equals(node.getParentId())).collect(Collectors.toList());
+        return sort(nodeMaps.values().stream().filter(node -> ROOT.equals(node.getParentId())).collect(Collectors.toList()),
+                Comparator.comparing(AdminAuthMenuRespVO::getSort));
     }
 
 

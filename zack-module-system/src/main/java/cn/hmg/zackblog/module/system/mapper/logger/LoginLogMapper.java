@@ -28,8 +28,8 @@ public interface LoginLogMapper extends BaseMapperExtend<LoginLog> {
                 .likeIfExists(LoginLog::getUserIp, loginLogPageReqVO.getUserIp())
                 .likeIfExists(LoginLog::getUsername, loginLogPageReqVO.getUsername())
                 .geIfExists(LoginLog::getCreateTime, loginLogPageReqVO.getStartTime())
-                .leIfExists(LoginLog::getCreateTime, loginLogPageReqVO.getEndTime()
-        );
+                .leIfExists(LoginLog::getCreateTime, loginLogPageReqVO.getEndTime());
+        lambdaQueryWrapperExtend.orderByDesc(LoginLog::getCreateTime);
         if (Boolean.TRUE.equals(loginLogPageReqVO.getResult())) {
             lambdaQueryWrapperExtend.eq(LoginLog::getResult, GlobalSuccessCodeEnum.SUCCESS.getCode());
         } else if (Boolean.FALSE.equals(loginLogPageReqVO.getResult())) {

@@ -14,6 +14,7 @@ import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.MenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
 import cn.hmg.zackblog.module.system.mq.producer.menu.MenuProducer;
+import cn.hmg.zackblog.module.system.mq.producer.permission.PermissionProducer;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Resource
     private MenuProducer menuProducer;
+
+    @Resource
+    private PermissionProducer permissionProducer;
 
     private void initMenuCache() {
         List<Menu> menus = menuMapper.selectList();
@@ -109,6 +113,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             public void afterCommit() {
                 //通知MQ刷新缓存
                 menuProducer.asyncSendMenuRefreshCacheMessage();
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
             }
         });
     }

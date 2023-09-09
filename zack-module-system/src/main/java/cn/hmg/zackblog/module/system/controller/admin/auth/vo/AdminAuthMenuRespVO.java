@@ -32,6 +32,9 @@ public class AdminAuthMenuRespVO {
     @Schema(description = "菜单图标")
     private String icon;
 
+    @Schema(description = "排序")
+    private Integer sort;
+
     @Schema(description = "组件路径")
     private String component;
 
