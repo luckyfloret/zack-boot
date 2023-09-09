@@ -1,8 +1,9 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginRespVO;
+import cn.hmg.zackblog.module.system.enums.LoginTypeEnum;
 
 /**
  * @author hmg
@@ -26,4 +27,11 @@ public interface AuthService {
      * @return AdminAuthLoginRespVO
      */
     AdminAuthLoginRespVO refreshToken(String refreshToken);
+
+    /**
+     * 用户登出
+     * @param token 访问令牌
+     * @param loginTypeEnum 日志类型
+     */
+    void logout(String token, LoginTypeEnum loginTypeEnum);
 }

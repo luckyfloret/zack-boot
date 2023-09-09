@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.api.permission;
 
-import cn.hmg.zackblog.framework.core.service.SecurityPermissionService;
+import cn.hmg.zackblog.framework.security.core.service.SecurityPermissionService;
 import cn.hmg.zackblog.module.system.service.permission.PermissionService;
 import org.springframework.stereotype.Service;
 

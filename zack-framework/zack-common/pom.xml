@@ -61,5 +61,10 @@
             <artifactId>jakarta.validation-api</artifactId>
             <scope>provided</scope>  <!-- 设置为 provided，主要是 PageQueryParam 使用到 -->
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,12 +1,11 @@
 package cn.hmg.zackblog.module.system.entity.mail;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,8 +17,10 @@ import java.io.Serializable;
  * @author hmg
  * @since 2023-07-02
  */
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("system_mail_template")
 @Schema(name = "MailTemplate对象", description = "邮件模板")
 public class MailTemplate extends BaseEntity implements Serializable {

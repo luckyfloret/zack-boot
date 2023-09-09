@@ -1,9 +1,15 @@
 package cn.hmg.zackblog.module.system.convert.user;
 
-import cn.hmg.zackblog.framework.core.pojo.UserDetails;
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.security.core.pojo.UserDetails;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.user.vo.center.UserCenterUpdateReqVO;
 import cn.hmg.zackblog.module.system.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -21,4 +27,16 @@ public interface UserConvert {
      * @return UserDetails
      */
     UserDetails convertToUserDetails(User user);
+
+    PageResult<UserPageRespVO> convert(PageResult<User> user);
+
+    User convert(UserCreateReqVO userCreateReqVO);
+
+    User convert(UserUpdateReqVO userUpdateReqVO);
+
+    UserRespVO convert(User user);
+
+    UserCenterRespVO convertUserCenterRespVO(User user);
+
+    User convert(UserCenterUpdateReqVO userCenterUpdateReqVO);
 }

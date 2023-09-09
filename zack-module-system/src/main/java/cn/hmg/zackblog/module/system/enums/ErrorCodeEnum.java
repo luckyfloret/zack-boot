@@ -18,12 +18,20 @@ public enum ErrorCodeEnum {
     AUTH_USER_DISABLED(10200001, "账号已被禁用，请联系管理员"),
     AUTH_CAPTCHA_ERROR(10200002, "验证码错误"),
     AUTH_USER_ILLEGAL_LOGIN(10200003, "非法登录"),
+    AUTH_REFRESH_TOKEN_ALREADY_EXPIRE(10200004, "刷新令牌已过期"),
+    AUTH_INVALID_REFRESH_TOKEN(10200005, "无效的刷新令牌"),
 
     /**
      * ############################ User模块 10201000 ############################
      */
     USER_USERNAME_EXISTS(10201000,"用户账号已存在"),
     USER_NOT_EXISTS(10201001, "用户不存在，请联系管理员！"),
+    USER_EMAIL_EXISTS(10201002, "邮箱已经被绑定，请换个邮箱试试"),
+    USER_MOBILE_EXISTS(10201003, "手机号已经被绑定账号"),
+    USER_STATUS_ERROR(10201004, "用户状态错误，只能是开启或关闭"),
+    USER_TYPE_ERROR(10201005, "用户类型错误，只能是前台用户或后台用户"),
+    USER_SEX_ERROR(10201006, "用户性别错误，只能是男或女"),
+    USER_OLD_PASSWORD_ERROR(10201007, "旧密码错误"),
 
 
     /**
@@ -34,6 +42,8 @@ public enum ErrorCodeEnum {
     ROLE_CODE_CANNOT_USE(10202002, "角色编码不能使用，请更换角色编码"),
     ROLE_STATUS_ERROR(10202003, "角色状态错误，只能是开启或关闭"),
     ROLE_CANNOT_OPERATE_SYSTEM_ROLE(10202004, "不能操作系统内置角色"),
+    ROLE_NOT_ALLOWED_ASSIGN_PERMISSION(10202005, "不允许分配权限"),
+    ROLE_CODE_ALREADY_EXISTS(10202006, "角色编码已经存在，请更换角色编码"),
 
 
     /**
@@ -47,6 +57,26 @@ public enum ErrorCodeEnum {
     MENU_NOT_EXISTS(10203005, "菜单不存在"),
     MENU_EXISTS_CHILD(10203006, "子菜单存在，无法删除"),
     MENU_ALREADY_EXISTS(10203007, "菜单已存在"),
+
+
+    /**
+     * ############################ Dict Type模块 10204000 ############################
+     */
+    DICT_TYPE_NAME_ALREADY_EXISTS(10204000, "字典类型名称已存在"),
+    DICT_TYPE_TYPE_ALREADY_EXISTS(10204001, "字典类型已存在"),
+    DICT_TYPE_NOT_EXISTS(10204002, "字典类型不存在"),
+    DICT_TYPE_EXISTS_DICT_DATA(10204003, "字典类型存在字典数据，无法删除"),
+    DICT_TYPE_STATUS_ERROR(10204004, "字典类型状态错误，只能是开启或关闭"),
+    DICT_TYPE_NOT_ENABLE(10204005, "该字典类型未启用，不能选择该字典类型"),
+
+
+    /**
+     * ############################ Dict Data模块 10205000 ############################
+     */
+    DICT_DATA_VALUE_ALREADY_EXISTS(10205000, "字典数据键值已存在"),
+    DICT_DATA_STATUS_ERROR(10205001, "字典数据状态错误，只能是开启或关闭"),
+    DICT_DATA_NOT_EXISTS(10205002, "字典数据不存在"),
+
     ;
 
 

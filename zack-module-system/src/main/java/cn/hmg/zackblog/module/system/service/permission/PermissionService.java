@@ -1,8 +1,11 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthPermissionRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
+import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.entity.permission.Role;
 
 import java.util.List;
 import java.util.Set;
@@ -65,9 +68,50 @@ public interface PermissionService {
      */
     boolean hasAnyPermission(Long userId, String... permissions);
 
+    /**
+     * 根据角色id删除角色关联信息
+     * @param roleId 角色id
+     */
     void deleteRoleAssociation(Long roleId);
 
+    /**
+     * 根据菜单状态获取菜单列表
+     * @param status 菜单状态
+     * @return List<PermissionMenuListRespVO>
+     */
     List<PermissionMenuListRespVO> getMenuListByStatus(Integer status);
 
+    /**
+     * 根据角色id从缓存中获取角色拥有的权限
+     * @param roleId 角色id
+     * @return 菜单id集合
+     */
     Set<Long> getRolePermissionByRoleIdFromCache(Long roleId);
+
+    /**
+     * 分配菜单权限
+     * @param reqVO 分配菜单权限 request vo
+     */
+    void assignMenuPermission(PermissionMenuAssignReqVO reqVO);
+
+    /**
+     * 根据用户id删除用户角色关联
+     * @param userId 用户id
+     */
+    void deleteUserRoleAssociation(Long userId);
+
+    /**
+     * 用户分配角色
+     * @param reqVO 用户分配角色 request vo
+     */
+    void assignUserRole(PermissionAssignUserRoleReqVO reqVO);
+
+    /**
+     * 根据角色状态获取角色列表
+     * @param status 角色状态
+     * @return 角色列表
+     */
+    List<Role> listRoleByStatus(Integer status);
+
+    Set<Long> getRoleIdsByUserId(Long loginUserId);
 }

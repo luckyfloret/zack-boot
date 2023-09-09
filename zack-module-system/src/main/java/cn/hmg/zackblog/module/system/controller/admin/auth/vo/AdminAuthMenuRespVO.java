@@ -23,9 +23,6 @@ public class AdminAuthMenuRespVO {
     @Schema(description = "菜单名称")
     private String name;
 
-    @Schema(description = "用户类型（用于分辨菜单导航）")
-    private Integer userType;
-
     @Schema(description = "父菜单id")
     private Long parentId;
 
@@ -34,6 +31,9 @@ public class AdminAuthMenuRespVO {
 
     @Schema(description = "菜单图标")
     private String icon;
+
+    @Schema(description = "排序")
+    private Integer sort;
 
     @Schema(description = "组件路径")
     private String component;

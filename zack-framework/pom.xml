@@ -18,6 +18,10 @@
         <module>zack-spring-boot-starter-security</module>
         <module>zack-spring-boot-starter-redis</module>
         <module>zack-spring-boot-starter-captcha</module>
+        <module>zack-spring-boot-starter-mq</module>
+        <module>zack-spring-boot-starter-banner</module>
+        <module>zack-spring-boot-starter-operate-log</module>
+        <module>zack-spring-boot-starter-oss</module>
     </modules>
 
     <properties>

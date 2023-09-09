@@ -17,4 +17,51 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-oss</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-mybatis-plus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-mq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-operate-log</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

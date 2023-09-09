@@ -1,19 +1,26 @@
 package cn.hmg.zackblog.module.system.service.permission;
 
-import cn.hmg.zackblog.common.exception.ServiceException;
-import cn.hmg.zackblog.common.utils.collections.CollectionUtils;
+import cn.hmg.zackblog.framework.common.exception.BusinessException;
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuListReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuUpdateReqVO;
 import cn.hmg.zackblog.module.system.convert.permission.MenuConvert;
 import cn.hmg.zackblog.module.system.entity.permission.Menu;
+import cn.hmg.zackblog.module.system.entity.permission.Role;
 import cn.hmg.zackblog.module.system.entity.permission.RoleMenu;
 import cn.hmg.zackblog.module.system.enums.MenuTypeEnum;
+import cn.hmg.zackblog.module.system.enums.RoleCodeEnum;
 import cn.hmg.zackblog.module.system.mapper.permission.MenuMapper;
 import cn.hmg.zackblog.module.system.mapper.permission.RoleMenuMapper;
+import cn.hmg.zackblog.module.system.mq.producer.menu.MenuProducer;
+import cn.hmg.zackblog.module.system.mq.producer.permission.PermissionProducer;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -46,6 +53,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Resource
     private RoleMenuMapper roleMenuMapper;
 
+    @Resource
+    private IRoleService roleService;
+
+    @Resource
+    private MenuProducer menuProducer;
+
+    @Resource
+    private PermissionProducer permissionProducer;
+
     private void initMenuCache() {
         List<Menu> menus = menuMapper.selectList();
         log.info("[initMenuCache] => 初始化菜单信息缓存， 数量为：{}", menus.size());
@@ -73,6 +89,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return menuMapper.selectList(menuListReqVO);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void createMenu(MenuCreateReqVO menuCreateReqVO) {
         Long parentId = menuCreateReqVO.getParentId();
@@ -87,11 +104,21 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //插入菜单信息
         menuMapper.insert(menu);
-
-        //TODO 通知MQ刷新缓存
-
+        //新增菜单更新到超管权限菜单里
+        Role superAdminRole = roleService.getSuperAdminRole(RoleCodeEnum.SUPER_ADMIN.getCode());
+        roleMenuMapper.insert(new RoleMenu(null, superAdminRole.getId(), menu.getId()));
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+            }
+        });
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateMenu(MenuUpdateReqVO menuUpdateReqVO) {
         //校验菜单是否存在
@@ -110,10 +137,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //更新菜单信息
         menuMapper.updateById(menu);
-
-        //TODO 通知MQ刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+            }
+        });
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteMenuById(Long menuId) {
         //校验菜单是否存在
@@ -121,19 +155,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //校验是否有子菜单
         if (menuMapper.selectCountByParentId(menuId) > 0) {
-            throw new ServiceException(MENU_EXISTS_CHILD.getCode(), MENU_EXISTS_CHILD.getMessage());
+            throw new BusinessException(MENU_EXISTS_CHILD.getCode(), MENU_EXISTS_CHILD.getMessage());
         }
 
-        //校验菜单是否已被分配，如果已经被分配了则不能删除
-        List<RoleMenu> roleMenus = roleMenuMapper.selectList(menuId);
-        if (!CollectionUtils.isEmpty(roleMenus)) {
-            throw new ServiceException(MENU_HAS_BEEN_ASSIGN.getCode(), MENU_HAS_BEEN_ASSIGN.getMessage());
-        }
+        //删除roleMenu
+        roleMenuMapper.deleteByMenuId(menuId);
 
         //删除菜单
         menuMapper.deleteById(menuId);
-
-        //TODO 通知MQ刷新缓存
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            //事务提交后执行
+            @Override
+            public void afterCommit() {
+                //通知MQ刷新缓存
+                menuProducer.asyncSendMenuRefreshCacheMessage();
+            }
+        });
 
     }
 
@@ -150,7 +187,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private void verifyMenuIsExists(Long menuId){
         Menu menu = menuMapper.selectOne(menuId);
         if (Objects.isNull(menu)) {
-            throw new ServiceException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage());
+            throw new BusinessException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage());
         }
     }
 
@@ -190,12 +227,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //如果找到了menu，但是menuId为空，说明是创建菜单操作，但是菜单已存在，所以抛出异常
         if (Objects.isNull(menuId)) {
-            throw new ServiceException(MENU_ALREADY_EXISTS.getCode(), MENU_ALREADY_EXISTS.getMessage());
+            throw new BusinessException(MENU_ALREADY_EXISTS.getCode(), MENU_ALREADY_EXISTS.getMessage());
         }
 
         //在更新菜单时菜单id要保持一致,不一致说明有相同菜单
         if (!menu.getId().equals(menuId)) {
-            throw new ServiceException(MENU_PRIMARY_KEY_ID_ERROR.getCode(), MENU_PRIMARY_KEY_ID_ERROR.getMessage());
+            throw new BusinessException(MENU_PRIMARY_KEY_ID_ERROR.getCode(), MENU_PRIMARY_KEY_ID_ERROR.getMessage());
         }
     }
 
@@ -207,7 +244,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private void verifyMenuType(Integer menuType) {
         Set<Integer> menuTypes = Arrays.stream(MenuTypeEnum.values()).map(MenuTypeEnum::getCode).collect(Collectors.toSet());
         if (!menuTypes.contains(menuType)) {
-            throw new ServiceException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
+            throw new BusinessException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
         }
     }
 
@@ -225,19 +262,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
         //父菜单不能是自己
         if (parentId.equals(childMenuId)) {
-            throw new ServiceException(MENU_SET_PARENT_MENU_ERROR.getCode(), MENU_SET_PARENT_MENU_ERROR.getMessage());
+            throw new BusinessException(MENU_SET_PARENT_MENU_ERROR.getCode(), MENU_SET_PARENT_MENU_ERROR.getMessage());
         }
 
         //父菜单不存在
         Menu parentMenu = menuMapper.selectOne(Menu::getId, parentId);
         if (Objects.isNull(parentMenu)) {
-            throw new ServiceException(MENU_PARENT_NOT_EXISTS.getCode(), MENU_PARENT_NOT_EXISTS.getMessage());
+            throw new BusinessException(MENU_PARENT_NOT_EXISTS.getCode(), MENU_PARENT_NOT_EXISTS.getMessage());
         }
 
         //父菜单类型必须是目录或者菜单
         if (!MenuTypeEnum.DIR.getCode().equals(parentMenu.getType())
                 && !MenuTypeEnum.MENU.getCode().equals(parentMenu.getType())) {
-            throw new ServiceException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
+            throw new BusinessException(MENU_TYPE_ERROR.getCode(), MENU_TYPE_ERROR.getMessage());
         }
     }
 }

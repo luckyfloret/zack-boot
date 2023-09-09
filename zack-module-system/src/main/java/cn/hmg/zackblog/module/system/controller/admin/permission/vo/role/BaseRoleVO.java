@@ -31,7 +31,6 @@ public class BaseRoleVO {
     @NotNull(message = "角色状态不能为空")
     private Integer status;
 
-
     @Schema(description = "备注")
     private String remark;
 }

@@ -1,14 +1,13 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
-import cn.hmg.zackblog.ZackMainApplication;
-import cn.hmg.zackblog.common.enums.UserTypeEnum;
-import cn.hmg.zackblog.framework.core.pojo.LoginUser;
-import cn.hmg.zackblog.framework.core.utils.RedisUtils;
+import cn.hmg.zackblog.main.ZackMainApplication;
+import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
+import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
+import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
 import cn.hmg.zackblog.module.system.controller.admin.auth.vo.AdminAuthLoginReqVO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.Resource;

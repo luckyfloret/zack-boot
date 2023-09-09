@@ -1,5 +1,6 @@
 package cn.hmg.zackblog.module.system.convert.permission;
 
+import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuCreateReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuRespVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.menu.MenuUpdateReqVO;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils.sort;
 import static cn.hmg.zackblog.module.system.entity.permission.Menu.ROOT;
 
 /**
@@ -41,7 +43,7 @@ public interface MenuConvert {
      * @return MenuRespVO
      */
     default List<MenuRespVO> buildMenuTree(List<Menu> menuList) {
-        //排序
+        //排序，保证菜单有序性
         menuList.sort(Comparator.comparing(Menu::getSort));
         //构建Map
         Map<Long, MenuRespVO> nodeMap =
@@ -64,12 +66,14 @@ public interface MenuConvert {
             parentNode.getChildren().add(childrenNode);
         });
 
-//        最后取出所有根节点
-        return nodeMap.values().stream().filter(node -> ROOT.equals(node.getParentId())).collect(Collectors.toList());
+        //最后取出所有根节点, 并给所有根节点再次排序
+        return sort(nodeMap.values().stream().filter(node -> ROOT.equals(node.getParentId())).collect(Collectors.toList()),
+                Comparator.comparing(MenuRespVO::getSort));
     }
 
     /**
      * 创建菜单请求参数转换为菜单
+     *
      * @param menuCreateReqVO 创建菜单请求参数
      * @return Menu
      */
@@ -77,6 +81,7 @@ public interface MenuConvert {
 
     /**
      * 更新菜单请求参数转换为菜单
+     *
      * @param menuUpdateReqVO 更新菜单请求参数
      * @return Menu
      */

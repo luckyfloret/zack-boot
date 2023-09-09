@@ -1,6 +1,5 @@
 package cn.hmg.zackblog.module.system.controller.admin.captcha;
 
-import cn.hmg.zackblog.common.pojo.CommonResult;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description: 验证码控制器
  */
 @RestController
-@Tag(name = "验证码")
+@Tag(name = "后台-验证码")
 @RequestMapping("/admin/captcha")
 @Slf4j
 public class CaptchaController {
