@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 public class CollectionUtils {
 
 
-
-
     @SafeVarargs
     public static <T> Set<T> asSet(T... value) {
         return new HashSet<>(Arrays.asList(value));
@@ -53,10 +51,16 @@ public class CollectionUtils {
     }
 
 
-    public static <T, F> Set<F> convetSet(List<T> value, Function<T, F> field){
+    public static <T, F> Set<F> convetSet(List<T> value, Function<T, F> field) {
         if (isEmpty(value)) {
             return Collections.emptySet();
         }
         return value.stream().map(field).collect(Collectors.toSet());
     }
+
+    public static <E> List<E> sort(List<E> value, Comparator<? super E> c) {
+        value.sort(c);
+        return value;
+    }
+
 }

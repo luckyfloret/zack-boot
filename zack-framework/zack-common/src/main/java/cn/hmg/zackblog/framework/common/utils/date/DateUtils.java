@@ -1,6 +1,8 @@
 package cn.hmg.zackblog.framework.common.utils.date;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 /**
  * @author hmg
@@ -10,6 +12,10 @@ import java.time.LocalDateTime;
  */
 public class DateUtils {
 
+    private final static String TIME_ZONE = "Asia/Shanghai";
+
+
+
     /**
      * 判断传进来的日期是否过期
      * @param expireTime 过期时间
@@ -18,5 +24,22 @@ public class DateUtils {
     public static boolean isExpire(LocalDateTime expireTime){
         LocalDateTime currentTime = LocalDateTime.now();
         return currentTime.isAfter(expireTime);
+    }
+
+
+    public static long toSecond(LocalDateTime localDateTime){
+        return localDateTime.toEpochSecond(getOffset(localDateTime));
+    }
+
+    public static int subtract(int val1, int val2) {
+        return val1 - val2;
+    }
+
+    public static ZoneOffset getOffset(LocalDateTime localDateTime){
+        return getZoneId().getRules().getOffset(localDateTime);
+    }
+
+    public static ZoneId getZoneId(){
+        return ZoneId.of(TIME_ZONE);
     }
 }
