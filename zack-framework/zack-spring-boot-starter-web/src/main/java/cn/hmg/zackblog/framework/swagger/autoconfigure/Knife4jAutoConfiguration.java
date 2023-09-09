@@ -53,12 +53,9 @@ public class Knife4jAutoConfiguration {
     @Bean
     public GroupedOpenApi userApi(){
         String[] paths = { "/**" };
-        String[] packagedToMatch = { "cn.hmg.zackblog.module.system.controller" };
-        return GroupedOpenApi.builder().group("用户模块")
+        String[] packagedToMatch = { "cn.hmg.zackblog.module" };
+        return GroupedOpenApi.builder().group("zack-blog-boot")
                 .pathsToMatch(paths)
-                .addOperationCustomizer((operation, handlerMethod) -> {
-                    return operation.addParametersItem(new HeaderParameter().name("groupCode").example("测试").description("集团code").schema(new StringSchema()._default("BR").name("groupCode").description("集团code")));
-                })
                 .packagesToScan(packagedToMatch).build();
     }
     @Bean
