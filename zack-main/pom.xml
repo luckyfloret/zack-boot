@@ -50,6 +50,18 @@
             <artifactId>zack-module-infra</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-module-website</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-module-article</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <build>

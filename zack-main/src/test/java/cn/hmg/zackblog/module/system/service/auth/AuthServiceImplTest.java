@@ -1,6 +1,6 @@
 package cn.hmg.zackblog.module.system.service.auth;
 
-import cn.hmg.zackblog.ZackMainApplication;
+import cn.hmg.zackblog.main.ZackMainApplication;
 import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.framework.security.core.pojo.LoginUser;
 import cn.hmg.zackblog.framework.redis.core.utils.RedisUtils;
