@@ -41,18 +41,28 @@ public class Main {
                 }))
                 .packageConfig(builder -> {
                     builder.parent("cn.hmg.zackblog")
-                            .moduleName("module.system") // 设置父包模块名
+                            .moduleName("module.website") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, mapperFilePath + "\\mapper")); // 设置mapperXml生成路径
                 })
+
+                /**
+                 * Table：
+                 *      "system_dict_data", "system_dict_type",
+                 *      "system_login_log", "system_mail_account",
+                 *      "system_mail_record", "system_mail_template",
+                 *      "system_menu", "system_operate_log",
+                 *      "system_role", "system_role_menu",
+                 *      "system_user_role", "system_users"
+                 *      "infra_file", "infra_file_config"
+                 *      "biz_comment","biz_friend_link",
+                 *      "biz_issues","biz_notice",
+                 *      "biz_web_config",
+                 *
+                 */
                 .strategyConfig(builder -> {
                     builder.addInclude(
-                                    "system_dict_data", "system_dict_type",
-                                    "system_login_log", "system_mail_account",
-                                    "system_mail_record", "system_mail_template",
-                                    "system_menu", "system_operate_log",
-                                    "system_role", "system_role_menu",
-                                    "system_user_role", "system_users"
-                            ).addTablePrefix("system_")
+                                    "biz_page"
+                            ).addTablePrefix("biz_")
                             .entityBuilder()
                             .logicDeleteColumnName("deleted")
                             .logicDeletePropertyName("deleted")
