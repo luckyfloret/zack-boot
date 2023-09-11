@@ -70,18 +70,4 @@ public class WebConfigController {
         webConfigService.updateAuthorInfo(authorInfoVO);
         return success(true);
     }
-
-    @PostMapping("/upload")
-    @PreAuthorize("@spe.hasPermission('website:web-config:upload')")
-    @Operation(summary = "上传图片")
-    @OperateLog(operateName = "上传图片", operateType = UPDATE)
-    public CommonResult<String> upload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
-        if (multipartFile.isEmpty()) {
-            throw new BusinessException(WEB_CONFIG_FILE_CANNOT_EMPTY.getCode(), WEB_CONFIG_FILE_CANNOT_EMPTY.getMessage());
-        }
-
-        return success(webConfigService.upload(
-                multipartFile.getInputStream(),
-                multipartFile.getOriginalFilename()));
-    }
 }

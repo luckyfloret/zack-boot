@@ -26,6 +26,4 @@ public interface IWebConfigService extends IService<WebConfig> {
     void updateWebsiteInfo(WebsiteInfoVO websiteInfoVO);
 
     void updateAuthorInfo(AuthorInfoVO authorInfoVO);
-
-    String upload(InputStream inputStream, String filename) throws Exception;
 }

@@ -58,11 +58,6 @@ public class WebConfigServiceImpl extends ServiceImpl<WebConfigMapper, WebConfig
         createOrUpdate(WebConfigConvert.INSTANCE.convert(authorInfoVO));
     }
 
-    @Override
-    public String upload(InputStream inputStream, String filename) throws Exception {
-        return fileService.uploadFile(inputStream, filename);
-    }
-
     private void createOrUpdate(WebConfig webConfig) {
         if (webConfigMapper.selectCount() > 0) {
             verifyIsExists(webConfig.getId());
