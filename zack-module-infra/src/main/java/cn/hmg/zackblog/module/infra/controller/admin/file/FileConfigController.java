@@ -1,11 +1,11 @@
-package cn.hmg.zackblog.module.infra.controller.admin;
+package cn.hmg.zackblog.module.infra.controller.admin.file;
 
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.*;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.*;
 import cn.hmg.zackblog.module.infra.convert.file.config.FileConfigConvert;
-import cn.hmg.zackblog.module.infra.service.IFileConfigService;
+import cn.hmg.zackblog.module.infra.service.file.IFileConfigService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
@@ -29,7 +28,7 @@ import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "后台-文件管理-文件配置")
-@RequestMapping("/admin/infra/file/config")
+@RequestMapping("/admin/infra/file-config")
 public class FileConfigController {
     private final IFileConfigService fileConfigService;
 

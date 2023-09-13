@@ -2,8 +2,7 @@ package cn.hmg.zackblog.module.infra.mq.consumer.file.config;
 
 import cn.hmg.zackblog.framework.rocketmq.core.listener.AbstractRocketMQListener;
 import cn.hmg.zackblog.module.infra.mq.producer.file.config.FileConfigRefreshCacheMessage;
-import cn.hmg.zackblog.module.infra.mq.topic.file.config.FileConfigTopic;
-import cn.hmg.zackblog.module.infra.service.IFileConfigService;
+import cn.hmg.zackblog.module.infra.service.file.IFileConfigService;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;

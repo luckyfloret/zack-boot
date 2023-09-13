@@ -1,26 +1,21 @@
-package cn.hmg.zackblog.module.infra.controller.admin;
+package cn.hmg.zackblog.module.infra.controller.admin.file;
 
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageRespVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageRespVO;
 import cn.hmg.zackblog.module.infra.convert.file.FileConvert;
-import cn.hmg.zackblog.module.infra.service.IFileService;
+import cn.hmg.zackblog.module.infra.service.file.IFileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import java.io.IOException;
 
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
@@ -54,7 +49,7 @@ public class FileController {
     @PreAuthorize("@spe.hasPermission('infra:file:upload')")
     @Operation(summary = "文件上传")
     @OperateLog(operateName = "文件上传", operateType = CREATE)
-    public CommonResult<String> uploadFile(@RequestParam(value = "avatarFile") MultipartFile multipartFile) throws Exception {
+    public CommonResult<String> uploadFile(@RequestParam(value = "file") MultipartFile multipartFile) throws Exception {
         if (multipartFile.isEmpty()) {
             throw new BusinessException(FILE_CANNOT_EMPTY.getCode(), FILE_CANNOT_EMPTY.getMessage());
         }

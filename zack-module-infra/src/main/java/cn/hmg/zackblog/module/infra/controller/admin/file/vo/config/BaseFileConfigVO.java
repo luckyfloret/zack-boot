@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.module.infra.controller.admin.vo.config;
+package cn.hmg.zackblog.module.infra.controller.admin.file.vo.config;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.module.infra.service.impl;
+package cn.hmg.zackblog.module.infra.service.file;
 
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
@@ -6,14 +6,13 @@ import cn.hmg.zackblog.framework.oss.core.AbstractOssClient;
 import cn.hmg.zackblog.framework.oss.core.client.s3.OssConfig;
 import cn.hmg.zackblog.framework.oss.core.factory.OssClientFactory;
 import cn.hmg.zackblog.framework.oss.core.OssClient;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigCreateReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigPageReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigUpdateReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigCreateReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigPageReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigUpdateReqVO;
 import cn.hmg.zackblog.module.infra.convert.file.config.FileConfigConvert;
-import cn.hmg.zackblog.module.infra.entity.FileConfig;
-import cn.hmg.zackblog.module.infra.mapper.FileConfigMapper;
+import cn.hmg.zackblog.module.infra.entity.file.FileConfig;
+import cn.hmg.zackblog.module.infra.mapper.file.FileConfigMapper;
 import cn.hmg.zackblog.module.infra.mq.producer.file.config.FileConfigProducer;
-import cn.hmg.zackblog.module.infra.service.IFileConfigService;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;

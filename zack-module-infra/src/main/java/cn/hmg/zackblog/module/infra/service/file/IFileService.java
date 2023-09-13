@@ -1,12 +1,10 @@
-package cn.hmg.zackblog.module.infra.service;
+package cn.hmg.zackblog.module.infra.service.file;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageReqVO;
-import cn.hmg.zackblog.module.infra.entity.File;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageReqVO;
+import cn.hmg.zackblog.module.infra.entity.file.File;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**

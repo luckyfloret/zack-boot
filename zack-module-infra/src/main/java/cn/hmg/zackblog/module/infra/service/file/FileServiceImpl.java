@@ -1,13 +1,11 @@
-package cn.hmg.zackblog.module.infra.service.impl;
+package cn.hmg.zackblog.module.infra.service.file;
 
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.oss.core.OssClient;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageReqVO;
-import cn.hmg.zackblog.module.infra.entity.File;
-import cn.hmg.zackblog.module.infra.mapper.FileMapper;
-import cn.hmg.zackblog.module.infra.service.IFileConfigService;
-import cn.hmg.zackblog.module.infra.service.IFileService;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageReqVO;
+import cn.hmg.zackblog.module.infra.entity.file.File;
+import cn.hmg.zackblog.module.infra.mapper.file.FileMapper;
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

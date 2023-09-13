@@ -1,10 +1,10 @@
-package cn.hmg.zackblog.module.infra.mapper;
+package cn.hmg.zackblog.module.infra.mapper.file;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
 import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageReqVO;
-import cn.hmg.zackblog.module.infra.entity.File;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageReqVO;
+import cn.hmg.zackblog.module.infra.entity.file.File;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

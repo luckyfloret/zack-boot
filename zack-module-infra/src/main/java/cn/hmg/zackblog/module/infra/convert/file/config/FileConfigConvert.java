@@ -1,11 +1,11 @@
 package cn.hmg.zackblog.module.infra.convert.file.config;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigCreateReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigPageRespVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigRespVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigUpdateReqVO;
-import cn.hmg.zackblog.module.infra.entity.FileConfig;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigCreateReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigPageRespVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigRespVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigUpdateReqVO;
+import cn.hmg.zackblog.module.infra.entity.file.FileConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

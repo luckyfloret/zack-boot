@@ -1,11 +1,11 @@
-package cn.hmg.zackblog.module.infra.service;
+package cn.hmg.zackblog.module.infra.service.file;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.oss.core.OssClient;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigCreateReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigPageReqVO;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.config.FileConfigUpdateReqVO;
-import cn.hmg.zackblog.module.infra.entity.FileConfig;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigCreateReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigPageReqVO;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.config.FileConfigUpdateReqVO;
+import cn.hmg.zackblog.module.infra.entity.file.FileConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

@@ -1,4 +1,4 @@
-package cn.hmg.zackblog.module.infra.entity;
+package cn.hmg.zackblog.module.infra.entity.file;
 
 import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;

@@ -1,7 +1,9 @@
-package cn.hmg.zackblog.module.infra.controller.admin.vo.file;
+package cn.hmg.zackblog.module.infra.controller.admin.file.vo.file;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * @author hmg
@@ -24,9 +26,15 @@ public class FilePageRespVO {
     @Schema(description = "oss文件名")
     private String ossFilename;
 
+    @Schema(description = "图片url")
+    private String url;
+
     @Schema(description = "文件类型")
     private String type;
 
     @Schema(description = "文件大小")
     private Integer size;
+
+    @Schema(description = "上传时间")
+    private LocalDateTime createTime;
 }

@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.infra.convert.file;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.infra.controller.admin.vo.file.FilePageRespVO;
-import cn.hmg.zackblog.module.infra.entity.File;
+import cn.hmg.zackblog.module.infra.controller.admin.file.vo.file.FilePageRespVO;
+import cn.hmg.zackblog.module.infra.entity.file.File;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
