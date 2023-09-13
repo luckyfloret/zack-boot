@@ -2,7 +2,6 @@ package cn.hmg.zackblog.module.website.service.webconfig;
 
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
-import cn.hmg.zackblog.module.infra.service.IFileService;
 import cn.hmg.zackblog.module.website.controller.admin.webconfig.vo.AuthorInfoVO;
 import cn.hmg.zackblog.module.website.controller.admin.webconfig.vo.WebsiteInfoVO;
 import cn.hmg.zackblog.module.website.convert.admin.webconfig.WebConfigConvert;
@@ -30,9 +29,6 @@ public class WebConfigServiceImpl extends ServiceImpl<WebConfigMapper, WebConfig
 
     @Resource
     private WebConfigMapper webConfigMapper;
-
-    @Resource
-    private IFileService fileService;
 
     @Override
     public WebConfig getWebSiteInfo() {
