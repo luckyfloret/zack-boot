@@ -1,11 +1,11 @@
 package cn.hmg.zackblog.module.website.convert.admin.friendlink;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.website.controller.admin.vo.friendlink.FriendLinkCreateReqVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.friendlink.FriendLinkPageRespVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.friendlink.FriendLinkRespVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.friendlink.FriendLinkUpdateReqVO;
-import cn.hmg.zackblog.module.website.entity.FriendLink;
+import cn.hmg.zackblog.module.website.controller.admin.friendlink.vo.FriendLinkCreateReqVO;
+import cn.hmg.zackblog.module.website.controller.admin.friendlink.vo.FriendLinkPageRespVO;
+import cn.hmg.zackblog.module.website.controller.admin.friendlink.vo.FriendLinkRespVO;
+import cn.hmg.zackblog.module.website.controller.admin.friendlink.vo.FriendLinkUpdateReqVO;
+import cn.hmg.zackblog.module.website.entity.friendlink.FriendLink;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

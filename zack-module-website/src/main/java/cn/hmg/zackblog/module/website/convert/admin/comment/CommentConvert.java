@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.website.convert.admin.comment;
 
-import cn.hmg.zackblog.module.website.controller.admin.vo.comment.CommentTreeListRespVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.comment.CommentRespVO;
-import cn.hmg.zackblog.module.website.entity.Comment;
+import cn.hmg.zackblog.module.website.controller.admin.comment.vo.CommentTreeListRespVO;
+import cn.hmg.zackblog.module.website.controller.admin.comment.vo.CommentRespVO;
+import cn.hmg.zackblog.module.website.entity.comment.Comment;
 import cn.hutool.core.util.ObjUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.hmg.zackblog.module.website.entity.Comment.ROOT;
+import static cn.hmg.zackblog.module.website.entity.comment.Comment.ROOT;
 
 /**
  * @author hmg
