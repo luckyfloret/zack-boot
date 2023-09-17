@@ -37,7 +37,7 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils.convetSet;
+import static cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils.convertSet;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.*;
 import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
 /**
@@ -221,7 +221,7 @@ public class PermissionServiceImpl implements PermissionService {
 
         //根据roleId从db中获取menuIds，用于对比传进来的menuIds
         Long roleId = reqVO.getRoleId();
-        Set<Long> dbMenuIds = convetSet(roleMenuMapper.selectListByRoleId(roleId), RoleMenu::getMenuId);
+        Set<Long> dbMenuIds = convertSet(roleMenuMapper.selectListByRoleId(roleId), RoleMenu::getMenuId);
 
         //计算menuIds差集
         Collection<Long> createMenuIds = CollectionUtil.subtract(reqVO.getMenuIds(), dbMenuIds);
@@ -276,7 +276,7 @@ public class PermissionServiceImpl implements PermissionService {
         verifyUserRoleInfo(userId, reqVO.getRoleIds());
 
         //计算roleIds差集
-        Set<Long> dbRoleIds = convetSet(userRoleMapper.getUserRoleListFromDbByUserId(userId), UserRole::getRoleId);
+        Set<Long> dbRoleIds = convertSet(userRoleMapper.getUserRoleListFromDbByUserId(userId), UserRole::getRoleId);
         Collection<Long> createRoleIds = CollectionUtil.subtract(reqVO.getRoleIds(), dbRoleIds);
         Collection<Long> deleteRoleIds = CollectionUtil.subtract(dbRoleIds, reqVO.getRoleIds());
 
@@ -314,7 +314,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Set<Long> getRoleIdsByUserId(Long loginUserId) {
-        return convetSet(userRoleMapper.getUserRoleListFromDbByUserId(loginUserId), UserRole::getRoleId);
+        return convertSet(userRoleMapper.getUserRoleListFromDbByUserId(loginUserId), UserRole::getRoleId);
     }
 
     /**
@@ -327,7 +327,7 @@ public class PermissionServiceImpl implements PermissionService {
         userService.verifyUserIsExistsByUserId(userId);
 
         //校验roleIds是否全部存在、开启状态
-        Set<Long> dbRoleIds = convetSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
+        Set<Long> dbRoleIds = convertSet(roleService.getRoleListFromDbByStatus(ENABLED.getStatusCode()), Role::getId);
         Assert.isTrue(dbRoleIds.containsAll(roleIds), () -> new BusinessException(ROLE_NOT_EXISTS.getCode(), ROLE_NOT_EXISTS.getMessage()));
     }
 
@@ -348,7 +348,7 @@ public class PermissionServiceImpl implements PermissionService {
                         ROLE_NOT_ALLOWED_ASSIGN_PERMISSION.getMessage()));
 
         //先校验菜单id集合是否全部合法
-        Set<Long> dbMenuIds = convetSet(menuService.getMenuListByStatus(ENABLED.getStatusCode()), Menu::getId);
+        Set<Long> dbMenuIds = convertSet(menuService.getMenuListByStatus(ENABLED.getStatusCode()), Menu::getId);
         Assert.isTrue(dbMenuIds.containsAll(menuIds), () -> new BusinessException(MENU_NOT_EXISTS.getCode(), MENU_NOT_EXISTS.getMessage()));
     }
 

@@ -4,6 +4,7 @@ import cn.hmg.zackblog.framework.common.enums.CommonStatusEnum;
 import cn.hmg.zackblog.framework.common.enums.UserTypeEnum;
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.utils.date.DateUtils;
+import cn.hmg.zackblog.framework.common.utils.json.JsonUtils;
 import cn.hmg.zackblog.framework.common.utils.servlet.ServletUtils;
 import cn.hmg.zackblog.framework.captcha.autoconfigure.CaptchaProperties;
 import cn.hmg.zackblog.framework.security.autoconfigure.SecurityProperties;
@@ -20,7 +21,6 @@ import cn.hmg.zackblog.module.system.service.logger.dto.LoginLogCreateDTO;
 import cn.hmg.zackblog.module.system.service.user.IUserService;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjUtil;
-import cn.hutool.json.JSONUtil;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
@@ -179,8 +179,8 @@ public class AuthServiceImpl implements AuthService {
      * @param loginUser 登录用户
      */
     private void setTokenWithUserInfoCache(LoginUser loginUser) {
-        redisUtils.set(ACCESS_TOKEN.format(loginUser.getAccessToken()), JSONUtil.toJsonStr(loginUser), ACCESS_TOKEN.getExpireTime(), ACCESS_TOKEN.getTimeType());
-        redisUtils.set(REFRESH_TOKEN.format(loginUser.getRefreshToken()), loginUser, REFRESH_TOKEN.getExpireTime(), REFRESH_TOKEN.getTimeType());
+        redisUtils.set(ACCESS_TOKEN.format(loginUser.getAccessToken()), JsonUtils.toJsonStr(loginUser), ACCESS_TOKEN.getExpireTime(), ACCESS_TOKEN.getTimeType());
+        redisUtils.set(REFRESH_TOKEN.format(loginUser.getRefreshToken()), JsonUtils.toJsonStr(loginUser), REFRESH_TOKEN.getExpireTime(), REFRESH_TOKEN.getTimeType());
     }
 
     /**
