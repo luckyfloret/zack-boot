@@ -82,6 +82,12 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         return verifyNoticeIsExists(id);
     }
 
+    /**
+     * 校验通知公告类型
+     *
+     * @param typeFromDb  类型-db
+     * @param typeFromReq 类型-request
+     */
     private void verifyNoticeType(Integer typeFromDb, Integer typeFromReq) {
         //校验类型是否合法
         Assert.isTrue(verifyNoticeTypeIsExists(typeFromReq),
@@ -93,6 +99,12 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
                         NOTICE_TYPE_INCONSISTENT_WITH_DB.getMessage()));
     }
 
+    /**
+     * 校验通知公告抓过你太
+     *
+     * @param statusFromDb  状态-db
+     * @param statusFromReq 状态-request
+     */
     private void verifyNoticeStatus(Integer statusFromDb, Integer statusFromReq) {
         if (!verifyStatusIsExists(statusFromReq)) {
             throw new BusinessException(NOTICE_STATUS_ERROR.getCode(), NOTICE_STATUS_ERROR.getMessage());
@@ -103,6 +115,12 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         }
     }
 
+    /**
+     * 校验通知公告是否存在
+     *
+     * @param id id
+     * @return Notice
+     */
     private Notice verifyNoticeIsExists(Long id) {
         Notice notice = noticeMapper.selectById(id);
         if (Objects.isNull(notice)) {

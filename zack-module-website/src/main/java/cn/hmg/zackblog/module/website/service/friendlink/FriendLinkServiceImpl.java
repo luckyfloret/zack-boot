@@ -57,20 +57,6 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendL
         friendLinkMapper.updateById(FriendLinkConvert.INSTANCE.convert(reqVO));
     }
 
-    /**
-     * 校验友情链接是否存在
-     * @param id 友情链接id
-     * @return FriendLink
-     */
-    private FriendLink verifyFriendLinkExists(Long id) {
-        FriendLink friendLink = friendLinkMapper.selectById(id);
-        if (Objects.isNull(friendLink)) {
-            throw new BusinessException(FRIEND_LINK_NOT_EXISTS.getCode(), FRIEND_LINK_NOT_EXISTS.getMessage());
-        }
-
-        return friendLink;
-    }
-
     @Override
     public void deleteFriendLinkById(Long id) {
         //校验友情链接是否存在
@@ -94,16 +80,6 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendL
         friendLinkMapper.updateById(friendLink.setApprovalStatus(PASS.getStatus()));
     }
 
-    /**
-     * 校验友情链接审批状态
-     * @param approvalStatus 审批状态
-     */
-    private void verifyApprovalStatus(Integer approvalStatus) {
-        if (!WAIT_REVIEW.getStatus().equals(approvalStatus)) {
-            throw new BusinessException(FRIEND_LINK_HAS_APPROVED.getCode(), FRIEND_LINK_HAS_APPROVED.getMessage());
-        }
-    }
-
     @Override
     public void approvalRejectFriendLink(FriendLinkApprovalRejectReqVO reqVO) {
         //校验友情链接是否存在
@@ -114,6 +90,30 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendL
         friendLink.setApprovalStatus(REJECT.getStatus());
         friendLink.setRejectOpinion(reqVO.getRejectOpinion());
         friendLinkMapper.updateById(friendLink);
+    }
+
+    /**
+     * 校验友情链接审批状态
+     * @param approvalStatus 审批状态
+     */
+    private void verifyApprovalStatus(Integer approvalStatus) {
+        if (!WAIT_REVIEW.getStatus().equals(approvalStatus)) {
+            throw new BusinessException(FRIEND_LINK_HAS_APPROVED.getCode(), FRIEND_LINK_HAS_APPROVED.getMessage());
+        }
+    }
+
+    /**
+     * 校验友情链接是否存在
+     * @param id 友情链接id
+     * @return FriendLink
+     */
+    private FriendLink verifyFriendLinkExists(Long id) {
+        FriendLink friendLink = friendLinkMapper.selectById(id);
+        if (Objects.isNull(friendLink)) {
+            throw new BusinessException(FRIEND_LINK_NOT_EXISTS.getCode(), FRIEND_LINK_NOT_EXISTS.getMessage());
+        }
+
+        return friendLink;
     }
 
     /**

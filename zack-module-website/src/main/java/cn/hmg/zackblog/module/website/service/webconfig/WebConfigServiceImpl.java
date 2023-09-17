@@ -52,6 +52,10 @@ public class WebConfigServiceImpl extends ServiceImpl<WebConfigMapper, WebConfig
         createOrUpdate(WebConfigConvert.INSTANCE.convert(authorInfoVO));
     }
 
+    /**
+     * 创建 or 更新
+     * @param webConfig webConfig
+     */
     private void createOrUpdate(WebConfig webConfig) {
         if (webConfigMapper.selectCount() > 0) {
             verifyIsExists(webConfig.getId());
@@ -61,6 +65,10 @@ public class WebConfigServiceImpl extends ServiceImpl<WebConfigMapper, WebConfig
         }
     }
 
+    /**
+     * 校验是否存在
+     * @param id id
+     */
     private void verifyIsExists(Long id) {
         WebConfig webConfig = webConfigMapper.selectById(id);
         if (Objects.isNull(webConfig)) {

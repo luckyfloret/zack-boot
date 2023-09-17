@@ -14,10 +14,23 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-08-30
  */
 public interface IIssuesService extends IService<Issues> {
-
+    /**
+     * 获取issues分页列表
+     * @param reqVO 请求参数
+     * @return issues分页列表
+     */
     PageResult<Issues> getPage(IssuesPageReqVO reqVO);
 
+    /**
+     * 根据id获取issues
+     * @param id issuesId
+     * @return issues
+     */
     Issues getIssuesById(Long id);
 
+    /**
+     * 更新issues状态
+     * @param id issuesId
+     */
     void updateStatus(Long id);
 }
