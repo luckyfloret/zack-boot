@@ -51,7 +51,7 @@ public class CollectionUtils {
     }
 
 
-    public static <T, F> Set<F> convetSet(List<T> value, Function<T, F> field) {
+    public static <T, F> Set<F> convertSet(List<T> value, Function<T, F> field) {
         if (isEmpty(value)) {
             return Collections.emptySet();
         }
