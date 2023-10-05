@@ -1,6 +1,7 @@
 package cn.hmg.zackblog.module.system.controller.admin.permission;
 
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
+import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionAssignUserRoleReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuAssignReqVO;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.permission.PermissionMenuListRespVO;
@@ -20,6 +21,9 @@ import java.util.Set;
 
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.common.enums.CommonStatusEnum.*;
+import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.CREATE;
+import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.DELETE;
+
 /**
  * @author hmg
  * @version 1.0
@@ -52,6 +56,7 @@ public class PermissionController {
     @PostMapping("/assign-menu-permission")
     @Operation(summary = "分配菜单权限")
     @PreAuthorize("@spe.hasPermission('system:permission:assign-role-menu')")
+    @OperateLog(operateName = "分配菜单权限", operateType = CREATE)
     public CommonResult<Boolean> assignMenuPermission(@Valid @RequestBody PermissionMenuAssignReqVO reqVO) {
         permissionService.assignMenuPermission(reqVO);
         return success(true);
@@ -67,6 +72,7 @@ public class PermissionController {
     @PostMapping("/assign-user-role")
     @Operation(summary = "用户分配角色")
     @PreAuthorize("@spe.hasPermission('system:permission:assign-user-role')")
+    @OperateLog(operateName = "用户分配角色", operateType = CREATE)
     public CommonResult<Boolean> assignUserRole(@Valid @RequestBody PermissionAssignUserRoleReqVO reqVO) {
         permissionService.assignUserRole(reqVO);
         return success(true);

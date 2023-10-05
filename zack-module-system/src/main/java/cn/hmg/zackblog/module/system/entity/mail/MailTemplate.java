@@ -2,12 +2,15 @@ package cn.hmg.zackblog.module.system.entity.mail;
 
 import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -21,7 +24,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("system_mail_template")
+@TableName(value = "system_mail_template", autoResultMap = true)
 @Schema(name = "MailTemplate对象", description = "邮件模板")
 public class MailTemplate extends BaseEntity implements Serializable {
 
@@ -30,6 +33,9 @@ public class MailTemplate extends BaseEntity implements Serializable {
     @Schema(description = "id （主键）")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    @Schema(description = "模板编码")
+    private String code;
 
     @Schema(description = "名称")
     private String name;
@@ -47,9 +53,10 @@ public class MailTemplate extends BaseEntity implements Serializable {
     private String content;
 
     @Schema(description = "参数数组")
-    private String params;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> params;
 
-    @Schema(description = "状态（0 关闭，1 开启 ）")
+    @Schema(description = "状态（0 开启，1 禁用 ）")
     private Integer status;
 
     @Schema(description = "备注")

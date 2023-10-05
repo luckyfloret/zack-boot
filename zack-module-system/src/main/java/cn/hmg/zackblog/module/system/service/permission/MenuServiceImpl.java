@@ -112,8 +112,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             @Override
             public void afterCommit() {
                 //通知MQ刷新缓存
-                menuProducer.asyncSendMenuRefreshCacheMessage();
-                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+                menuProducer.syncSendMenuRefreshCacheMessage();
+                permissionProducer.syncSendPermissionRefreshCacheMessage();
             }
         });
     }
@@ -142,7 +142,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             @Override
             public void afterCommit() {
                 //通知MQ刷新缓存
-                menuProducer.asyncSendMenuRefreshCacheMessage();
+                menuProducer.syncSendMenuRefreshCacheMessage();
             }
         });
     }
@@ -168,7 +168,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             @Override
             public void afterCommit() {
                 //通知MQ刷新缓存
-                menuProducer.asyncSendMenuRefreshCacheMessage();
+                menuProducer.syncSendMenuRefreshCacheMessage();
             }
         });
 

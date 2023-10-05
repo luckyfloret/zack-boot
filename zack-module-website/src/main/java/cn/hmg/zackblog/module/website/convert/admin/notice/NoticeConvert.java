@@ -1,8 +1,8 @@
 package cn.hmg.zackblog.module.website.convert.admin.notice;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.website.controller.admin.vo.notice.*;
-import cn.hmg.zackblog.module.website.entity.Notice;
+import cn.hmg.zackblog.module.website.controller.admin.notice.vo.*;
+import cn.hmg.zackblog.module.website.entity.notice.Notice;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

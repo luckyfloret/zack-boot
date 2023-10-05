@@ -27,7 +27,7 @@ public interface RedisKeyConstant {
      *
      */
     RedisKeyDefinition ACCESS_TOKEN =
-            new RedisKeyDefinition("access_token:%s", LoginUser.class, EXPIRE_TIME, TimeUnit.SECONDS, "缓存访问令牌与用户信息");
+            new RedisKeyDefinition("access_token:%s", String.class, EXPIRE_TIME, TimeUnit.SECONDS, "缓存访问令牌与用户信息");
 
     RedisKeyDefinition REFRESH_TOKEN = new RedisKeyDefinition("refresh_token:%s", String.class, EXPIRE_TIME, TimeUnit.SECONDS, "缓存刷新令牌");
 }

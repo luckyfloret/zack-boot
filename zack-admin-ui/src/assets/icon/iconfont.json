@@ -1,0 +1,23 @@
+{
+  "id": "4219028",
+  "name": "zack-blog-boot",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4673768",
+      "name": "用户类型",
+      "font_class": "yonghuleixing",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "3284739",
+      "name": "角色组",
+      "font_class": "role-group",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    }
+  ]
+}

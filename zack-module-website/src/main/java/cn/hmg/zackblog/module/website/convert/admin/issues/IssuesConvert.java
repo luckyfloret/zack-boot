@@ -1,9 +1,9 @@
 package cn.hmg.zackblog.module.website.convert.admin.issues;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.website.controller.admin.vo.issues.IssuesPageRespVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.issues.IssuesRespVO;
-import cn.hmg.zackblog.module.website.entity.Issues;
+import cn.hmg.zackblog.module.website.controller.admin.issues.vo.IssuesPageRespVO;
+import cn.hmg.zackblog.module.website.controller.admin.issues.vo.IssuesRespVO;
+import cn.hmg.zackblog.module.website.entity.issues.Issues;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

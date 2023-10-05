@@ -2,6 +2,7 @@ package cn.hmg.zackblog.module.system.controller.admin.permission;
 
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
 import cn.hmg.zackblog.module.system.controller.admin.permission.vo.role.*;
 import cn.hmg.zackblog.module.system.convert.permission.RoleConvert;
 import cn.hmg.zackblog.module.system.service.permission.IRoleService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
+import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 
 /**
  * <p>
@@ -42,6 +44,7 @@ public class RoleController {
     @PostMapping("/create")
     @Operation(summary = "创建角色")
     @PreAuthorize("@spe.hasPermission('system:role:create')")
+    @OperateLog(operateName = "创建角色", operateType = CREATE)
     public CommonResult<Boolean> createRole(@Valid @RequestBody RoleCreateReqVO roleCreateReqVO){
         roleService.createRole(roleCreateReqVO);
         return success(true);
@@ -50,6 +53,7 @@ public class RoleController {
     @PutMapping("/update")
     @Operation(summary = "更新角色")
     @PreAuthorize("@spe.hasPermission('system:role:update')")
+    @OperateLog(operateName = "更新角色", operateType = UPDATE)
     public CommonResult<Boolean> updateRole(@Valid @RequestBody RoleUpdateReqVO roleUpdateReqVO){
         roleService.updateRole(roleUpdateReqVO);
         return success(true);
@@ -58,6 +62,7 @@ public class RoleController {
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "删除角色")
     @PreAuthorize("@spe.hasPermission('system:role:delete')")
+    @OperateLog(operateName = "删除角色", operateType = DELETE)
     public CommonResult<Boolean> deleteRoleById(@PathVariable("id") Long id){
         roleService.deleteRoleById(id);
         return success(true);

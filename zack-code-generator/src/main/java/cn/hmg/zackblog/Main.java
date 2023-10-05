@@ -41,7 +41,7 @@ public class Main {
                 }))
                 .packageConfig(builder -> {
                     builder.parent("cn.hmg.zackblog")
-                            .moduleName("module.website") // 设置父包模块名
+                            .moduleName("module.article") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, mapperFilePath + "\\mapper")); // 设置mapperXml生成路径
                 })
 
@@ -57,11 +57,14 @@ public class Main {
                  *      "biz_comment","biz_friend_link",
                  *      "biz_issues","biz_notice",
                  *      "biz_web_config",
+                 *      "biz_article", "biz_article_tags",
+                 *       "biz_category", "biz_tags"
                  *
                  */
                 .strategyConfig(builder -> {
                     builder.addInclude(
-                                    "biz_page"
+                                    "biz_article", "biz_article_tags",
+                                    "biz_category", "biz_tags"
                             ).addTablePrefix("biz_")
                             .entityBuilder()
                             .logicDeleteColumnName("deleted")

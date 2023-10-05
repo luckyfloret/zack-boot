@@ -3,11 +3,8 @@ package cn.hmg.zackblog.framework.mybatisplus.core.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
-import lombok.ToString;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

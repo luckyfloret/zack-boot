@@ -99,7 +99,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                roleProducer.asyncSendRoleRefreshCacheMessage();
+                roleProducer.syncSendRoleRefreshCacheMessage();
             }
         });
 
@@ -122,7 +122,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                roleProducer.asyncSendRoleRefreshCacheMessage();
+                roleProducer.syncSendRoleRefreshCacheMessage();
             }
         });
     }
@@ -141,7 +141,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                roleProducer.asyncSendRoleRefreshCacheMessage();
+                roleProducer.syncSendRoleRefreshCacheMessage();
             }
         });
     }

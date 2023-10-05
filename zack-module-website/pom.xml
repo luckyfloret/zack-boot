@@ -36,11 +36,5 @@
             <groupId>cn.hmg.zackblog</groupId>
             <artifactId>zack-spring-boot-starter-mybatis-plus</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>cn.hmg.zackblog</groupId>
-            <artifactId>zack-module-infra</artifactId>
-            <version>${revision}</version>
-        </dependency>
     </dependencies>
 </project>

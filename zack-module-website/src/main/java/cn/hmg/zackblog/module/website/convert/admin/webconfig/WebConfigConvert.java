@@ -1,15 +1,10 @@
 package cn.hmg.zackblog.module.website.convert.admin.webconfig;
 
-import cn.hmg.zackblog.framework.common.utils.collections.CollectionUtils;
-import cn.hmg.zackblog.module.website.controller.admin.vo.webconfig.AuthorInfoVO;
-import cn.hmg.zackblog.module.website.controller.admin.vo.webconfig.WebsiteInfoVO;
-import cn.hmg.zackblog.module.website.entity.WebConfig;
+import cn.hmg.zackblog.module.website.controller.admin.webconfig.vo.AuthorInfoVO;
+import cn.hmg.zackblog.module.website.controller.admin.webconfig.vo.WebsiteInfoVO;
+import cn.hmg.zackblog.module.website.entity.webconfig.WebConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author hmg
