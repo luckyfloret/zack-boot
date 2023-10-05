@@ -22,6 +22,8 @@
         <module>zack-spring-boot-starter-banner</module>
         <module>zack-spring-boot-starter-operate-log</module>
         <module>zack-spring-boot-starter-oss</module>
+        <module>zack-spring-boot-starter-mail</module>
+        <module>zack-spring-boot-starter-excel</module>
     </modules>
 
     <properties>

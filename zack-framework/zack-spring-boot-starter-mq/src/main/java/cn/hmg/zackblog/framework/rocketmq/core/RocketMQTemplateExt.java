@@ -66,7 +66,7 @@ public class RocketMQTemplateExt {
         SendCallback sendCallback = new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
-                LOGGER.info("success callback，messageId => {}", sendResult.getMsgId());
+                LOGGER.info("success callback，messageId => {}", sendResult);
             }
 
             @Override
