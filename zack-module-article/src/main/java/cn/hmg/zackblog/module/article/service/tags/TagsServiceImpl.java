@@ -89,7 +89,7 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                tagsProducer.asyncSendTagsRefreshCacheMessage();
+                tagsProducer.syncSendTagsRefreshCacheMessage();
             }
         });
     }
@@ -110,7 +110,7 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                tagsProducer.asyncSendTagsRefreshCacheMessage();
+                tagsProducer.syncSendTagsRefreshCacheMessage();
             }
         });
     }
@@ -132,7 +132,7 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements IT
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                tagsProducer.asyncSendTagsRefreshCacheMessage();
+                tagsProducer.syncSendTagsRefreshCacheMessage();
             }
         });
     }

@@ -2,10 +2,7 @@ package cn.hmg.zackblog.module.article.convert.tags;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.module.article.controller.admin.article.vo.ArticlePageRespVO;
-import cn.hmg.zackblog.module.article.controller.admin.tags.vo.TagsCreateReqVO;
-import cn.hmg.zackblog.module.article.controller.admin.tags.vo.TagsPageRespVO;
-import cn.hmg.zackblog.module.article.controller.admin.tags.vo.TagsRespVO;
-import cn.hmg.zackblog.module.article.controller.admin.tags.vo.TagsUpdateReqVO;
+import cn.hmg.zackblog.module.article.controller.admin.tags.vo.*;
 import cn.hmg.zackblog.module.article.entity.tags.Tags;
 import cn.hmg.zackblog.module.article.service.article.dto.ArticlePageRespDTO;
 import org.mapstruct.Mapper;
@@ -32,4 +29,6 @@ public interface TagsConvert {
     Tags convert(TagsCreateReqVO reqVO);
 
     Tags convert(TagsUpdateReqVO reqVO);
+
+    List<TagsListSimpleRespVO> convertTagsListSimple(List<Tags> tagsList);
 }

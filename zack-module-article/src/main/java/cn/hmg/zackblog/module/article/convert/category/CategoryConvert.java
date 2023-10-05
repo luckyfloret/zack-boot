@@ -1,13 +1,12 @@
 package cn.hmg.zackblog.module.article.convert.category;
 
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
-import cn.hmg.zackblog.module.article.controller.admin.category.vo.CategoryCreateReqVO;
-import cn.hmg.zackblog.module.article.controller.admin.category.vo.CategoryPageRespVO;
-import cn.hmg.zackblog.module.article.controller.admin.category.vo.CategoryRespVO;
-import cn.hmg.zackblog.module.article.controller.admin.category.vo.CategoryUpdateReqVO;
+import cn.hmg.zackblog.module.article.controller.admin.category.vo.*;
 import cn.hmg.zackblog.module.article.entity.category.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author hmg
@@ -26,4 +25,6 @@ public interface CategoryConvert {
     Category convert(CategoryCreateReqVO reqVO);
 
     Category convert(CategoryUpdateReqVO reqVO);
+
+    List<CategoryListSimpleRespVO> convert(List<Category> categories);
 }

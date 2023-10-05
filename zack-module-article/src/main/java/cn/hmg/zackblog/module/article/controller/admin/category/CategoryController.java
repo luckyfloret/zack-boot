@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 
@@ -28,7 +30,7 @@ import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "后台-分类管理")
-@RequestMapping("/admin/article/category")
+@RequestMapping("/admin/articles/category")
 public class CategoryController {
     private final ICategoryService categoryService;
 
@@ -65,12 +67,18 @@ public class CategoryController {
         return success(true);
     }
 
-    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "删除分类")
     @PreAuthorize("@spe.hasPermission('articles:category:delete')")
     @OperateLog(operateName = "删除分类", operateType = DELETE)
     public CommonResult<Boolean> deleteCategoryById(@PathVariable("id") Long id) {
         categoryService.deleteCategoryById(id);
         return success(true);
+    }
+
+    @GetMapping("/list-simple")
+    @Operation(summary = "简单的分类列表")
+    public CommonResult<List<CategoryListSimpleRespVO>> listSimple(){
+        return success(CategoryConvert.INSTANCE.convert(categoryService.list()));
     }
 }

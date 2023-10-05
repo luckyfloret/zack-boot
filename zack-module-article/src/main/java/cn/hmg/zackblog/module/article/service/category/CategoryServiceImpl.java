@@ -88,7 +88,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                categoryProducer.asyncSendCategoryRefreshCacheMessage();
+                categoryProducer.syncSendCategoryRefreshCacheMessage();
             }
         });
     }
@@ -106,7 +106,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                categoryProducer.asyncSendCategoryRefreshCacheMessage();
+                categoryProducer.syncSendCategoryRefreshCacheMessage();
             }
         });
     }
@@ -127,7 +127,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                categoryProducer.asyncSendCategoryRefreshCacheMessage();
+                categoryProducer.syncSendCategoryRefreshCacheMessage();
             }
         });
     }

@@ -67,7 +67,7 @@ public class ArticleTagsServiceImpl extends ServiceImpl<ArticleTagsMapper, Artic
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                articleTagsProducer.asyncSendArticleTagsRefreshCacheMessage();
+                articleTagsProducer.syncSendArticleTagsRefreshCacheMessage();
             }
         });
     }
@@ -87,7 +87,7 @@ public class ArticleTagsServiceImpl extends ServiceImpl<ArticleTagsMapper, Artic
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                articleTagsProducer.asyncSendArticleTagsRefreshCacheMessage();
+                articleTagsProducer.syncSendArticleTagsRefreshCacheMessage();
             }
         });
     }
@@ -101,7 +101,7 @@ public class ArticleTagsServiceImpl extends ServiceImpl<ArticleTagsMapper, Artic
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                articleTagsProducer.asyncSendArticleTagsRefreshCacheMessage();
+                articleTagsProducer.syncSendArticleTagsRefreshCacheMessage();
             }
         });
     }

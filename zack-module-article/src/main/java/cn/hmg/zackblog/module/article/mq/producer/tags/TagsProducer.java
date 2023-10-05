@@ -1,7 +1,6 @@
 package cn.hmg.zackblog.module.article.mq.producer.tags;
 
 import cn.hmg.zackblog.framework.rocketmq.core.RocketMQTemplateExt;
-import cn.hmg.zackblog.module.article.mq.topic.tags.TagsTopic;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -23,13 +22,13 @@ public class TagsProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendTagsRefreshCacheMessage() {
+    public void syncSendTagsRefreshCacheMessage() {
         String topic = rocketMQTemplateExt.buildDestination(TAGS_REFRESH_CACHE, TAG);
         TagsRefreshCacheMessage tagsRefreshCacheMessage = new TagsRefreshCacheMessage();
         tagsRefreshCacheMessage.setMessage("refresh tags cache...");
         tagsRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        tagsRefreshCacheMessage.setSource("asyncSendTagsRefreshCacheMessage");
+        tagsRefreshCacheMessage.setSource("syncSendTagsRefreshCacheMessage");
         tagsRefreshCacheMessage.setSendTime(LocalDateTime.now());
-        rocketMQTemplateExt.asyncSend(topic, tagsRefreshCacheMessage);
+        rocketMQTemplateExt.send(topic, tagsRefreshCacheMessage);
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
 import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 
@@ -72,5 +74,11 @@ public class TagsController {
     public CommonResult<Boolean> deleteTagsById(@PathVariable("id") Long id) {
         tagsService.deleteTagsById(id);
         return success(true);
+    }
+
+    @GetMapping("/list-simple")
+    @Operation(summary = "简单的列表")
+    public CommonResult<List<TagsListSimpleRespVO>> listSimple() {
+        return success(TagsConvert.INSTANCE.convertTagsListSimple(tagsService.list()));
     }
 }

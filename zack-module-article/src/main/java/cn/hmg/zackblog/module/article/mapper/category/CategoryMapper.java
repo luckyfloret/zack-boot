@@ -20,6 +20,7 @@ public interface CategoryMapper extends BaseMapperExtend<Category> {
     default PageResult<Category> getPage(CategoryPageReqVO reqVO) {
         return page(reqVO, new LambdaQueryWrapperExtend<Category>()
                 .likeIfExists(Category::getCategoryName, reqVO.getCategoryName())
+                .orderByAsc(Category::getSort)
         );
     }
 

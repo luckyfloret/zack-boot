@@ -1,7 +1,6 @@
 package cn.hmg.zackblog.module.article.mq.producer.category;
 
 import cn.hmg.zackblog.framework.rocketmq.core.RocketMQTemplateExt;
-import cn.hmg.zackblog.module.article.mq.topic.category.CategoryTopic;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -23,14 +22,14 @@ public class CategoryProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendCategoryRefreshCacheMessage() {
+    public void syncSendCategoryRefreshCacheMessage() {
         String topic = rocketMQTemplateExt.buildDestination(CATEGORY_REFRESH_CACHE, TAG);
         CategoryRefreshCacheMessage categoryRefreshCacheMessage = new CategoryRefreshCacheMessage();
         categoryRefreshCacheMessage.setMessage("refresh category cache...");
         categoryRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        categoryRefreshCacheMessage.setSource("asyncSendCategoryRefreshCacheMessage");
+        categoryRefreshCacheMessage.setSource("syncSendCategoryRefreshCacheMessage");
         categoryRefreshCacheMessage.setSendTime(LocalDateTime.now());
-        rocketMQTemplateExt.asyncSend(topic, categoryRefreshCacheMessage);
+        rocketMQTemplateExt.send(topic, categoryRefreshCacheMessage);
 
     }
 }

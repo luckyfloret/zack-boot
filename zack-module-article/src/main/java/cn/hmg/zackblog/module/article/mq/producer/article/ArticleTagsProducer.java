@@ -20,12 +20,12 @@ public class ArticleTagsProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendArticleTagsRefreshCacheMessage(){
+    public void syncSendArticleTagsRefreshCacheMessage(){
         String topic = rocketMQTemplateExt.buildDestination(ARTICLE_TAGS_REFRESH_CACHE, TAG);
         ArticleTagsRefreshCacheMessage articleTagsRefreshCacheMessage = new ArticleTagsRefreshCacheMessage();
         articleTagsRefreshCacheMessage.setMessage("refresh article tags cache");
         articleTagsRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        articleTagsRefreshCacheMessage.setSource("asyncSendArticleTagsRefreshCacheMessage");
-        rocketMQTemplateExt.asyncSend(topic, articleTagsRefreshCacheMessage);
+        articleTagsRefreshCacheMessage.setSource("syncSendArticleTagsRefreshCacheMessage");
+        rocketMQTemplateExt.send(topic, articleTagsRefreshCacheMessage);
     }
 }

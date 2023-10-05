@@ -4,6 +4,7 @@ import cn.hmg.zackblog.framework.common.pojo.PageResult;
 import cn.hmg.zackblog.framework.mybatisplus.core.mapper.BaseMapperExtend;
 import cn.hmg.zackblog.framework.mybatisplus.core.query.LambdaQueryWrapperExtend;
 import cn.hmg.zackblog.module.article.controller.admin.tags.vo.TagsPageReqVO;
+import cn.hmg.zackblog.module.article.entity.category.Category;
 import cn.hmg.zackblog.module.article.entity.tags.Tags;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,6 +25,7 @@ public interface TagsMapper extends BaseMapperExtend<Tags> {
     default PageResult<Tags> getPage(TagsPageReqVO reqVO) {
         return page(reqVO, new LambdaQueryWrapperExtend<Tags>()
                 .likeIfExists(Tags::getTagName, reqVO.getTagName())
+                .orderByAsc(Tags::getSort)
         );
     }
 
