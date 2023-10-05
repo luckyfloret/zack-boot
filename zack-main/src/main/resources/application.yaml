@@ -11,12 +11,11 @@ spring:
       fail-on-empty-beans: false
   main:
     allow-circular-references: true  #允许循环依赖，因为在当前架构中，无法避免循环依赖
-
 ############################## zack相关配置 ##############################
 zack:
   info:
     version: 1.0
-    base-package: cn.hmg.zackblog
+    base-package: cn.hmg.zackblog.module
   security:
     permit-all-urls:
       - /admin/system/auth/login
@@ -26,6 +25,7 @@ zack:
       - /springboot/admin/**
       - /actuator/**
       - /admin/captcha/**
+      - /admin/system/mail-template/test/{toMail}
     access-token-expire-time: 999999999
     refresh-token-expire-time: 9999999999
   captcha:
