@@ -25,8 +25,8 @@ public abstract class AbstractOssClient<Config> implements OssClient {
     }
 
     public void init(){
-        initStorageConfig();
         log.info("{} -> 文件存储器配置初始化...", this.getClass().getSimpleName());
+        initStorageConfig();
     }
 
     protected abstract void initStorageConfig();
