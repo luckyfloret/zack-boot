@@ -77,6 +77,29 @@ public enum ErrorCodeEnum {
     DICT_DATA_STATUS_ERROR(10205001, "字典数据状态错误，只能是开启或关闭"),
     DICT_DATA_NOT_EXISTS(10205002, "字典数据不存在"),
 
+
+    /**
+     * ############################ Mail Account模块 10206000 ############################
+     */
+    MAIL_ACCOUNT_NOT_EXISTS(10206000, "邮箱账号不存在"),
+    MAIL_ACCOUNT_ALREADY_EXISTS(10206001, "邮箱已经存在，请更换邮箱试试~"),
+    MAIL_ACCOUNT_IS_ASSOCIATED_WITH_TEMPLATE(10206002, "无法删除，邮箱账号与模板有关联"),
+
+
+    /**
+     * ############################ Mail Template模块 10207000 ############################
+     */
+    MAIL_TEMPLATE_NOT_EXISTS(10207000, "邮件模板不存在"),
+    MAIL_TEMPLATE_NAME_ALREADY_EXISTS(10207001, "邮件模板名称已经存在，请更换模板名称试试~"),
+    MAIL_TEMPLATE_MAIL_ACCOUNT_ALREADY_ASSOCIATION_TEMPLATE(10207002, "邮箱账号已经关联模板，请更换其他邮箱账号试试~"),
+    MAIL_TEMPLATE_STATUS_ERROR(10207003, "邮件模板状态错误，请输入正确的邮件模板状态"),
+
+
+    /**
+     * ############################ Mail Send模块 10208000 ############################
+     */
+    MAIL_SEND_TEMPLATE_PARAM_NOT_EXISTS(10208000, "邮箱模板参数不存在"),
+
     ;
 
 

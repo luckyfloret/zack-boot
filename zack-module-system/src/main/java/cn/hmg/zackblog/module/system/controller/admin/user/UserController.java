@@ -3,6 +3,7 @@ package cn.hmg.zackblog.module.system.controller.admin.user;
 import cn.hmg.zackblog.framework.common.exception.BusinessException;
 import cn.hmg.zackblog.framework.common.pojo.CommonResult;
 import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.framework.operatelog.core.annotation.OperateLog;
 import cn.hmg.zackblog.module.system.controller.admin.user.vo.*;
 import cn.hmg.zackblog.module.system.convert.user.UserConvert;
 import cn.hmg.zackblog.module.system.entity.user.User;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static cn.hmg.zackblog.framework.common.pojo.CommonResult.success;
+import static cn.hmg.zackblog.framework.operatelog.core.enums.OperateLogTypeEnum.*;
 import static cn.hmg.zackblog.module.system.enums.ErrorCodeEnum.USER_NOT_EXISTS;
 
 /**
@@ -47,6 +49,7 @@ public class UserController {
     @PostMapping("/create")
     @Operation(summary = "创建用户")
     @PreAuthorize("@spe.hasPermission('system:user:create')")
+    @OperateLog(operateName = "创建用户", operateType = CREATE)
     public CommonResult<Boolean> createUser(@Valid @RequestBody UserCreateReqVO userCreateReqVO) {
         userService.createUser(userCreateReqVO);
         return success(true);
@@ -55,6 +58,7 @@ public class UserController {
     @PutMapping("/update")
     @Operation(summary = "更新用户")
     @PreAuthorize("@spe.hasPermission('system:user:update')")
+    @OperateLog(operateName = "更新用户", operateType = UPDATE)
     public CommonResult<Boolean> updateUser(@Valid @RequestBody UserUpdateReqVO userUpdateReqVO) {
         userService.updateUser(userUpdateReqVO);
         return success(true);
@@ -64,6 +68,7 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "删除用户")
     @PreAuthorize("@spe.hasPermission('system:user:delete')")
+    @OperateLog(operateName = "删除用户", operateType = DELETE)
     public CommonResult<Boolean> deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return success();
@@ -81,6 +86,7 @@ public class UserController {
     @PutMapping("/reset-password")
     @Operation(summary = "重置密码")
     @PreAuthorize("@spe.hasPermission('system:user:reset-password')")
+    @OperateLog(operateName = "重置密码", operateType = UPDATE)
     public CommonResult<Boolean> resetPassword(@Valid @RequestBody UserResetPasswordReqVO userResetPasswordReqVO) {
         userService.resetPassword(userResetPasswordReqVO);
         return success(true);

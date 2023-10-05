@@ -18,12 +18,12 @@ public class RoleProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendRoleRefreshCacheMessage() {
+    public void syncSendRoleRefreshCacheMessage() {
         String topic = rocketMQTemplateExt.buildDestination(RoleTopic.ROLE_REFRESH_CACHE, RoleTopic.TAG);
         RoleRefreshCacheMessage menuRefreshCacheMessage = new RoleRefreshCacheMessage();
         menuRefreshCacheMessage.setMessage("refresh role cache...");
         menuRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        menuRefreshCacheMessage.setSource("asyncSendRoleRefreshCacheMessage");
-        rocketMQTemplateExt.asyncSend(topic, menuRefreshCacheMessage);
+        menuRefreshCacheMessage.setSource("syncSendRoleRefreshCacheMessage");
+        rocketMQTemplateExt.send(topic, menuRefreshCacheMessage);
     }
 }

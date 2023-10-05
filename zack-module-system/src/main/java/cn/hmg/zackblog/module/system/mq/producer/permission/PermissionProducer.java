@@ -18,12 +18,12 @@ public class PermissionProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendPermissionRefreshCacheMessage() {
+    public void syncSendPermissionRefreshCacheMessage() {
         String topic = rocketMQTemplateExt.buildDestination(PermissionTopic.PERMISSION_REFRESH_CACHE, PermissionTopic.TAG);
         PermissionRefreshCacheMessage menuRefreshCacheMessage = new PermissionRefreshCacheMessage();
         menuRefreshCacheMessage.setMessage("refresh permission cache...");
         menuRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        menuRefreshCacheMessage.setSource("asyncSendPermissionRefreshCacheMessage");
-        rocketMQTemplateExt.asyncSend(topic, menuRefreshCacheMessage);
+        menuRefreshCacheMessage.setSource("syncSendPermissionRefreshCacheMessage");
+        rocketMQTemplateExt.send(topic, menuRefreshCacheMessage);
     }
 }

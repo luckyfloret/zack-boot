@@ -50,6 +50,7 @@ public class MenuController {
     @PreAuthorize("@spe.hasPermission('system:menu:create')")
     @PostMapping("/create")
     @Operation(summary = "创建菜单")
+    @OperateLog(operateName = "创建菜单", operateType = CREATE)
     public CommonResult<Boolean> createMenu(@Valid @RequestBody MenuCreateReqVO menuCreateReqVO){
         menuService.createMenu(menuCreateReqVO);
         return success(true);
@@ -59,6 +60,7 @@ public class MenuController {
     @PreAuthorize("@spe.hasPermission('system:menu:update')")
     @PutMapping("/update")
     @Operation(summary = "更新菜单")
+    @OperateLog(operateName = "更新菜单", operateType = UPDATE)
     public CommonResult<Boolean> updateMenu(@Valid @RequestBody MenuUpdateReqVO menuUpdateReqVO){
         menuService.updateMenu(menuUpdateReqVO);
         return success(true);
@@ -67,6 +69,7 @@ public class MenuController {
     @PreAuthorize("@spe.hasPermission('system:menu:delete')")
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "删除菜单")
+    @OperateLog(operateName = "删除菜单", operateType = DELETE)
     public CommonResult<Boolean> deleteMenuById(@PathVariable("id") Long id){
         menuService.deleteMenuById(id);
         return success(true);

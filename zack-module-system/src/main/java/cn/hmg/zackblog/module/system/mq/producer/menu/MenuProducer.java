@@ -18,12 +18,12 @@ public class MenuProducer {
     @Resource
     private RocketMQTemplateExt rocketMQTemplateExt;
 
-    public void asyncSendMenuRefreshCacheMessage() {
+    public void syncSendMenuRefreshCacheMessage() {
         String topic = rocketMQTemplateExt.buildDestination(MenuTopic.MENU_REFRESH_CACHE, MenuTopic.TAG);
         MenuRefreshCacheMessage menuRefreshCacheMessage = new MenuRefreshCacheMessage();
         menuRefreshCacheMessage.setMessage("refresh menu cache...");
         menuRefreshCacheMessage.setKey(UUID.randomUUID().toString());
-        menuRefreshCacheMessage.setSource("asyncSendMenuRefreshCacheMessage");
-        rocketMQTemplateExt.asyncSend(topic, menuRefreshCacheMessage);
+        menuRefreshCacheMessage.setSource("syncSendMenuRefreshCacheMessage");
+        rocketMQTemplateExt.send(topic, menuRefreshCacheMessage);
     }
 }

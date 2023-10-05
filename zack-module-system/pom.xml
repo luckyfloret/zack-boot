@@ -54,6 +54,11 @@
             <groupId>cn.hmg.zackblog</groupId>
             <artifactId>zack-spring-boot-starter-operate-log</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.hmg.zackblog</groupId>
+            <artifactId>zack-spring-boot-starter-mail</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

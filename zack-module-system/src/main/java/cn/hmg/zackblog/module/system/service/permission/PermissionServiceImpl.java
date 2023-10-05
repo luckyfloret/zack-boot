@@ -198,7 +198,7 @@ public class PermissionServiceImpl implements PermissionService {
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+                permissionProducer.syncSendPermissionRefreshCacheMessage();
             }
         });
     }
@@ -249,7 +249,7 @@ public class PermissionServiceImpl implements PermissionService {
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+                permissionProducer.syncSendPermissionRefreshCacheMessage();
             }
         });
     }
@@ -263,7 +263,7 @@ public class PermissionServiceImpl implements PermissionService {
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+                permissionProducer.syncSendPermissionRefreshCacheMessage();
             }
         });
     }
@@ -301,7 +301,7 @@ public class PermissionServiceImpl implements PermissionService {
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
             @Override
             public void afterCommit() {
-                permissionProducer.asyncSendPermissionRefreshCacheMessage();
+                permissionProducer.syncSendPermissionRefreshCacheMessage();
             }
         });
 
