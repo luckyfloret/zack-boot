@@ -1,15 +1,17 @@
 package cn.hmg.zackblog.module.system.entity.mail;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,9 +21,12 @@ import java.time.LocalDateTime;
  * @author hmg
  * @since 2023-07-02
  */
-@Getter
-@Setter
-@TableName("system_mail_record")
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@TableName(value = "system_mail_record", autoResultMap = true)
 @Schema(name = "MailRecord对象", description = "邮件记录")
 public class MailRecord extends BaseEntity implements Serializable {
 
@@ -49,8 +54,11 @@ public class MailRecord extends BaseEntity implements Serializable {
     @Schema(description = "模板id")
     private Long templateId;
 
+    @Schema(description = "模板编码")
+    private String templateCode;
+
     @Schema(description = "模板发送人名称")
-    private String templateNickname;
+    private String senderNickname;
 
     @Schema(description = "邮件模板标题")
     private String templateTitle;
@@ -59,7 +67,8 @@ public class MailRecord extends BaseEntity implements Serializable {
     private String templateContent;
 
     @Schema(description = "邮件参数")
-    private String templateParams;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private Map<String, Object> templateParams;
 
     @Schema(description = "发送状态（0 发送失败， 1 发送成功）")
     private Integer sendStatus;

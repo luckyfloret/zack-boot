@@ -1,5 +1,8 @@
 package cn.hmg.zackblog.module.system.convert.logger;
 
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.module.system.controller.admin.logger.vo.loginlog.LoginLogPageRespVO;
+import cn.hmg.zackblog.module.system.controller.admin.logger.vo.loginlog.LoginLogRespVO;
 import cn.hmg.zackblog.module.system.entity.logger.LoginLog;
 import cn.hmg.zackblog.module.system.service.logger.dto.LoginLogCreateDTO;
 import org.mapstruct.Mapper;
@@ -9,7 +12,7 @@ import org.mapstruct.factory.Mappers;
  * @author hmg
  * @version 1.0
  * @date 2023-07-14 13:47
- * @description:
+ * @description: 登录日志convert接口
  */
 @Mapper
 public interface LoginLogConvert {
@@ -21,4 +24,8 @@ public interface LoginLogConvert {
      * @return LoginLog
      */
     LoginLog convert(LoginLogCreateDTO loginLogCreateDTO);
+
+    PageResult<LoginLogPageRespVO> convert(PageResult<LoginLog> loginLogPageResult);
+
+    LoginLogRespVO convert(LoginLog loginLog);
 }

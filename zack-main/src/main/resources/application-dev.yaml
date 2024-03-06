@@ -2,6 +2,7 @@ server:
   port: 11000
 knife4j:
   enable: true
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/zack-boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -11,3 +12,34 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+    database: 0
+
+rocketmq:
+  name-server: 192.168.56.128:9876
+  producer:
+    group: producer-dev
+    enable-msg-trace: true
+    customized-trace-topic: RMQ_SYS_TRACE_TOPIC
+
+  consumer:
+    enable-msg-trace: true
+    customized-trace-topic: RMQ_SYS_TRACE_TOPIC
+
+---
+###########################################监控相关配置###########################################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /actuator
+
+# Spring Boot Admin 配置项
+spring:
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:${server.port}${spring.boot.admin.context-path}
+        instance:
+          service-host-type: ip
+      context-path: /springboot/admin # spring boot admin基础路径

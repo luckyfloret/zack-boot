@@ -1,1 +1,1 @@
-cn.hmg.zackblog.framework.core.service.RedisCaptchaCacheServiceImpl
+cn.hmg.zackblog.framework.captcha.core.service.RedisCaptchaCacheServiceImpl

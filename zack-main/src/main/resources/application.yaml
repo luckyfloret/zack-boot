@@ -4,15 +4,32 @@ spring:
     name: zack
   profiles:
     active: dev
-
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      fail-on-empty-beans: false
+  main:
+    allow-circular-references: true  #允许循环依赖，因为在当前架构中，无法避免循环依赖
 ############################## zack相关配置 ##############################
 zack:
   info:
-    base-package: cn.hmg.zackblog
+    version: 1.0
+    base-package: cn.hmg.zackblog.module
   security:
     permit-all-urls:
-      - /login
-      - /logout
+      - /admin/system/auth/login
+      - /admin/system/auth/logout
+      - /admin/system/captcha/**
+      - /admin/system/auth/refresh-token
+      - /springboot/admin/**
+      - /actuator/**
+      - /admin/captcha/**
+      - /admin/system/mail-template/test/{toMail}
+    access-token-expire-time: 999999999
+    refresh-token-expire-time: 9999999999
+  captcha:
+    enabled: false
 ############################## mybatis-plus配置 ##############################
 mybatis-plus:
   global-config:
@@ -41,4 +58,3 @@ aj:
     slip-offset: 5    # 校验滑动拼图允许误差偏移量(默认5像素).
     type: blockPuzzle   #验证码类型.
     water-mark: zack    #右下角水印文字(我的水印).
-

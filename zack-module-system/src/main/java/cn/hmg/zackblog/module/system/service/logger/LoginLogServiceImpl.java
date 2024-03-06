@@ -1,5 +1,7 @@
 package cn.hmg.zackblog.module.system.service.logger;
 
+import cn.hmg.zackblog.framework.common.pojo.PageResult;
+import cn.hmg.zackblog.module.system.controller.admin.logger.vo.loginlog.LoginLogPageReqVO;
 import cn.hmg.zackblog.module.system.convert.logger.LoginLogConvert;
 import cn.hmg.zackblog.module.system.entity.logger.LoginLog;
 import cn.hmg.zackblog.module.system.mapper.logger.LoginLogMapper;
@@ -27,5 +29,15 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     public void createLoginLog(LoginLogCreateDTO loginLogCreateDTO) {
         LoginLog loginLog = LoginLogConvert.INSTANCE.convert(loginLogCreateDTO);
         loginLogMapper.insert(loginLog);
+    }
+
+    @Override
+    public PageResult<LoginLog> getPage(LoginLogPageReqVO loginLogPageReqVO) {
+        return loginLogMapper.getPage(loginLogPageReqVO);
+    }
+
+    @Override
+    public LoginLog getLoginLogById(Long id) {
+        return loginLogMapper.selectById(id);
     }
 }

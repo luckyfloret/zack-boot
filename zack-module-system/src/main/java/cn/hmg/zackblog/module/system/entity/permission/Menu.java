@@ -1,10 +1,11 @@
 package cn.hmg.zackblog.module.system.entity.permission;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -16,15 +17,19 @@ import java.io.Serializable;
  * @author hmg
  * @since 2023-07-02
  */
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ToString(callSuper = true)
 @TableName("system_menu")
 @Schema(name = "Menu对象", description = "后台系统菜单")
 public class Menu extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Long ROOT = 0L;
+
     @Schema(description = "id 主键")
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @Schema(description = "菜单名称")
@@ -36,7 +41,7 @@ public class Menu extends BaseEntity implements Serializable {
     @Schema(description = "菜单类型")
     private Integer type;
 
-    @Schema(description = "用户类型（用于分辨菜单导航）")
+    @Schema(description = "用户类型（用于分辨菜单导航）, ps: 扩展字段")
     private Integer userType;
 
     @Schema(description = "排序")

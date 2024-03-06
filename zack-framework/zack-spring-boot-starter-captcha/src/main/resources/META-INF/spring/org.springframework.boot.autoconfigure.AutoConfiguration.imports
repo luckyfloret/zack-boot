@@ -1,2 +1,2 @@
-cn.hmg.zackblog.framework.config.ZackCaptchaAutoConfiguration
-cn.hmg.zackblog.framework.aj.config.AjCaptchaAutoConfiguration
+cn.hmg.zackblog.framework.captcha.autoconfigure.ZackCaptchaAutoConfiguration
+cn.hmg.zackblog.framework.captcha.aj.autoconfigure.AjCaptchaAutoConfiguration

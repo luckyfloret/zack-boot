@@ -12,7 +12,7 @@
     <!-- 其他日志级别 -->
     <property name="log.other.level" value="info"/>
     <!-- 日志路径，这里是相对路径，web项目eclipse下会输出到eclipse的安装目录下，如果部署到linux上的tomcat下，会输出到tomcat/bin目录 下 -->
-    <property name="log.base" value="logs"/>
+    <property name="log.base" value="./logs"/>
     <!-- 模块名称， 影响日志配置名，日志文件名 -->
     <property name="log.moduleName" value="zack-boot"/>
     <!-- 日志文件大小 -->
@@ -105,6 +105,15 @@
         </filter>
     </appender>
 
+    <!-- 异步写入日志，提升性能 -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志。默认的，如果队列的 80% 已满,则会丢弃 TRACT、DEBUG、INFO 级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度，该值会影响性能。默认值为 256 -->
+        <queueSize>256</queueSize>
+        <appender-ref ref="infoFile"/>
+    </appender>
+
 
     <!-- 为某个包下的所有类的指定Appender 这里也可以指定类名称例如：com.aa.bb.ClassName -->
 <!--    <logger name="cn.hmg.zackblog.module" additivity="false">-->
@@ -115,7 +124,8 @@
     <springProfile name="dev">
         <root level="info">
             <appender-ref ref="stdout" /> <!-- 标识这个appender将会添加到这个logger -->
-            <appender-ref ref="infoFile" />
+            <appender-ref ref="ASYNC"/>
+<!--            <appender-ref ref="infoFile" />-->
             <appender-ref ref="warnFile" />
             <appender-ref ref="errorFile" />
         </root>

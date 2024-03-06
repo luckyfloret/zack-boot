@@ -1,12 +1,11 @@
 package cn.hmg.zackblog.module.system.entity.logger;
 
-import cn.hmg.zackblog.framework.core.entity.BaseEntity;
+import cn.hmg.zackblog.framework.mybatisplus.core.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,8 +17,10 @@ import java.io.Serializable;
  * @author hmg
  * @since 2023-07-02
  */
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("system_login_log")
 @Schema(name = "LoginLog对象", description = "登录日志")
 public class LoginLog extends BaseEntity implements Serializable {
@@ -48,7 +49,7 @@ public class LoginLog extends BaseEntity implements Serializable {
     @Schema(description = "浏览器UA")
     private String userAgent;
 
-    @Schema(description = "登录结果 （0 成功， 1 失败）")
+    @Schema(description = "登录结果 (200 成功，其他失败）")
     private Integer result;
 
     @Schema(description = "用户id")

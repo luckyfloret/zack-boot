@@ -17,7 +17,8 @@ public enum LoginResultEnum {
     SUCCESS(200, "登录成功"),
     BAD_CREDENTIALS(10, "账号或密码不正确"),
     USER_DISABLED(11, "账号被禁用"),
-    CAPTCHA_ERROR(12, "验证码错误")
+    CAPTCHA_ERROR(12, "验证码错误"),
+    USER_ILLEGAL_LOGIN(13, "非法登录"),
     ;
 
 

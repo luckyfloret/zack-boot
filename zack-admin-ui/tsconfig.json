@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "outDir": "target" // 请保留这个属性，防止tsconfig.json文件报错
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "auto-imports.d.ts",
+    "auto-components.d.ts",
+    "vue.d.ts",
+    "src/**/*.vue",
+  ],
+  "typeRoots": ["./node_modules/@types/", "./types"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "exclude": [
+    "dist",
+    "target",
+    "node_modules/**"
+  ]
+}
